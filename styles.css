@@ -1,0 +1,557 @@
+body {
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+
+body.light {
+    background-color: white;
+    color: black;
+}
+
+#app {
+    width: 100%;
+    height: 100%;
+}
+
+.Building-cost {
+    background-color: rgba(227, 0, 0, 0.855);
+}
+
+.Building-cost:hover {
+    background-color: rgba(185, 1, 1, 0.838);
+}
+
+.Building-buy {
+    background-color: rgb(1, 218, 27);
+}
+
+.Building-buy:hover {
+    background-color: rgba(0, 189, 0, 0.9);
+}
+
+#sub-tabs {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#tabs {
+    display: flex;
+    width: 150px;
+    position: absolute;
+    flex-wrap: wrap;
+    left: 0;
+    top: 0;
+}
+
+#contenttabs {
+    display: flex;
+    width: 150px;
+    position: absolute;
+    flex-wrap: wrap;
+    right: 0;
+    top: 0;
+}
+
+#tab {
+    width: 150px;
+    height: 60px;
+    background-color: rgba(74, 74, 74, 0.801);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#sub-tab {
+    width: 150px;
+    height: 30px;
+    padding: 5px;
+    background-color: rgba(14, 203, 58, 0.801);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#layertab {
+    display: none;
+}
+
+#layertab.unlocked {
+    display: block;
+    width: 150px;
+    height: 60px;
+    background-color: rgba(14, 203, 58, 0.801);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    display: none;
+}
+
+.content.active {
+    display: block;
+} 
+
+.sub-content {
+    display: none;
+}
+
+.sub-content.active {
+    display: block;
+}
+
+#s-text,
+#v-text {
+    font-weight: bold;
+}
+
+#Themes {
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    top: 50%;
+    left: 50%;
+    margin-left: -300px;
+    margin-top: -200px;
+    background-color: rgba(152, 152, 152, 0.858);
+}
+
+.Themes {
+    display: none;
+}
+
+.Themes.active {
+    display: block;
+}
+
+#close-theme {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#ms-t {
+    font-weight: bolder;
+    font-size: 18px;
+}
+
+#ls-t {
+    font-weight: bolder;
+    font-size: 18px;
+    color: rgb(8, 224, 84);
+}
+
+#Linear-statistics {
+    display: none;
+}
+
+#Linear-statistics.unlocked {
+    display: block;
+}
+
+#Equation {
+    display: none;
+}
+
+#Equation.unlocked {
+    display: block;
+}
+
+#Equation2 {
+    display: none;
+}
+
+#Equation2.unlocked {
+    display: block;
+}
+
+#up-t {
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.Up-cost {
+    width: 300px;
+    height: 130px;
+    background-color: rgba(227, 0, 0, 0.855);
+    font-size: 13px;
+}
+
+.Up-cost:hover {
+    background-color: rgba(185, 1, 1, 0.838);
+}
+
+.Up-bought {
+    width: 300px;
+    height: 130px;
+    background-color: rgb(1, 167, 218);
+    font-size: 13px;
+}
+
+.Up-bought:hover {
+    background-color: rgba(0, 142, 140, 0.9);
+}
+
+.Up-buy {
+    width: 300px;
+    height: 130px;
+    background-color: rgb(1, 218, 27);
+    font-size: 13px;
+}
+
+.Up-buy:hover {
+    background-color: rgba(0, 189, 0, 0.9);
+}
+
+#row1 {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+#row2 {
+    display: none;
+}
+
+#row2.show {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.Achv {
+    width: 150px;
+    height: 150px;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(227, 0, 0, 0.855);
+    color: black;
+    border: 2px solid black;
+    padding: 2px;
+}
+
+.Achv.completed {
+    background-color: rgb(1, 218, 27);
+}
+
+#achv-row1 {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+#achv-row2 {
+    display: none;
+}
+
+#achv-row2.unlocked {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+#achv-row3 {
+    display: none;
+}
+
+#achv-row3.unlocked {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+#Save-notification {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 200px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+#Save-notification.save {
+    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#Building {
+    width: 300px;
+    height: auto;
+    padding-bottom: 5px;
+    font-size: 17px;
+    background-color: rgba(227, 0, 0, 0.855);
+    position: relative;
+}
+
+#ResetForLE {
+    display: none;
+}
+
+#ResetForLE.unlocked {
+    position: absolute;
+    width: 250px;
+    top: 30;
+    left: 65%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(8, 224, 84);
+    border: 3px solid rgb(4, 143, 25);
+}
+
+#ResetForLE:hover {
+    background-color: rgb(8, 195, 73);
+}
+
+.Lup-cost {
+    width: 250px;
+    height: 140px;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: rgba(227, 0, 0, 0.855);
+}
+
+.Lup-cost:hover {
+    background-color: rgba(185, 1, 1, 0.838);
+}
+
+.Lup-bought {
+    width: 250px;
+    height: 140px;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: rgb(1, 167, 218);
+}
+
+.Lup-bought:hover {
+    background-color: rgba(0, 142, 140, 0.9);
+}
+
+.Lup-buy {
+    width: 250px;
+    height: 140px;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: rgb(1, 218, 27);
+}
+
+.Lup-buy:hover {
+    background-color: rgba(0, 189, 0, 0.9);
+}
+
+#Lrow1 {
+    display: flex;
+    justify-content: center;
+}
+
+#Lrow2 {
+    display: none
+}
+
+#Lrow2.unlocked {
+    display: flex;
+    justify-content: center;
+}
+
+#NBuyer {
+    display: none;
+}
+
+#NBuyer.unlocked {
+    display: block;
+}
+
+.LEequation-cost {
+    width: 150px;
+    height: 150px;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    color: black;
+    background-color: rgba(227, 0, 0, 0.855);
+}
+
+.LEequation-cost:hover {
+    width: 150px;
+    height: 150px;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    color: black;
+    background-color: rgba(185, 1, 1, 0.838);
+}
+
+.LEequation-bought {
+    width: 150px;
+    height: 150px;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    color: black;
+    background-color: rgb(1, 167, 218);
+}
+
+.LEequation-bought:hover {
+    width: 150px;
+    height: 150px;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    color: black;
+    background-color: rgba(0, 142, 140, 0.9);
+}
+
+.LinearChallenges {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 7px;
+}
+
+#Chals-tab {
+    display: none;
+}
+
+#Chals-tab.unlocked {
+    display: block;
+    width: 150px;
+    height: 30px;
+    padding: 5px;
+    background-color: rgba(14, 203, 58, 0.801);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#Chal-grid {
+    width: 1000px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 3px
+}
+
+.Challenge {
+    width: 300px;
+    height: 200px;
+    font-size: 15px;
+    font-weight: bolder;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: rgba(227, 0, 0, 0.855);
+}
+
+.Challenge:hover {
+    background-color: rgba(185, 1, 1, 0.838);
+}
+
+.Challenge-running {
+    width: 300px;
+    height: 200px;
+    font-size: 15px;
+    font-weight: bolder;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: rgb(214, 169, 4);
+}
+
+.Challenge-running:hover {
+    background-color: rgb(175, 138, 4);
+}
+
+.Challenge-completed {
+    width: 300px;
+    height: 200px;
+    font-size: 15px;
+    font-weight: bolder;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: rgb(1, 218, 27);
+}
+
+.Challenge-completed:hover {
+    background-color: rgba(0, 189, 0, 0.9);
+}
+
+#Guide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#Guide-grid {
+    width: 900px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.Buildings-guide,
+.Upgrades-guide,
+.Equations-guide {
+    padding-top: 10px;
+}
+
+.Linear-essence-guide,
+.Linear-chals-guide {
+    display: none;
+}
+
+.Linear-essence-guide.unlocked {
+    display: block;
+    padding-top: 10px;
+    color: rgb(8, 224, 84);
+}
+
+.Linear-chals-guide.unlocked {
+    display: block;
+    padding-top: 10px;
+    color: rgb(8, 224, 84);
+}

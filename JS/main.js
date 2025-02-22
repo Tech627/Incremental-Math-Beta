@@ -18,16 +18,19 @@ let player = {
             amount: new Decimal(0),
             eff: new Decimal(1),
             cost: new Decimal(10),
+            automation: false,
         },
         Teacher: {
             amount: new Decimal(0),
             eff: new Decimal(20),
             cost: new Decimal(150),
+            automation: false,
         },
         Professor: {
             amount: new Decimal(0),
             eff: new Decimal(150),
             cost: new Decimal(2000),
+            automation: false,
         },
         tbuildings: new Decimal(0),
     },
@@ -81,21 +84,21 @@ let player = {
         },
         up5: {
             bought: false,
-            cost: new Decimal(10),
+            cost: new Decimal(1e4),
             eff: new Decimal(1),
         },
         up6: {
             bought: false,
-            cost: new Decimal(20),
+            cost: new Decimal(2e4),
             eff: new Decimal(1),
         },
         up7: {
             bought: false,
-            cost: new Decimal(30),
+            cost: new Decimal(5e4),
         },
         up8: {
             bought: false,
-            cost: new Decimal(50),
+            cost: new Decimal(7.5e4),
         },
     },
     equations: {
@@ -115,9 +118,11 @@ let player = {
         },
         xbuyer: {
             cost: new Decimal(1e9),
+            amount: new Decimal(0),
         },
         nbuyer: {
             cost: new Decimal(1e12),
+            amount: new Decimal(0),
             unlocked: false,
         },
         linear_equations: {
@@ -273,7 +278,16 @@ function BuyXBuyer() {
     if(player.points.gte(player.equations.xbuyer.cost)) {
         player.points = player.points.sub(player.equations.xbuyer.cost)
         player.equations.equation2.x = player.equations.equation2.x.add(1)
-        player.equations.xbuyer.cost = player.equations.xbuyer.cost.mul(15)
+        player.equations.xbuyer.amount = player.equations.xbuyer.amount.add(1)
+        if(player.equations.xbuyer.amount.lt(20)) {
+            player.equations.xbuyer.cost = player.equations.xbuyer.cost.mul(15)
+        }
+        else if(player.equations.xbuyer.amount.gte(20)) {
+            player.equations.xbuyer.cost = player.equations.xbuyer.cost.mul(500)
+        }
+        else if(player.equations.xbuyer.amount.gt(100)) {
+            player.equations.xbuyer.cost = player.equations.xbuyer.cost.mul(1e4)
+        }
     }
 }
 
@@ -281,7 +295,13 @@ function BuyNBuyer() {
     if(player.points.gte(player.equations.nbuyer.cost)) {
         player.points = player.points.sub(player.equations.nbuyer.cost)
         player.equations.equation2.n = player.equations.equation2.n.add(1)
-        player.equations.nbuyer.cost = player.equations.nbuyer.cost.mul(15)
+        player.equations.nbuyer.amount = player.equations.nbuyer.amount.add(1)
+        if(player.equations.nbuyer.amount.lt(20)) {
+            player.equations.nbuyer.cost = player.equations.nbuyer.cost.mul(15)
+        }
+        else if(player.equations.nbuyer.amount.gte(20)) {
+            player.equations.nbuyer.cost = player.equations.nbuyer.cost.mul(1000)
+        }
     }
 }
 
@@ -362,7 +382,9 @@ function LinearEssenceReset() {
         player.equations.equation2.y = new Decimal(1)
         player.equations.multiplicator1.cost = new Decimal(5e5)
         player.equations.xbuyer.cost = new Decimal(1e9)
+        player.equations.xbuyer.amount = new Decimal(0)
         player.equations.nbuyer.cost = new Decimal(1e12)
+        player.equations.nbuyer.amount = new Decimal(0)
         player.GoneLinear = player.GoneLinear.add(1)
         if(player.TimeinLinear.gte(player.FastestLinear)) {
             player.FastestLinear = player.TimeinLinear

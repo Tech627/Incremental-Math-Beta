@@ -48,7 +48,9 @@ function Save() {
         saveitems("equation2n", player.equations.equation2.n)
         saveitems("equation2y", player.equations.equation2.y)
         saveitems("XbuyerCost", player.equations.xbuyer.cost)
+        saveitems("XBuyerAmt", player.equations.xbuyer.amount)
         saveitems("NBuyerCost", player.equations.nbuyer.cost)
+        saveitems("NBuyerAmt", player.equations.nbuyer.amount)
         saveitems("NBuyerUnl", player.equations.nbuyer.unlocked)
         saveitems("Lup1bought", player.linear_upgrades.up1.bought)
         saveitems("Lup1eff", player.linear_upgrades.up1.eff)
@@ -172,6 +174,7 @@ function Get() {
         player.equations.equation2.n = GetItems("equation2n", true)
         player.equations.equation2.y = GetItems("equation2y", true)
         player.equations.xbuyer.cost = GetItems("XbuyerCost", true)
+        player.equations.xbuyer.amount = GetItems("XBuyerAmt", true)
         player.linear_upgrades.up1.bought = GetItems("Lup1bought", false)
         player.linear_upgrades.up1.eff = GetItems("Lup1eff", true)
         player.linear_upgrades.up2.bought = GetItems("Lup2bought", false)
@@ -197,6 +200,7 @@ function Get() {
         player.equations.linear_equations.c.amount = GetItems("Camt", true)
         player.equations.linear_equations.c.cost = GetItems("Ccost", true)
         player.equations.nbuyer.cost = GetItems("NBuyerCost", true)
+        player.equations.nbuyer.amount = GetItems("NBuyerAmt", true)
         player.equations.nbuyer.unlocked = GetItems("NBuyerUnl", false)
         player.linear_challenges.chal1.completed = GetItems("Lchal1c", false)
         player.linear_challenges.chal1.inChal = GetItems("Lchal1in", false)
@@ -243,7 +247,7 @@ function Import() {
     const Imported = userResponse
     player = JSON.parse(atob(Imported))
     Save()
-    location.reload()
+    window.location.reload()
 }
 
 //setInterval(Save, 15000)

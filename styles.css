@@ -555,3 +555,11 @@ body.light {
     padding-top: 10px;
     color: rgb(8, 224, 84);
 }
+
+.Building-automation {
+    display: none;
+}
+
+.Building-automation.unlocked {
+    display: block;
+}

@@ -49,14 +49,14 @@ function UpdateGUI() {
     }
     document.getElementById("total-p").textContent = "Your total points is " + format(player.tpoints)
     document.getElementById("total-b-bought").textContent = "You bought a total of " + format(player.buildings.tbuildings) + " buildings"
-    player.upgrades.up1.eff = player.points.log10(player.points).mul(2.5).add(1)
+    player.upgrades.up1.eff = player.points.add(1).log10().mul(2.5).add(1)
     if(player.linear_challenges.chal2.completed === true) {
         player.upgrades.up1.eff = player.upgrades.up1.eff.mul(4)
     }
     document.getElementById("up-eff1").textContent = "Currently: " + format(player.upgrades.up1.eff) + "x boost"
     player.upgrades.up2.eff = player.buildings.Professor.amount.sqrt(player.buildings.Professor.amount).add(1)
     document.getElementById("up-eff2").textContent = "Currently: " + format(player.upgrades.up2.eff) + "x boost to teachers"
-    player.upgrades.up4.eff = player.points.log10(player.points).div(2.5)
+    player.upgrades.up4.eff = player.points.add(1).log10().div(2.5)
     document.getElementById("up-eff4").textContent = "Currently: " + format(player.upgrades.up4.eff) + "x boost"
     player.upgrades.up5.eff = player.buildings.Professor.amount.sqrt(player.buildings.Professor.amount).div(4).add(1)
     document.getElementById("up-eff5").textContent = "Currently: " + format(player.upgrades.up5.eff) + "x boost"
@@ -66,9 +66,9 @@ function UpdateGUI() {
     player.linear_upgrades.up1.eff = (player.LinearEssence.add(1)).mul(4)
     document.getElementById("lup-eff1").textContent = "Currently: " + format(player.linear_upgrades.up1.eff) + "x boost"
     document.getElementById("mult-cost3").textContent = "Cost: " + format(player.equations.nbuyer.cost) + " Points"
-    player.linear_upgrades.up5.eff = player.points.log10(player.points).sqrt().add(1)
+    player.linear_upgrades.up5.eff = player.points.add(1).log10().sqrt().add(1)
     document.getElementById("lup-eff5").textContent = "Currently: " + format(player.linear_upgrades.up5.eff) + "x boost"
-    player.linear_upgrades.up6.eff = player.LinearEssence.sqrt().div(2).add(1)
+    player.linear_upgrades.up6.eff = player.LinearEssence.add(1).log10().div(5).add(1)
     document.getElementById("lup-eff6").textContent = "Currently: " + format(player.linear_upgrades.up6.eff) + "x boost"
     document.getElementById("LP").textContent = format(player.LinearPower)
     document.getElementById("LEequation-cost1").textContent = "Cost: " + format(player.equations.linear_equations.a.cost) 
@@ -82,9 +82,13 @@ function UpdateGUI() {
     document.getElementById("LEequation-cost5").textContent = "Cost: " + format(player.equations.linear_equations.c.cost) 
     + " Linear Power"
     document.getElementById("LEequation").textContent = "ax + by + c = " + format(CalculateLEegain())
-    if(player.linear_upgrades.up3.bought === true) {
+    if(player.buildings.Classmate.automation === true) {
         BuyClassmate()
+    }
+    if(player.buildings.Teacher.automation === true) {
         BuyTeacher()
+    }
+    if(player.buildings.Professor.automation === true) {
         BuyProfessor()
     }
     document.getElementById("LP-eff").textContent = "Multiplying your points, buildings, y boost by " 
@@ -336,6 +340,54 @@ function UpdateStyles() {
         document.getElementById("lup-cost4").classList.add("Lup-cost")
         document.getElementById("lup-cost4").classList.remove("Lup-bought")
     }
+    if(player.LinearEssence.gte(player.linear_upgrades.up5.cost) && player.linear_upgrades.up5.bought != true) {
+        document.getElementById("lup-cost5").classList.remove("Lup-cost")
+        document.getElementById("lup-cost5").classList.add("Lup-bought")
+    }
+    else if (player.linear_upgrades.up5.bought === true) {
+        document.getElementById("lup-cost5").classList.remove("Lup-cost")
+        document.getElementById("lup-cost5").classList.add("Lup-buy")
+    }
+    else if (player.LinearEssence.lt(player.linear_upgrades.up5.cost) && player.linear_upgrades.up5.bought != true) {
+        document.getElementById("lup-cost5").classList.add("Lup-cost")
+        document.getElementById("lup-cost5").classList.remove("Lup-bought")
+    }
+    if(player.LinearEssence.gte(player.linear_upgrades.up6.cost) && player.linear_upgrades.up6.bought != true) {
+        document.getElementById("lup-cost6").classList.remove("Lup-cost")
+        document.getElementById("lup-cost6").classList.add("Lup-bought")
+    }
+    else if (player.linear_upgrades.up6.bought === true) {
+        document.getElementById("lup-cost6").classList.remove("Lup-cost")
+        document.getElementById("lup-cost6").classList.add("Lup-buy")
+    }
+    else if (player.LinearEssence.lt(player.linear_upgrades.up6.cost) && player.linear_upgrades.up6.bought != true) {
+        document.getElementById("lup-cost6").classList.add("Lup-cost")
+        document.getElementById("lup-cost6").classList.remove("Lup-bought")
+    }
+    if(player.LinearEssence.gte(player.linear_upgrades.up7.cost) && player.linear_upgrades.up7.bought != true) {
+        document.getElementById("lup-cost7").classList.remove("Lup-cost")
+        document.getElementById("lup-cost7").classList.add("Lup-bought")
+    }
+    else if (player.linear_upgrades.up7.bought === true) {
+        document.getElementById("lup-cost7").classList.remove("Lup-cost")
+        document.getElementById("lup-cost7").classList.add("Lup-buy")
+    }
+    else if (player.LinearEssence.lt(player.linear_upgrades.up7.cost) && player.linear_upgrades.up7.bought != true) {
+        document.getElementById("lup-cost7").classList.add("Lup-cost")
+        document.getElementById("lup-cost7").classList.remove("Lup-bought")
+    }
+    if(player.LinearEssence.gte(player.linear_upgrades.up8.cost) && player.linear_upgrades.up8.bought != true) {
+        document.getElementById("lup-cost8").classList.remove("Lup-cost")
+        document.getElementById("lup-cost8").classList.add("Lup-bought")
+    }
+    else if (player.linear_upgrades.up8.bought === true) {
+        document.getElementById("lup-cost8").classList.remove("Lup-cost")
+        document.getElementById("lup-cost8").classList.add("Lup-buy")
+    }
+    else if (player.LinearEssence.lt(player.linear_upgrades.up8.cost) && player.linear_upgrades.up8.bought != true) {
+        document.getElementById("lup-cost8").classList.add("Lup-cost")
+        document.getElementById("lup-cost8").classList.remove("Lup-bought")
+    }
     if(player.LinearPower.gte(player.equations.linear_equations.a.cost)) {
         document.getElementById("LEe-cost1").classList.remove("LEequation-cost")
         document.getElementById("LEe-cost1").classList.add("LEequation-bought")
@@ -440,6 +492,11 @@ function UpdateStyles() {
     if(player.linear_upgrades.up4.bought === true) {
         document.getElementById("NBuyer").classList.add("unlocked")
         document.getElementById("Lrow2").classList.add("unlocked")
+    }
+    if(player.linear_upgrades.up3.bought === true) {
+        document.getElementById("Building-automation").classList.add("unlocked")
+        document.getElementById("Building-automation2").classList.add("unlocked")
+        document.getElementById("Building-automation3").classList.add("unlocked")
     }
     if(player.achievements.achv1.completed === true) {
         document.getElementById("Achv-1").classList.add("completed")
@@ -567,7 +624,7 @@ function CalculateEquationGain() {
 function CalculateLEgain() {
     let LEgain = new Decimal(0)
     if(player.points.gte(1e10)) {
-        LEgain = new Decimal(new Decimal(1.1).pow((player.equations.equation2.y.div(20).sub(1))).mul(new Decimal(1.3).pow(player.equations.equation1.x.pow(0.01))))
+        LEgain = new Decimal(new Decimal(1.1).pow((player.equations.equation2.y.div(20).sub(1))).mul(new Decimal(1.3).pow(player.equations.equation1.x.pow(0.05))))
     }
     if(player.linear_upgrades.up6.bought === true) {
         LEgain = LEgain.mul(player.linear_upgrades.up6.eff)

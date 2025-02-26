@@ -382,6 +382,15 @@ body.light {
     justify-content: center;
 }
 
+#Lrow3 {
+    display: none;
+}
+
+#Lrow3.unlocked {
+    display: flex;
+    justify-content: center;
+}
+
 #NBuyer {
     display: none;
 }
@@ -450,8 +459,22 @@ body.light {
 }
 
 #Chals-tab.unlocked {
-    display: block;
     width: 150px;
+    height: 30px;
+    padding: 5px;
+    background-color: rgba(14, 203, 58, 0.801);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#Squares-tab {
+    display: none;
+}
+
+#Squares-tab.unlocked {
+    width: 170px;
     height: 30px;
     padding: 5px;
     background-color: rgba(14, 203, 58, 0.801);
@@ -562,4 +585,97 @@ body.light {
 
 .Building-automation.unlocked {
     display: block;
+}
+
+#square-and-prism {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+}
+
+#s-t {
+    font-size: 32px;
+    font-weight: bolder;
+    font-style: italic;
+}
+
+#squares-amount {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#a-buyer {
+    display: flex;
+    justify-content: center;
+}
+
+.Buy-a-square {
+    width: 120px;
+    height: 120px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: rgba(227, 0, 0, 0.855);
+}
+
+.Buy-a-square:hover {
+    background-color: rgba(185, 1, 1, 0.838);
+}
+
+.Buy-a-square.bought {
+    width: 120px;
+    height: 120px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: rgb(1, 167, 218);
+}
+
+.Buy-a-square.bought:hover {
+    background-color: rgba(0, 142, 140, 0.9);
+}
+
+#p-t {
+    font-size: 32px;
+    font-weight: bolder;
+    font-style: italic;
+}
+
+#prism-amount {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.Buy-a-prism {
+    width: 120px;
+    height: 120px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: rgba(227, 0, 0, 0.855);
+}
+
+.Buy-a-prism:hover {
+    background-color: rgba(185, 1, 1, 0.838);
+}
+
+.Buy-a-prism.bought {
+    width: 120px;
+    height: 120px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: rgb(1, 167, 218);
+}
+
+.Buy-a-prism.bought:hover {
+    background-color: rgba(0, 142, 140, 0.9);
 }

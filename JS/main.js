@@ -100,6 +100,24 @@ let player = {
             bought: false,
             cost: new Decimal(7.5e4),
         },
+        up9: {
+            bought: false,
+            cost: new Decimal(1e5),
+        },
+        up10: {
+            bought: false,
+            eff: new Decimal(1),
+            cost: new Decimal(2e5),
+        },
+        up11: {
+            bought: false,
+            eff: new Decimal(1),
+            cost: new Decimal(5e5),
+        },
+        up12: {
+            bought: false,
+            cost: new Decimal(1e6),
+        },
     },
     equations: {
         equation1: {
@@ -127,7 +145,7 @@ let player = {
         },
         linear_equations: {
             eff: new Decimal(1),
-            eff2: new Decimal(1),
+            eff2: new Decimal(0),
             a: {
                 cost: new Decimal(100),
                 amount: new Decimal(0)
@@ -219,6 +237,24 @@ let player = {
             inChal: false,
             eff: new Decimal(1),
         },
+    },
+    squares_and_prism: {
+        squares: {
+            amount: new Decimal(0),
+            eff: new Decimal(1),
+            abuyer: {
+                amount: new Decimal(0),
+                cost: new Decimal(1e50),
+            }
+        },
+        square_prism: {
+            amount: new Decimal(0),
+            eff: new Decimal(1),
+            abuyer: {
+                amount: new Decimal(0),
+                cost: new Decimal(1e100),
+            }
+        }
     }
 }
 
@@ -230,9 +266,10 @@ function GetPoints() {
 function BuyClassmate() {
     if(player.points.gte(player.buildings.Classmate.cost) && player.linear_challenges.chal3.inChal === false
         && player.linear_challenges.chal4.inChal === false) {
-        player.points = player.points.sub(player.buildings.Classmate.cost)
+        if(player.linear_upgrades.up9.bought === false) {
+            player.points = player.points.sub(player.buildings.Classmate.cost)
+        }
         player.buildings.Classmate.amount = player.buildings.Classmate.amount.add(1)
-        player.buildings.Classmate.cost = player.buildings.Classmate.cost.mul(1.3)
         player.buildings.tbuildings = player.buildings.tbuildings.add(1)
     }
 }
@@ -240,9 +277,10 @@ function BuyClassmate() {
 function BuyTeacher() {
     if(player.points.gte(player.buildings.Teacher.cost) && player.linear_challenges.chal3.inChal === false
         && player.linear_challenges.chal4.inChal === false) {
-        player.points = player.points.sub(player.buildings.Teacher.cost)
+        if(player.linear_upgrades.up9.bought === false) {
+            player.points = player.points.sub(player.buildings.Teacher.cost)
+        }    
         player.buildings.Teacher.amount = player.buildings.Teacher.amount.add(1)
-        player.buildings.Teacher.cost = player.buildings.Teacher.cost.mul(1.3)
         player.buildings.tbuildings = player.buildings.tbuildings.add(1)
     }
 }
@@ -250,16 +288,19 @@ function BuyTeacher() {
 function BuyProfessor() {
     if(player.points.gte(player.buildings.Professor.cost) && player.linear_challenges.chal3.inChal === false
         && player.linear_challenges.chal4.inChal === false) {
-        player.points = player.points.sub(player.buildings.Professor.cost)
+        if(player.linear_upgrades.up9.bought === false) {
+            player.points = player.points.sub(player.buildings.Professor.cost)
+        }
         player.buildings.Professor.amount = player.buildings.Professor.amount.add(1)
-        player.buildings.Professor.cost = player.buildings.Professor.cost.mul(1.3)
         player.buildings.tbuildings = player.buildings.tbuildings.add(1)
     }
 }
 
 function BuyMultiplication() {
     if(player.points.gte(player.equations.multiplicator1.cost)) {
-        player.points = player.points.sub(player.equations.multiplicator1.cost)
+        if(player.linear_upgrades.up9.bought === false) {
+            player.points = player.points.sub(player.equations.multiplicator1.cost)
+        }
         player.equations.equation1.x = player.equations.equation1.x.mul(2)
         player.equations.equation1.eff = player.equations.equation1.eff.mul(2)
         if(player.equations.equation1.x.lt(1e20)) {
@@ -276,7 +317,9 @@ function BuyMultiplication() {
 
 function BuyXBuyer() {
     if(player.points.gte(player.equations.xbuyer.cost)) {
-        player.points = player.points.sub(player.equations.xbuyer.cost)
+        if(player.linear_upgrades.up9.bought === false) {
+            player.points = player.points.sub(player.equations.xbuyer.cost)
+        }
         player.equations.equation2.x = player.equations.equation2.x.add(1)
         player.equations.xbuyer.amount = player.equations.xbuyer.amount.add(1)
         if(player.equations.xbuyer.amount.lt(20)) {
@@ -293,7 +336,9 @@ function BuyXBuyer() {
 
 function BuyNBuyer() {
     if(player.points.gte(player.equations.nbuyer.cost)) {
-        player.points = player.points.sub(player.equations.nbuyer.cost)
+        if(player.linear_upgrades.up9.bought === false) {
+            player.points = player.points.sub(player.equations.nbuyer.cost)
+        }
         player.equations.equation2.n = player.equations.equation2.n.add(1)
         player.equations.nbuyer.amount = player.equations.nbuyer.amount.add(1)
         if(player.equations.nbuyer.amount.lt(20)) {
@@ -450,6 +495,34 @@ function BuyLUp8() {
     }
 }
 
+function BuyLUp9() {
+    if(player.LinearEssence.gte(player.linear_upgrades.up9.cost) && player.linear_upgrades.up9.bought === false) {
+        player.LinearEssence = player.LinearEssence.sub(player.linear_upgrades.up9.cost)
+        player.linear_upgrades.up9.bought = true
+    }
+}
+
+function BuyLUp10() {
+    if(player.LinearEssence.gte(player.linear_upgrades.up10.cost) && player.linear_upgrades.up10.bought === false) {
+        player.LinearEssence = player.LinearEssence.sub(player.linear_upgrades.up10.cost)
+        player.linear_upgrades.up10.bought = true
+    }
+}
+
+function BuyLUp11() {
+    if(player.LinearEssence.gte(player.linear_upgrades.up11.cost) && player.linear_upgrades.up11.bought === false) {
+        player.LinearEssence = player.LinearEssence.sub(player.linear_upgrades.up11.cost)
+        player.linear_upgrades.up11.bought = true
+    }
+}
+
+function BuyLUp12() {
+    if(player.LinearEssence.gte(player.linear_upgrades.up12.cost) && player.linear_upgrades.up12.bought === false) {
+        player.LinearEssence = player.LinearEssence.sub(player.linear_upgrades.up12.cost)
+        player.linear_upgrades.up12.bought = true
+    }
+}
+
 function BuyA() {
     if(player.LinearPower.gte(player.equations.linear_equations.a.cost)) {
         player.LinearPower = player.LinearPower.sub(player.equations.linear_equations.a.cost)
@@ -504,37 +577,7 @@ function EnterChal1() {
     else if (player.linear_challenges.chal1.inChal == true) {
         player.linear_challenges.chal1.inChal = false
     }
-    player.points = new Decimal(0)
-    player.pointsPerSec = new Decimal(0)
-    player.buildings.Classmate.amount = new Decimal(0)
-    player.buildings.Classmate.cost = new Decimal(10)
-    player.buildings.Classmate.eff = new Decimal(1)
-    player.buildings.Teacher.amount = new Decimal(0)
-    player.buildings.Teacher.cost = new Decimal(150)
-    player.buildings.Teacher.eff = new Decimal(20)
-    player.buildings.Professor.amount = new Decimal(0)
-    player.buildings.Professor.cost = new Decimal(2000)
-    player.buildings.Professor.eff = new Decimal(150)
-    player.upgrades.up1.bought = false
-    player.upgrades.up1.eff = new Decimal(1)
-    player.upgrades.up2.bought = false
-    player.upgrades.up2.eff = new Decimal(1)
-    player.upgrades.up3.bought = false
-    player.upgrades.up4.bought = false
-    player.upgrades.up4.eff = new Decimal(1)
-    player.upgrades.up5.bought = false
-    player.upgrades.up5.eff = new Decimal(1)
-    player.upgrades.up6.bought = false
-    player.equations.equation1.eff = new Decimal(1)
-    player.equations.equation1.x = new Decimal(1)
-    player.equations.equation2.eff = new Decimal(1)
-    player.equations.equation2.k = new Decimal(1)
-    player.equations.equation2.x = new Decimal(0)
-    player.equations.equation2.n = new Decimal(1)
-    player.equations.equation2.y = new Decimal(1)
-    player.equations.multiplicator1.cost = new Decimal(5e5)
-    player.equations.xbuyer.cost = new Decimal(1e9)
-    player.equations.nbuyer.cost = new Decimal(1e12)
+    LinearEssenceReset()
 }
 
 function EnterChal2() {
@@ -551,37 +594,7 @@ function EnterChal2() {
     else {
         player.linear_challenges.chal2.inChal = false
     }
-    player.points = new Decimal(0)
-    player.pointsPerSec = new Decimal(0)
-    player.buildings.Classmate.amount = new Decimal(0)
-    player.buildings.Classmate.cost = new Decimal(10)
-    player.buildings.Classmate.eff = new Decimal(1)
-    player.buildings.Teacher.amount = new Decimal(0)
-    player.buildings.Teacher.cost = new Decimal(150)
-    player.buildings.Teacher.eff = new Decimal(20)
-    player.buildings.Professor.amount = new Decimal(0)
-    player.buildings.Professor.cost = new Decimal(2000)
-    player.buildings.Professor.eff = new Decimal(150)
-    player.upgrades.up1.bought = false
-    player.upgrades.up1.eff = new Decimal(1)
-    player.upgrades.up2.bought = false
-    player.upgrades.up2.eff = new Decimal(1)
-    player.upgrades.up3.bought = false
-    player.upgrades.up4.bought = false
-    player.upgrades.up4.eff = new Decimal(1)
-    player.upgrades.up5.bought = false
-    player.upgrades.up5.eff = new Decimal(1)
-    player.upgrades.up6.bought = false
-    player.equations.equation1.eff = new Decimal(1)
-    player.equations.equation1.x = new Decimal(1)
-    player.equations.equation2.eff = new Decimal(1)
-    player.equations.equation2.k = new Decimal(1)
-    player.equations.equation2.x = new Decimal(0)
-    player.equations.equation2.n = new Decimal(1)
-    player.equations.equation2.y = new Decimal(1)
-    player.equations.multiplicator1.cost = new Decimal(5e5)
-    player.equations.xbuyer.cost = new Decimal(1e9)
-    player.equations.nbuyer.cost = new Decimal(1e12)
+    LinearEssenceReset()
 }
 
 function EnterChal3() {
@@ -598,37 +611,7 @@ function EnterChal3() {
     else if (player.linear_challenges.chal3.inChal === true) {
         player.linear_challenges.chal3.inChal = false
     }
-    player.points = new Decimal(0)
-    player.pointsPerSec = new Decimal(0)
-    player.buildings.Classmate.amount = new Decimal(0)
-    player.buildings.Classmate.cost = new Decimal(10)
-    player.buildings.Classmate.eff = new Decimal(1)
-    player.buildings.Teacher.amount = new Decimal(0)
-    player.buildings.Teacher.cost = new Decimal(150)
-    player.buildings.Teacher.eff = new Decimal(20)
-    player.buildings.Professor.amount = new Decimal(0)
-    player.buildings.Professor.cost = new Decimal(2000)
-    player.buildings.Professor.eff = new Decimal(150)
-    player.upgrades.up1.bought = false
-    player.upgrades.up1.eff = new Decimal(1)
-    player.upgrades.up2.bought = false
-    player.upgrades.up2.eff = new Decimal(1)
-    player.upgrades.up3.bought = false
-    player.upgrades.up4.bought = false
-    player.upgrades.up4.eff = new Decimal(1)
-    player.upgrades.up5.bought = false
-    player.upgrades.up5.eff = new Decimal(1)
-    player.upgrades.up6.bought = false
-    player.equations.equation1.eff = new Decimal(1)
-    player.equations.equation1.x = new Decimal(1)
-    player.equations.equation2.eff = new Decimal(1)
-    player.equations.equation2.k = new Decimal(1)
-    player.equations.equation2.x = new Decimal(0)
-    player.equations.equation2.n = new Decimal(1)
-    player.equations.equation2.y = new Decimal(1)
-    player.equations.multiplicator1.cost = new Decimal(5e5)
-    player.equations.xbuyer.cost = new Decimal(1e9)
-    player.equations.nbuyer.cost = new Decimal(1e12)
+    LinearEssenceReset()
 }
 
 function EnterChal4() {
@@ -645,35 +628,21 @@ function EnterChal4() {
     else if (player.linear_challenges.chal4.inChal === true) {
         player.linear_challenges.chal4.inChal = false
     }
-    player.points = new Decimal(0)
-    player.pointsPerSec = new Decimal(0)
-    player.buildings.Classmate.amount = new Decimal(0)
-    player.buildings.Classmate.cost = new Decimal(10)
-    player.buildings.Classmate.eff = new Decimal(1)
-    player.buildings.Teacher.amount = new Decimal(0)
-    player.buildings.Teacher.cost = new Decimal(150)
-    player.buildings.Teacher.eff = new Decimal(20)
-    player.buildings.Professor.amount = new Decimal(0)
-    player.buildings.Professor.cost = new Decimal(2000)
-    player.buildings.Professor.eff = new Decimal(150)
-    player.upgrades.up1.bought = false
-    player.upgrades.up1.eff = new Decimal(1)
-    player.upgrades.up2.bought = false
-    player.upgrades.up2.eff = new Decimal(1)
-    player.upgrades.up3.bought = false
-    player.upgrades.up4.bought = false
-    player.upgrades.up4.eff = new Decimal(1)
-    player.upgrades.up5.bought = false
-    player.upgrades.up5.eff = new Decimal(1)
-    player.upgrades.up6.bought = false
-    player.equations.equation1.eff = new Decimal(1)
-    player.equations.equation1.x = new Decimal(1)
-    player.equations.equation2.eff = new Decimal(1)
-    player.equations.equation2.k = new Decimal(1)
-    player.equations.equation2.x = new Decimal(0)
-    player.equations.equation2.n = new Decimal(1)
-    player.equations.equation2.y = new Decimal(1)
-    player.equations.multiplicator1.cost = new Decimal(5e5)
-    player.equations.xbuyer.cost = new Decimal(1e9)
-    player.equations.nbuyer.cost = new Decimal(1e12)
+    LinearEssenceReset()
+}
+
+function BuyASquare() {
+    if(player.points.gte(player.squares_and_prism.squares.abuyer.cost)) {
+        player.points = player.points.sub(player.squares_and_prism.squares.abuyer.cost)
+        player.squares_and_prism.squares.abuyer.amount = player.squares_and_prism.squares.abuyer.amount.add(1)
+        player.squares_and_prism.squares.abuyer.cost = player.squares_and_prism.squares.abuyer.cost.mul(1e10)
+    }
+}
+
+function BuyASquarePrism() {
+    if(player.points.gte(player.squares_and_prism.square_prism.abuyer.cost)) {
+        player.points = player.points.sub(player.squares_and_prism.square_prism.abuyer.cost)
+        player.squares_and_prism.square_prism.abuyer.amount = player.squares_and_prism.square_prism.abuyer.amount.add(1)
+        player.squares_and_prism.square_prism.abuyer.cost = player.squares_and_prism.square_prism.abuyer.cost.mul(1e50)
+    }
 }

@@ -211,6 +211,9 @@ let player = {
         achv14: {
             completed: false
         },
+        achv15: {
+            completed: false
+        },
     },
     linear_challenges: {
         chal1: {
@@ -220,7 +223,7 @@ let player = {
             eff: new Decimal(1),
         },
         chal2: {
-            goal: new Decimal(3e5),
+            goal: new Decimal(1e16),
             completed: false,
             inChal: false,
             eff: new Decimal(1),
@@ -564,6 +567,9 @@ function BuyC() {
 }
 
 function EnterChal1() {
+    if(player.linear_challenges.chal1.inChal === false) {
+        LinearEssenceReset()
+    }
     if(player.points.gte(player.linear_challenges.chal1.goal)) {
         player.linear_challenges.chal1.completed = true
         player.linear_challenges.chal1.inChal = false
@@ -577,10 +583,12 @@ function EnterChal1() {
     else if (player.linear_challenges.chal1.inChal == true) {
         player.linear_challenges.chal1.inChal = false
     }
-    LinearEssenceReset()
 }
 
 function EnterChal2() {
+    if(player.linear_challenges.chal2.inChal === false) {
+        LinearEssenceReset()
+    }
     if(player.points.gte(player.linear_challenges.chal2.goal)) {
         player.linear_challenges.chal2.completed = true
         player.linear_challenges.chal2.inChal = false
@@ -594,10 +602,12 @@ function EnterChal2() {
     else {
         player.linear_challenges.chal2.inChal = false
     }
-    LinearEssenceReset()
 }
 
 function EnterChal3() {
+    if(player.linear_challenges.chal3.inChal === false) {
+        LinearEssenceReset()
+    }
     if(player.points.gte(player.linear_challenges.chal3.goal)) {
         player.linear_challenges.chal3.completed = true
         player.linear_challenges.chal3.inChal = false
@@ -611,10 +621,12 @@ function EnterChal3() {
     else if (player.linear_challenges.chal3.inChal === true) {
         player.linear_challenges.chal3.inChal = false
     }
-    LinearEssenceReset()
 }
 
 function EnterChal4() {
+    if(player.linear_challenges.chal4.inChal === false) {
+        LinearEssenceReset()
+    }
     if(player.points.gte(player.linear_challenges.chal4.goal)) {
         player.linear_challenges.chal4.completed = true
         player.linear_challenges.chal4.inChal = false
@@ -628,7 +640,6 @@ function EnterChal4() {
     else if (player.linear_challenges.chal4.inChal === true) {
         player.linear_challenges.chal4.inChal = false
     }
-    LinearEssenceReset()
 }
 
 function BuyASquare() {

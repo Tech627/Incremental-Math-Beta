@@ -96,8 +96,8 @@ function UpdateGUI() {
         BuyProfessor()
     }
     document.getElementById("LP-eff").textContent = "Multiplying your points, buildings, y boost by " 
-    + format(CalculateLEegain()) + "x, and x from 1st equation from 1st equation gets divided" 
-    + "by 4 everytime you reach a factor of 10"
+    + format(CalculateLEegain()) + "x, and x from 1st equation gets divided" 
+    + " by 4 everytime you reach a factor of 10"
     player.equations.linear_equations.eff2 = CalculateLEegain().div(10)
     player.equations.linear_equations.eff2 = player.equations.linear_equations.eff2.floor()
     player.linear_challenges.chal1.eff = player.buildings.Classmate.eff.pow(0.2).add(player.buildings.Teacher.eff.pow(0.2).add(
@@ -178,9 +178,11 @@ function UpdateGUI() {
         player.achievements.achv13.completed = true
     }
     if(player.linear_challenges.chal1.completed === true && player.linear_challenges.chal2.completed === true &&
-        player.linear_challenges.chal3.completed === true
-    ) {
-        player.achievements.achv14.completed = true
+        player.linear_challenges.chal3.completed === true) {
+            player.achievements.achv14.completed = true
+    }
+    if(player.linear_upgrades.up12.bought === true) {
+        player.achievements.achv15.completed = true
     }
 }
 
@@ -624,6 +626,9 @@ function UpdateStyles() {
     }
     if(player.achievements.achv14.completed === true) {
         document.getElementById("Achv-14").classList.add("completed")
+    }
+    if(player.achievements.achv15.completed === true) {
+        document.getElementById("Achv-15").classList.add("completed")
     }
 }
 

@@ -2,6 +2,17 @@ function saveitems(name, location) { // this basically just removes the localsto
     localStorage.setItem(name, JSON.stringify((location)));
 }
 
+var upgrades = []
+
+for(let i = 0; i < 6; i++) {
+    let upgrade = {
+        bought: false,
+        cost: new Decimal(20000),
+        eff: new Decimal(1),
+    }
+    upgrades.push(upgrade)
+}
+
 function Save() {
     if (localStorage) {
         saveitems("firstload", false)
@@ -19,26 +30,27 @@ function Save() {
         saveitems("FastestLinear", player.FastestLinear)
         saveitems("LinearUnl", player.LinearUnl)
         saveitems("ChalsUnl", player.ChalsUnl)
-        saveitems("Camount", player.buildings.Classmate.amount)
-        saveitems("Ceff", player.buildings.Classmate.eff)
-        saveitems("Ccost", player.buildings.Classmate.cost)
-        saveitems("Tamount", player.buildings.Teacher.amount)
-        saveitems("Teff", player.buildings.Teacher.eff)
-        saveitems("Tcost", player.buildings.Teacher.cost)
-        saveitems("Pamount", player.buildings.Professor.amount)
-        saveitems("Peff", player.buildings.Professor.eff)
-        saveitems("Pcost", player.buildings.Professor.cost)
-        saveitems("tbuildings", player.buildings.tbuildings)
-        saveitems("up1bought", player.upgrades.up1.bought)
-        saveitems("up1eff", player.upgrades.up1.eff)
-        saveitems("up2bought", player.upgrades.up2.bought)
-        saveitems("up2eff", player.upgrades.up2.eff)
-        saveitems("up3bought", player.upgrades.up3.bought)
-        saveitems("up4bought", player.upgrades.up4.bought)
-        saveitems("up4eff", player.upgrades.up4.eff)
-        saveitems("up5bought", player.upgrades.up5.bought)
-        saveitems("up5eff", player.upgrades.up5.eff)
-        saveitems("up6bought", player.upgrades.up6.bought)
+        for(let i = 0; i < 3; i++) {
+            let b = buildings[i]
+            saveitems("amount" + (i + 1), b.amount)
+            saveitems("eff" + (i + 1), b.eff)
+            saveitems("cost" + (i + 1), b.cost)
+        }
+        saveitems("tbuildings", player.tbuildings)
+        for(let i = 0; i < 6; i++) {
+            let u = upgrades[i]
+            saveitems("up" + (i + 1) + "bought", u.bought)
+            saveitems("up" + (i + 1) + "eff", u.eff)
+        }
+        for(let i = 0; i < 12; i++) {
+            let lu = linearUpgrades[i]
+            saveitems("Lup" + (i + 1) + "bought", linearUpgrades[i].bought)
+            saveitems("Lup" + (i + 1) + "eff", linearUpgrades[i].eff)
+        }
+        for(let i = 0; i < 15; i++) {
+            let a = achievements[i]
+            saveitems("achv" + (i + 1) + "c", achievements[i].completed)
+        }
         saveitems("equation1eff", player.equations.equation1.eff)
         saveitems("equation1x", player.equations.equation1.x)
         saveitems("multiplicator1cost", player.equations.multiplicator1.cost)
@@ -52,23 +64,6 @@ function Save() {
         saveitems("NBuyerCost", player.equations.nbuyer.cost)
         saveitems("NBuyerAmt", player.equations.nbuyer.amount)
         saveitems("NBuyerUnl", player.equations.nbuyer.unlocked)
-        saveitems("Lup1bought", player.linear_upgrades.up1.bought)
-        saveitems("Lup1eff", player.linear_upgrades.up1.eff)
-        saveitems("Lup2bought", player.linear_upgrades.up2.bought)
-        saveitems("Lup3bought", player.linear_upgrades.up3.bought)
-        saveitems("Lup4bought", player.linear_upgrades.up4.bought)
-        saveitems("Lup5bought", player.linear_upgrades.up5.bought)
-        saveitems("Lup5eff", player.linear_upgrades.up5.eff)
-        saveitems("Lup6bought", player.linear_upgrades.up6.bought)
-        saveitems("Lup6eff", player.linear_upgrades.up6.eff)
-        saveitems("Lup7bought", player.linear_upgrades.up7.bought)
-        saveitems("Lup8bought", player.linear_upgrades.up8.bought)
-        saveitems("Lup9bought", player.linear_upgrades.up9.bought)
-        saveitems("Lup10bought", player.linear_upgrades.up10.bought)
-        saveitems("Lup10eff", player.linear_upgrades.up10.eff)
-        saveitems("Lup11bought", player.linear_upgrades.up11.bought)
-        saveitems("Lup11eff", player.linear_upgrades.up11.eff)
-        saveitems("Lup12bought", player.linear_upgrades.up12.bought)
         saveitems("LinearEquationeff", player.equations.linear_equations.eff)
         saveitems("LinearEquationeff2", player.equations.linear_equations.eff2)
         saveitems("Aamt", player.equations.linear_equations.a.amount)
@@ -98,20 +93,6 @@ function Save() {
         saveitems("prism-eff", player.squares_and_prism.square_prism.eff)
         saveitems("a-prism-amt", player.squares_and_prism.square_prism.abuyer.amount)
         saveitems("a-prism-cost", player.squares_and_prism.square_prism.abuyer.cost)
-        saveitems("achv1c", player.achievements.achv1.completed) 
-        saveitems("achv2c", player.achievements.achv2.completed) 
-        saveitems("achv3c", player.achievements.achv3.completed) 
-        saveitems("achv4c", player.achievements.achv4.completed) 
-        saveitems("achv5c", player.achievements.achv5.completed) 
-        saveitems("achv6c", player.achievements.achv6.completed) 
-        saveitems("achv7c", player.achievements.achv7.completed) 
-        saveitems("achv8c", player.achievements.achv8.completed) 
-        saveitems("achv9c", player.achievements.achv9.completed) 
-        saveitems("achv10c", player.achievements.achv10.completed) 
-        saveitems("achv11c", player.achievements.achv11.completed) 
-        saveitems("achv12c", player.achievements.achv12.completed) 
-        saveitems("achv13c", player.achievements.achv13.completed) 
-        saveitems("achv14c", player.achievements.achv14.completed) 
         player.saved = true
         if(player.saved === true) {
             document.getElementById("Save-notification").classList.add("save")
@@ -159,26 +140,27 @@ function Get() {
         player.FastestLinear = GetItems("FastestLinear", true)
         player.LinearUnl = GetItems("LinearUnl", false)
         player.ChalsUnl = GetItems("ChalsUnl", true)
-        player.buildings.Classmate.amount = GetItems("Camount", true)
-        player.buildings.Classmate.cost = GetItems("Ccost", true)
-        player.buildings.Classmate.eff = GetItems("Ceff", true)
-        player.buildings.Teacher.amount = GetItems("Tamount", true)
-        player.buildings.Teacher.cost = GetItems("Tcost", true)
-        player.buildings.Teacher.eff = GetItems("Teff", true)
-        player.buildings.Professor.amount = GetItems("Pamount", true)
-        player.buildings.Professor.cost = GetItems("Pcost", true)
-        player.buildings.Professor.eff = GetItems("Peff", true)
-        player.buildings.tbuildings = GetItems("tbuildings", true)
-        player.upgrades.up1.bought = GetItems("up1bought", false)
-        player.upgrades.up1.eff = GetItems("up1eff", true)
-        player.upgrades.up2.bought = GetItems("up2bought", false)
-        player.upgrades.up2.eff = GetItems("up2eff", true)
-        player.upgrades.up3.bought = GetItems("up3bought", false)
-        player.upgrades.up4.bought = GetItems("up4bought", false)
-        player.upgrades.up4.eff = GetItems("up4eff", true)
-        player.upgrades.up5.bought = GetItems("up5bought", false)
-        player.upgrades.up5.eff = GetItems("up5eff", true)
-        player.upgrades.up6.bought = GetItems("up6bought", false)
+        for(let i = 0; i < 3; i++) {
+            let b = buildings[i]
+            b.amount = GetItems("amount" + (i + 1), true)
+            b.cost = GetItems("cost" + (i + 1), true)
+            b.eff = GetItems("eff" + (i + 1), true)
+        }
+        player.tbuildings = GetItems("tbuildings", true)
+        for(let i = 0; i < 6; i++) {
+            let u = upgrades[i]
+            u.bought = GetItems("up" + (i + 1) + "bought", false)
+            u.eff = GetItems("up" + (i + 1) + "eff", true)
+        }
+        for(let i = 0; i < 12; i++) {
+            let lu = linearUpgrades[i]
+            lu.bought = GetItems("Lup" + (i + 1) + "bought", false)
+            lu.eff = GetItems("Lup" + (i + 1) + "eff", true)
+        }
+        for(let i = 0; i < 15; i++) {
+            let a = achievements[i]
+            a.completed = GetItems("achv" + (i + 1) + "c", false)
+        }
         player.equations.equation1.eff = GetItems("equation1eff", true)
         player.equations.equation1.x = GetItems("equation1x", true)
         player.equations.multiplicator1.cost = GetItems("multiplicator1cost", true)
@@ -189,18 +171,6 @@ function Get() {
         player.equations.equation2.y = GetItems("equation2y", true)
         player.equations.xbuyer.cost = GetItems("XbuyerCost", true)
         player.equations.xbuyer.amount = GetItems("XBuyerAmt", true)
-        player.linear_upgrades.up1.bought = GetItems("Lup1bought", false)
-        player.linear_upgrades.up1.eff = GetItems("Lup1eff", true)
-        player.linear_upgrades.up2.bought = GetItems("Lup2bought", false)
-        player.linear_upgrades.up2.eff = GetItems("Lup2eff", true)
-        player.linear_upgrades.up3.bought = GetItems("Lup3bought", false)
-        player.linear_upgrades.up4.bought = GetItems("Lup4bought", false)
-        player.linear_upgrades.up5.bought = GetItems("Lup5bought", false)
-        player.linear_upgrades.up5.eff = GetItems("Lup5eff", true)
-        player.linear_upgrades.up6.bought = GetItems("Lup6bought", false)
-        player.linear_upgrades.up6.eff = GetItems("Lup6eff", true)
-        player.linear_upgrades.up7.bought = GetItems("Lup7bought", false)
-        player.linear_upgrades.up8.bought = GetItems("Lup8bought", false)
         player.equations.linear_equations.eff = GetItems("LinearEquationeff", true)
         player.equations.linear_equations.eff2 = GetItems("LinearEquationeff2", true)
         player.equations.linear_equations.a.amount = GetItems("Aamt", true)
@@ -225,20 +195,14 @@ function Get() {
         player.linear_challenges.chal3.inChal = GetItems("Lchal3in", false)
         player.linear_challenges.chal4.completed = GetItems("Lchal4c", false)
         player.linear_challenges.chal4.inChal = GetItems("Lchal4in", false)
-        player.achievements.achv1.completed = GetItems("achv1c", false)
-        player.achievements.achv2.completed = GetItems("achv2c", false)
-        player.achievements.achv3.completed = GetItems("achv3c", false)
-        player.achievements.achv4.completed = GetItems("achv4c", false)
-        player.achievements.achv5.completed = GetItems("achv5c", false)
-        player.achievements.achv6.completed = GetItems("achv6c", false)
-        player.achievements.achv7.completed = GetItems("achv7c", false)
-        player.achievements.achv8.completed = GetItems("achv8c", false)
-        player.achievements.achv9.completed = GetItems("achv9c", false)
-        player.achievements.achv10.completed = GetItems("achv10c", false)
-        player.achievements.achv11.completed = GetItems("achv11c", false)
-        player.achievements.achv12.completed = GetItems("achv12c", false)
-        player.achievements.achv13.completed = GetItems("achv13c", false)
-        player.achievements.achv14.completed = GetItems("achv14c", false)
+        player.squares_and_prism.squares.amount = GetItems("squares-amt", true)
+        player.squares_and_prism.squares.eff = GetItems("squares-eff", true)
+        player.squares_and_prism.squares.abuyer.amount = GetItems("a-square-amt", true)
+        player.squares_and_prism.squares.abuyer.cost = GetItems("a-square-cost", true)
+        player.squares_and_prism.square_prism.amount = GetItems("prism-amt", true)
+        player.squares_and_prism.square_prism.eff = GetItems("prism-eff", true)
+        player.squares_and_prism.square_prism.abuyer.amount = GetItems("a-prism-amt", true)
+        player.squares_and_prism.square_prism.abuyer.cost = GetItems("a-prism-cost", true)
     } else {
         Save()
     }}
@@ -264,4 +228,4 @@ function Import() {
     window.location.reload()
 }
 
-setInterval(Save, 15000)
+//setInterval(Save, 15000)

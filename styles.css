@@ -15,6 +15,7 @@ body.light {
 
 .Building-cost {
     background-color: rgba(227, 0, 0, 0.855);
+    border: 2px solid maroon
 }
 
 .Building-cost:hover {
@@ -23,6 +24,7 @@ body.light {
 
 .Building-buy {
     background-color: rgb(1, 218, 27);
+    border: 2px solid rgb(0, 91, 11);
 }
 
 .Building-buy:hover {
@@ -55,9 +57,10 @@ body.light {
 
 #tab {
     width: 150px;
-    height: 60px;
-    background-color: rgba(74, 74, 74, 0.801);
-    color: white;
+    height: 50px;
+    background-color: rgba(43, 43, 43, 0.801);
+    color: rgb(135, 135, 135);
+    border: 1px solid rgb(78, 78, 78);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -81,8 +84,8 @@ body.light {
 #layertab.unlocked {
     display: block;
     width: 150px;
-    height: 60px;
-    background-color: rgba(14, 203, 58, 0.801);
+    height: 50px;
+    background-color: rgba(9, 101, 30, 0.801);
     color: white;
     display: flex;
     justify-content: center;
@@ -173,28 +176,38 @@ body.light {
 #up-t {
     font-size: 25px;
     font-weight: bolder;
+    color: rgb(12, 187, 59); 
+    margin-bottom: 15px;  
+    text-shadow: 0 0 5px #04821f5b, 0 0 10px #05881d7c, 0 0 15px #068f2ca0, 0 0 20px #07993ade, 0 0 20px #00922e, 0 0 30px #08622a, 0 0 40px #06641d;
+}
+
+#note {
+    color: rgb(187, 103, 103);
 }
 
 .Up-cost {
     width: 300px;
     height: 130px;
-    background-color: rgba(227, 0, 0, 0.855);
+    background-color: rgba(128, 13, 13, 0.855);
+    border: 2px solid rgb(129, 35, 35);
     font-size: 13px;
+    color: rgb(204, 201, 201);
 }
 
 .Up-cost:hover {
-    background-color: rgba(185, 1, 1, 0.838);
+    background-color: rgba(148, 14, 14, 0.855);
 }
 
 .Up-bought {
     width: 300px;
     height: 130px;
-    background-color: rgb(1, 167, 218);
+    background-color: rgb(6, 61, 78);
+    border: 2px solid rgb(30, 135, 135);
     font-size: 13px;
 }
 
 .Up-bought:hover {
-    background-color: rgba(0, 142, 140, 0.9);
+    background-color: rgba(5, 86, 85, 0.9);
 }
 
 .Up-buy {
@@ -295,7 +308,7 @@ body.light {
     height: auto;
     padding-bottom: 5px;
     font-size: 17px;
-    background-color: rgba(227, 0, 0, 0.855);
+    background-color: rgba(68, 5, 5, 0.967);
     position: relative;
 }
 
@@ -329,11 +342,11 @@ body.light {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    background-color: rgba(227, 0, 0, 0.855);
+    background-color: rgba(128, 13, 13, 0.855);
 }
 
 .Lup-cost:hover {
-    background-color: rgba(185, 1, 1, 0.838);
+    background-color: rgba(148, 14, 14, 0.855);
 }
 
 .Lup-bought {
@@ -345,11 +358,11 @@ body.light {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    background-color: rgb(1, 167, 218);
+    background-color: rgb(6, 61, 78);
 }
 
 .Lup-bought:hover {
-    background-color: rgba(0, 142, 140, 0.9);
+    background-color: rgba(5, 86, 85, 0.9);
 }
 
 .Lup-buy {

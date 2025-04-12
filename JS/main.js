@@ -13,112 +13,7 @@ let player = {
     LinearUnl: false,
     ChalsUnl: false,
     saved: false,
-    buildings: {
-        Classmate: {
-            amount: new Decimal(0),
-            eff: new Decimal(1),
-            cost: new Decimal(10),
-            automation: false,
-        },
-        Teacher: {
-            amount: new Decimal(0),
-            eff: new Decimal(20),
-            cost: new Decimal(150),
-            automation: false,
-        },
-        Professor: {
-            amount: new Decimal(0),
-            eff: new Decimal(150),
-            cost: new Decimal(2000),
-            automation: false,
-        },
-        tbuildings: new Decimal(0),
-    },
-    upgrades: {
-        up1: {
-            bought: false,
-            cost: new Decimal(1000),
-            eff: new Decimal(1),
-        },
-        up2: {
-            bought: false,
-            cost: new Decimal(40000),
-            eff: new Decimal(1),
-        },
-        up3: {
-            bought: false,
-            cost: new Decimal(3.5e5),
-        },
-        up4: {
-            bought: false,
-            cost: new Decimal(3e6),
-            eff: new Decimal(1),
-        },
-        up5: {
-            bought: false,
-            cost: new Decimal(1.5e7),
-            eff: new Decimal(1),
-        },
-        up6: {
-            bought: false,
-            cost: new Decimal(3e8),
-        }
-    },
-    linear_upgrades: {
-        up1: {
-            bought: false,
-            cost: new Decimal(1),
-            eff: new Decimal(1)
-        },
-        up2: {
-            bought: false,
-            cost: new Decimal(1),
-        },
-        up3: {
-            bought: false,
-            cost: new Decimal(3),
-        },
-        up4: {
-            bought: false,
-            cost: new Decimal(5),
-        },
-        up5: {
-            bought: false,
-            cost: new Decimal(1e4),
-            eff: new Decimal(1),
-        },
-        up6: {
-            bought: false,
-            cost: new Decimal(2e4),
-            eff: new Decimal(1),
-        },
-        up7: {
-            bought: false,
-            cost: new Decimal(5e4),
-        },
-        up8: {
-            bought: false,
-            cost: new Decimal(7.5e4),
-        },
-        up9: {
-            bought: false,
-            cost: new Decimal(1e5),
-        },
-        up10: {
-            bought: false,
-            eff: new Decimal(1),
-            cost: new Decimal(2e5),
-        },
-        up11: {
-            bought: false,
-            eff: new Decimal(1),
-            cost: new Decimal(5e5),
-        },
-        up12: {
-            bought: false,
-            cost: new Decimal(1e6),
-        },
-    },
+    tbuildings: new Decimal(0),
     equations: {
         equation1: {
             eff: new Decimal(1),
@@ -132,10 +27,10 @@ let player = {
             y: new Decimal(1)
         },  
         multiplicator1: {
-            cost: new Decimal(5e5),
+            cost: new Decimal(2e5),
         },
         xbuyer: {
-            cost: new Decimal(1e9),
+            cost: new Decimal(1e8),
             amount: new Decimal(0),
         },
         nbuyer: {
@@ -167,53 +62,6 @@ let player = {
                 amount: new Decimal(1)
             },
         }
-    },
-    achievements: {
-        achv1: {
-            completed: false
-        },
-        achv2: {
-            completed: false
-        },
-        achv3: {
-            completed: false
-        },
-        achv4: {
-            completed: false
-        },
-        achv5: {
-            completed: false
-        },
-        achv6: {
-            completed: false
-        },
-        achv7: {
-            completed: false
-        },
-        achv8: {
-            completed: false
-        },
-        achv9: {
-            completed: false
-        },
-        achv10: {
-            completed: false
-        },
-        achv11: {
-            completed: false
-        },
-        achv12: {
-            completed: false
-        },
-        achv13: {
-            completed: false
-        },
-        achv14: {
-            completed: false
-        },
-        achv15: {
-            completed: false
-        },
     },
     linear_challenges: {
         chal1: {
@@ -266,36 +114,56 @@ function GetPoints() {
     player.tpoints = player.tpoints.add(1)
 }
 
-function BuyClassmate() {
-    if(player.points.gte(player.buildings.Classmate.cost) && player.linear_challenges.chal3.inChal === false
-        && player.linear_challenges.chal4.inChal === false) {
-        if(player.linear_upgrades.up9.bought === false) {
-            player.points = player.points.sub(player.buildings.Classmate.cost)
-        }
-        player.buildings.Classmate.amount = player.buildings.Classmate.amount.add(1)
-        player.buildings.tbuildings = player.buildings.tbuildings.add(1)
+var buildings = []
+var upgrades = []
+var linearUpgrades = []
+
+for(let i = 0; i < 3; i++) {
+    let building = {
+        amount: new Decimal(0),
+        cost: new Decimal(10).pow(i+1),
+        eff: new Decimal(1),
+        automation: false,
     }
+    buildings.push(building)
 }
 
-function BuyTeacher() {
-    if(player.points.gte(player.buildings.Teacher.cost) && player.linear_challenges.chal3.inChal === false
-        && player.linear_challenges.chal4.inChal === false) {
-        if(player.linear_upgrades.up9.bought === false) {
-            player.points = player.points.sub(player.buildings.Teacher.cost)
-        }    
-        player.buildings.Teacher.amount = player.buildings.Teacher.amount.add(1)
-        player.buildings.tbuildings = player.buildings.tbuildings.add(1)
+for(let i = 0; i < 6; i++) {
+    let upgrade = {
+        bought: false,
+        cost: new Decimal(20000).mul(i + 1),
+        eff: new Decimal(1),
     }
+    upgrades.push(upgrade)
 }
 
-function BuyProfessor() {
-    if(player.points.gte(player.buildings.Professor.cost) && player.linear_challenges.chal3.inChal === false
-        && player.linear_challenges.chal4.inChal === false) {
+for(let i = 0; i < 12; i++) {
+    let linearUpgrade = {
+        bought: false,
+        cost: new Decimal(1),
+        eff: new Decimal(1),
+    }
+    linearUpgrades.push(linearUpgrade)
+}
+
+function BuyBuilding(i) {
+    let b = buildings[i - 1]
+    if(player.points.gte(b.cost) && player.linear_challenges.chal3.inChal != true && player.linear_challenges.chal4.inChal != true) {
         if(player.linear_upgrades.up9.bought === false) {
-            player.points = player.points.sub(player.buildings.Professor.cost)
+            player.points = player.points.sub(b.cost)
         }
-        player.buildings.Professor.amount = player.buildings.Professor.amount.add(1)
-        player.buildings.tbuildings = player.buildings.tbuildings.add(1)
+        if(i == 1) {
+            buildings[0].amount = buildings[0].amount.add(1)
+            buildings[0].cost = buildings[0].cost.mul(1.15)
+        }
+        if(i == 2) {
+            buildings[1].amount = buildings[1].amount.add(1)
+            buildings[1].cost = buildings[1].cost.mul(1.3)
+        }
+        if(i == 3) {
+            buildings[2].amount = buildings[2].amount.add(1)
+            buildings[2].cost = buildings[2].cost.mul(1.45)
+        }
     }
 }
 
@@ -307,7 +175,7 @@ function BuyMultiplication() {
         player.equations.equation1.x = player.equations.equation1.x.mul(2)
         player.equations.equation1.eff = player.equations.equation1.eff.mul(2)
         if(player.equations.equation1.x.lt(1e20)) {
-            player.equations.multiplicator1.cost = player.equations.multiplicator1.cost.mul(3.5)
+            player.equations.multiplicator1.cost = player.equations.multiplicator1.cost.mul(5)
         }
         else if(player.equations.equation1.x.gt(1e20)) {
             player.equations.multiplicator1.cost = player.equations.multiplicator1.cost.mul(30)
@@ -326,7 +194,7 @@ function BuyXBuyer() {
         player.equations.equation2.x = player.equations.equation2.x.add(1)
         player.equations.xbuyer.amount = player.equations.xbuyer.amount.add(1)
         if(player.equations.xbuyer.amount.lt(20)) {
-            player.equations.xbuyer.cost = player.equations.xbuyer.cost.mul(15)
+            player.equations.xbuyer.cost = player.equations.xbuyer.cost.mul(35)
         }
         else if(player.equations.xbuyer.amount.gte(20)) {
             player.equations.xbuyer.cost = player.equations.xbuyer.cost.mul(500)
@@ -353,45 +221,19 @@ function BuyNBuyer() {
     }
 }
 
-function BuyUp1() {
-    if(player.points.gte(player.upgrades.up1.cost) && player.upgrades.up1.bought === false && player.linear_challenges.chal2.inChal === false) {
-        player.points = player.points.sub(player.upgrades.up1.cost)
-        player.upgrades.up1.bought = true
+function BuyUp(i) {
+    let u = upgrades[i - 1]
+    if(player.points.gte(u.cost) && u.bought === false && player.linear_challenges.chal2.inChal === false) {
+        player.points = player.points.sub(u.cost)
+        u.bought = true
     }
 }
 
-function BuyUp2() {
-    if(player.points.gte(player.upgrades.up2.cost) && player.upgrades.up2.bought === false && player.linear_challenges.chal2.inChal === false) {
-        player.points = player.points.sub(player.upgrades.up2.cost)
-        player.upgrades.up2.bought = true
-    }
-}
-
-function BuyUp3() {
-    if(player.points.gte(player.upgrades.up3.cost) && player.upgrades.up3.bought === false && player.linear_challenges.chal2.inChal === false) {
-        player.points = player.points.sub(player.upgrades.up3.cost)
-        player.upgrades.up3.bought = true
-    }
-}
-
-function BuyUp4() {
-    if(player.points.gte(player.upgrades.up4.cost) && player.upgrades.up4.bought === false && player.linear_challenges.chal2.inChal === false) {
-        player.points = player.points.sub(player.upgrades.up4.cost)
-        player.upgrades.up4.bought = true
-    }
-}
-
-function BuyUp5() {
-    if(player.points.gte(player.upgrades.up5.cost) && player.upgrades.up5.bought === false && player.linear_challenges.chal2.inChal === false) {
-        player.points = player.points.sub(player.upgrades.up5.cost)
-        player.upgrades.up5.bought = true
-    }
-}
-
-function BuyUp6() {
-    if(player.points.gte(player.upgrades.up6.cost) && player.upgrades.up6.bought === false && player.linear_challenges.chal2.inChal === false) {
-        player.points = player.points.sub(player.upgrades.up6.cost)
-        player.upgrades.up6.bought = true
+function BuyLup(i) {
+    let lu = linearUpgrades[i - 1]
+    if(player.LinearEssence.gte(lu.cost) && lu.bought === false) {
+        player.LinearEssence = player.LinearEssence.sub(lu.cost)
+        lu.bought = true
     }
 }
 
@@ -400,26 +242,19 @@ function LinearEssenceReset() {
         player.LinearEssence = player.LinearEssence.add(player.LEgain)
         player.points = new Decimal(0)
         player.pointsPerSec = new Decimal(0)
-        player.buildings.Classmate.amount = new Decimal(0)
-        player.buildings.Classmate.cost = new Decimal(10)
-        player.buildings.Classmate.eff = new Decimal(1)
-        player.buildings.Teacher.amount = new Decimal(0)
-        player.buildings.Teacher.cost = new Decimal(150)
-        player.buildings.Teacher.eff = new Decimal(20)
-        player.buildings.Professor.amount = new Decimal(0)
-        player.buildings.Professor.cost = new Decimal(2000)
-        player.buildings.Professor.eff = new Decimal(150)
-        if(player.linear_upgrades.up7.bought == false) {
-            player.upgrades.up1.bought = false
-            player.upgrades.up1.eff = new Decimal(1)
-            player.upgrades.up2.bought = false
-            player.upgrades.up2.eff = new Decimal(1)
-            player.upgrades.up3.bought = false
-            player.upgrades.up4.bought = false
-            player.upgrades.up4.eff = new Decimal(1)
-            player.upgrades.up5.bought = false
-            player.upgrades.up5.eff = new Decimal(1)
-            player.upgrades.up6.bought = false
+        for(let i = 0; i < 3; i++) {
+            let b = buildings[i]
+            b.amount = new Decimal(0)
+            b.cost = new Decimal(10).pow(i + 1)
+            b.eff = new Decimal(1)
+        }
+        if(linearUpgrades[6].bought == false) {
+            for(let i = 0; i < 6; i++) {
+                let u = upgrades[i]
+                u.bought = false
+                u.cost = new Decimal(20000)
+                u.eff = new Decimal(1)
+            }
         }
         player.equations.equation1.eff = new Decimal(1)
         player.equations.equation1.x = new Decimal(1)
@@ -446,83 +281,6 @@ function BuyLUp1() {
     if(player.LinearEssence.gte(player.linear_upgrades.up1.cost) && player.linear_upgrades.up1.bought === false) {
         player.LinearEssence = player.LinearEssence.sub(player.linear_upgrades.up1.cost)
         player.linear_upgrades.up1.bought = true
-    }
-}
-
-function BuyLUp2() {
-    if(player.LinearEssence.gte(player.linear_upgrades.up2.cost) && player.linear_upgrades.up2.bought === false) {
-        player.LinearEssence = player.LinearEssence.sub(player.linear_upgrades.up2.cost)
-        player.linear_upgrades.up2.bought = true
-    }
-}
-
-function BuyLUp3() {
-    if(player.LinearEssence.gte(player.linear_upgrades.up3.cost) && player.linear_upgrades.up3.bought === false) {
-        player.LinearEssence = player.LinearEssence.sub(player.linear_upgrades.up3.cost)
-        player.linear_upgrades.up3.bought = true
-    }
-}
-
-function BuyLUp4() {
-    if(player.LinearEssence.gte(player.linear_upgrades.up4.cost) && player.linear_upgrades.up4.bought === false) {
-        player.LinearEssence = player.LinearEssence.sub(player.linear_upgrades.up4.cost)
-        player.linear_upgrades.up4.bought = true
-    }
-}
-
-function BuyLUp5() {
-    if(player.LinearEssence.gte(player.linear_upgrades.up5.cost) && player.linear_upgrades.up5.bought === false) {
-        player.LinearEssence = player.LinearEssence.sub(player.linear_upgrades.up5.cost)
-        player.linear_upgrades.up5.bought = true
-    }
-}
-
-function BuyLUp6() {
-    if(player.LinearEssence.gte(player.linear_upgrades.up6.cost) && player.linear_upgrades.up6.bought === false) {
-        player.LinearEssence = player.LinearEssence.sub(player.linear_upgrades.up6.cost)
-        player.linear_upgrades.up6.bought = true
-    }
-}
-
-function BuyLUp7() {
-    if(player.LinearEssence.gte(player.linear_upgrades.up7.cost) && player.linear_upgrades.up7.bought === false) {
-        player.LinearEssence = player.LinearEssence.sub(player.linear_upgrades.up7.cost)
-        player.linear_upgrades.up7.bought = true
-    }
-}
-
-function BuyLUp8() {
-    if(player.LinearEssence.gte(player.linear_upgrades.up8.cost) && player.linear_upgrades.up8.bought === false) {
-        player.LinearEssence = player.LinearEssence.sub(player.linear_upgrades.up8.cost)
-        player.linear_upgrades.up8.bought = true
-    }
-}
-
-function BuyLUp9() {
-    if(player.LinearEssence.gte(player.linear_upgrades.up9.cost) && player.linear_upgrades.up9.bought === false) {
-        player.LinearEssence = player.LinearEssence.sub(player.linear_upgrades.up9.cost)
-        player.linear_upgrades.up9.bought = true
-    }
-}
-
-function BuyLUp10() {
-    if(player.LinearEssence.gte(player.linear_upgrades.up10.cost) && player.linear_upgrades.up10.bought === false) {
-        player.LinearEssence = player.LinearEssence.sub(player.linear_upgrades.up10.cost)
-        player.linear_upgrades.up10.bought = true
-    }
-}
-
-function BuyLUp11() {
-    if(player.LinearEssence.gte(player.linear_upgrades.up11.cost) && player.linear_upgrades.up11.bought === false) {
-        player.LinearEssence = player.LinearEssence.sub(player.linear_upgrades.up11.cost)
-        player.linear_upgrades.up11.bought = true
-    }
-}
-
-function BuyLUp12() {
-    if(player.LinearEssence.gte(player.linear_upgrades.up12.cost) && player.linear_upgrades.up12.bought === false) {
-        player.LinearEssence = player.LinearEssence.sub(player.linear_upgrades.up12.cost)
-        player.linear_upgrades.up12.bought = true
     }
 }
 

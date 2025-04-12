@@ -44,7 +44,7 @@
                 <button class="btn btn-dark" onclick="Dark()"> Dark </button>
             </div>
             <div class="container" id="Information">
-                <div class="text-center h2" id="Version"> Incremental Math v0.2 </div>
+                <div class="text-center h2" id="Version"> Incremental Math v0.2.1 </div>
                 <div class="text-center h5" id="Credits"> Credits: 
                     <br> J - for making the Calculating gain more easier, and saving system a lot easier to use
                 </div>
@@ -212,29 +212,29 @@
         <div class="container pt-5">
             <div class="container d-flex justify-content-center">
                 <div class="container" id="Building">
-                    <div class="text-center h5" id="building-amount"> Classmate [0] </div>
-                    <div class="text-center h6" id="building-production"> (+0 Points/sec) </div>
-                    <div class="text-center h5" id="building-prod"> gives +1 Point/sec </div>
+                    <div class="text-center h5"> Classmate <span id="building-amount1"> [0] </span> </div>
+                    <div class="text-center h6" id="building-production1"> (+0 Points/sec) </div>
+                    <div class="text-center h5" id="building-prod1"> gives +1 Point/sec </div>
                     <div class="text-center">
-                        <button class="Building-cost" id="Building-cost" onclick="BuyClassmate()"> Cost: 10 Points </button>
+                        <button class="Building-cost" id="Building-cost1" onclick="BuyBuilding(1)"> Cost: 10 Points </button>
                         <button class="Building-automation" id="Building-automation" onclick="TurnBuildingAutomation()"> Off </button>
                     </div>
                 </div>
                 <div class="container" id="Building">
-                    <div class="text-center h5" id="building-amount2"> Teacher [0] </div>
+                    <div class="text-center h5"> Teacher <span id="building-amount2"> [0] </span> </div>
                     <div class="text-center h6" id="building-production2"> (+0 Points/sec) </div>
-                    <div class="text-center h5" id="building-prod2"> gives +20 Point/sec </div>
+                    <div class="text-center h5" id="building-prod2"> gives +11 Point/sec </div>
                     <div class="text-center">
-                        <button class="Building-cost" id="Building-cost2" onclick="BuyTeacher()"> Cost: 150 Points </button>
+                        <button class="Building-cost" id="Building-cost2" onclick="BuyBuilding(2)"> Cost: 150 Points </button>
                         <button class="Building-automation" id="Building-automation2" onclick="TurnBuildingAutomation2()"> Off </button>
                     </div>
                 </div>
                 <div class="container" id="Building">
-                    <div class="text-center h5" id="building-amount3"> Professor [0] </div>
+                    <div class="text-center h5"> Professor <span id="building-amount3"> [0] </span> </div>
                     <div class="text-center h6" id="building-production3"> (+0 Points/sec) </div>
-                    <div class="text-center h5" id="building-prod3"> gives +150 Point/sec </div>
+                    <div class="text-center h5" id="building-prod3"> gives +121 Point/sec </div>
                     <div class="text-center">
-                        <button class="Building-cost" id="Building-cost3" onclick="BuyProfessor()"> Cost: 2000 Points </button>
+                        <button class="Building-cost" id="Building-cost3" onclick="BuyBuilding(3)"> Cost: 2000 Points </button>
                         <button class="Building-automation" id="Building-automation3" onclick="TurnBuildingAutomation3()"> Off </button>
                     </div>
                 </div>
@@ -277,42 +277,44 @@
             <div class="text-center pt-3" id="Upgrades">
                 <div id="up-t"> Union of Upgrades </div>
                 <div class="container" id="row1">
-                    <button class="Up-cost" id="up-cost1" onclick="BuyUp1()">
+                    <button class="Up-cost" id="up-cost1" onclick="BuyUp(1)">
                         <div id="up-name"> [Help in need] </div>
                         <div id="up-desc"> Multiply your Classmate gain by (log10(Points) + 1) * 2.5 </div>
                         <div id="up-eff1"> Currently: 1x boost </div>
-                        <div id="up-cost1"> Cost: 1,000 Points </div>
+                        <div id="up-cost1"> Cost: 20,000 Points </div>
                     </button>
-                    <button class="Up-cost" id="up-cost2" onclick="BuyUp2()">
+                    <button class="Up-cost" id="up-cost2" onclick="BuyUp(2)">
                         <div id="up-name"> [Higher Raise] </div>
                         <div id="up-desc"> Professors gives teachers a raise, they make more points by sqrt(Professor) + 1 </div>
                         <div id="up-eff2"> Currently: 1x boost </div>
-                        <div id="up-cost2"> Cost: 40,000 Points </div>
+                        <div id="up-cost2"> Cost: 75,000 Points </div>
                     </button>
-                    <button class="Up-cost" id="up-cost3" onclick="BuyUp3()">
+                    <button class="Up-cost" id="up-cost3" onclick="BuyUp(3)">
                         <div id="up-name"> [Mathematical Problems] </div>
                         <div id="up-desc"> Unlock the Equation </div>
-                        <div id="up-cost3"> Cost: 350,000 Points </div>
+                        <div id="up-eff3"></div>
+                        <div id="up-cost3"> Cost: 150,000 Points </div>
                     </button>
                 </div>
-                <div id="note"> Next row of upgrades at 1 Million points </div>
+                <div id="note"> Next row of upgrades at 300,000 Points </div>
                 <div class="container" id="row2">
-                    <button class="Up-cost" id="up-cost4" onclick="BuyUp4()">
+                    <button class="Up-cost" id="up-cost4" onclick="BuyUp(4)">
                         <div id="up-name"> [Self synergism] </div>
                         <div id="up-desc"> Points boost themselfs on a reduced rate </div>
                         <div id="up-eff4"> Currently: 1x boost </div>
-                        <div id="up-cost4"> Cost: 3,000,000 Points </div>
+                        <div id="up-cost4"> Cost: 300,000 Points </div>
                     </button>
-                    <button class="Up-cost" id="up-cost5" onclick="BuyUp5()">
+                    <button class="Up-cost" id="up-cost5" onclick="BuyUp(5)">
                         <div id="up-name"> [Professional boost] </div>
                         <div id="up-desc"> Professors boost themselfs on a reduced rate </div>
                         <div id="up-eff5"> Currently: 1x boost </div>
-                        <div id="up-cost5"> Cost: 15,000,000 Points </div>
+                        <div id="up-cost5"> Cost: 4,500,000 Points </div>
                     </button>
-                    <button class="Up-cost" id="up-cost6" onclick="BuyUp6()">
+                    <button class="Up-cost" id="up-cost6" onclick="BuyUp(6)">
                         <div id="up-name"> [Graphical Problems] </div>
                         <div id="up-desc"> Unlock the 2nd Equation </div>
-                        <div id="up-cost6"> Cost: 300,000,000 Points </div>
+                        <div id="up-eff6"></div>
+                        <div id="up-cost6"> Cost: 10,000,000 Points </div>
                     </button>
                 </div>
             </div>
@@ -332,73 +334,73 @@
             <div class="container">
                 <div class="text-center pt-2" id="LinearUpgrades">
                     <div class="container" id="Lrow1">
-                        <button class="Lup-cost" id="lup-cost1" onclick="BuyLUp1()">
+                        <button class="Lup-cost" id="lup-cost1" onclick="BuyLup(1)">
                             <div id="lup-name"> [Speedrunning] </div>
-                            <div id="lup-desc"> Boost your points gain based on your unspent Linear essence </div>
-                            <div id="lup-eff1"> Currently: 4x boost </div>
+                            <div id="lup-desc1"> Boost your points based on unspent Linear Essence </div>
+                            <div id="lup-eff1"> Currently: 1x boost </div>
                             <div id="lup-cost1"> Cost: 1 Linear Essence </div>
                         </button>
-                        <button class="Lup-cost" id="lup-cost2" onclick="BuyLUp2()">
+                        <button class="Lup-cost" id="lup-cost2" onclick="BuyLup(2)">
                             <div id="lup-name"> [Old shall not be forgotten] </div>
-                            <div id="lup-desc"> Boost your 1st upgrade by x5 </div>
+                            <div id="lup-desc2"> Boost your 1st upgrade by x5 </div>
                             <div id="lup-cost2"> Cost: 1 Linear Essence </div>
                         </button>
-                        <button class="Lup-cost" id="lup-cost3" onclick="BuyLUp3()">
+                        <button class="Lup-cost" id="lup-cost3" onclick="BuyLup(3)">
                             <div id="lup-name"> [Automation Age] </div>
-                            <div id="lup-desc"> Automate Buildings </div>
+                            <div id="lup-desc3"> Automate Buildings </div>
                             <div id="lup-cost3"> Cost: 3 Linear Essence </div>
                         </button>
-                        <button class="Lup-cost" id="lup-cost4" onclick="BuyLUp4()">
+                        <button class="Lup-cost" id="lup-cost4" onclick="BuyLup(4)">
                             <div id="lup-name"> [Unlocker] </div>
-                            <div id="lup-desc"> Unlock abillity to increase n in graphic equation </div>
+                            <div id="lup-desc4"> Unlock abillity to increase n in graphic equation </div>
                             <div id="lup-cost4"> Cost: 5 Linear Essence </div>
                         </button>
                     </div>
                     <div class="container" id="Lrow2">
-                        <button class="Lup-cost" id="lup-cost5" onclick="BuyLUp5()">
+                        <button class="Lup-cost" id="lup-cost5" onclick="BuyLup(5)">
                             <div id="lup-name"> [Faster Pre-Linear runs] </div>
-                            <div id="lup-desc"> Your buildings are boosted by your points at a reduced rate </div>
+                            <div id="lup-desc5"> Your buildings are boosted by your points at a reduced rate </div>
                             <div id="lup-eff5"> Currently: 1x boost </div>
                             <div id="lup-cost5"> Cost: 10,000 Linear Essence </div>
                         </button>
-                        <button class="Lup-cost" id="lup-cost6" onclick="BuyLUp6()">
+                        <button class="Lup-cost" id="lup-cost6" onclick="BuyLup(6)">
                             <div id="lup-name"> [Linearly more linears] </div>
-                            <div id="lup-desc"> Linear Essence boost themself at a reduced rate </div>
+                            <div id="lup-desc6"> Linear Essence boost themself at a reduced rate </div>
                             <div id="lup-eff6"> Currently: 1x boost </div>
                             <div id="lup-cost6"> Cost: 20,000 Linear Essence </div>
                         </button>
-                        <button class="Lup-cost" id="lup-cost7" onclick="BuyLUp7()">
+                        <button class="Lup-cost" id="lup-cost7" onclick="BuyLup(7)">
                             <div id="lup-name"> [Quality of Life] </div>
-                            <div id="lup-desc"> Keep upgrades on reset </div>
+                            <div id="lup-desc7"> Keep upgrades on reset </div>
                             <div id="lup-cost7"> Cost: 50,000 Linear Essence </div>
                         </button>
-                        <button class="Lup-cost" id="lup-cost8" onclick="BuyLUp8()">
+                        <button class="Lup-cost" id="lup-cost8" onclick="BuyLup(8)">
                             <div id="lup-name"> [Linear Problems] </div>
-                            <div id="lup-desc"> Unlock Linear Challenges </div>
+                            <div id="lup-desc8"> Unlock Linear Challenges </div>
                             <div id="lup-cost8"> Cost: 75,000 Linear Essence </div>
                         </button>
                     </div>
                     <div class="container" id="Lrow3">
-                        <button class="Lup-cost" id="lup-cost9" onclick="BuyLUp9()">
+                        <button class="Lup-cost" id="lup-cost9" onclick="BuyLup(9)">
                             <div id="lup-name"> [Quality of Life 2] </div>
-                            <div id="lup-desc"> Your buildings, 1st and 2nd equation buyers don't spend your points </div>
+                            <div id="lup-desc9"> Your buildings, 1st and 2nd equation buyers don't spend your points </div>
                             <div id="lup-cost9"> Cost: 100,000 Linear Essence </div>
                         </button>
-                        <button class="Lup-cost" id="lup-cost10" onclick="BuyLUp10()">
+                        <button class="Lup-cost" id="lup-cost10" onclick="BuyLup(10)">
                             <div id="lup-name"> [Building Points] </div>
-                            <div id="lup-desc"> Points are boosted by buildings on a reduced rate </div>
+                            <div id="lup-desc10"> Points are boosted by buildings on a reduced rate </div>
                             <div id="lup-eff10"> Currently: 1x boost </div>
                             <div id="lup-cost10"> Cost: 200,000 Linear Essence </div>
                         </button>
-                        <button class="Lup-cost" id="lup-cost11" onclick="BuyLUp11()">
+                        <button class="Lup-cost" id="lup-cost11" onclick="BuyLup(11)">
                             <div id="lup-name"> [Linearly powerful] </div>
-                            <div id="lup-desc"> Your Linear Power production is boosted by Linear Essence on a reduced rate </div>
+                            <div id="lup-desc11"> Your Linear Power production is boosted by Linear Essence on a reduced rate </div>
                             <div id="lup-eff11"> Currently: 1x boost </div>
                             <div id="lup-cost11"> Cost: 500,000 Linear Essence </div>
                         </button>
-                        <button class="Lup-cost" id="lup-cost12" onclick="BuyLUp12()">
+                        <button class="Lup-cost" id="lup-cost12" onclick="BuyLup(12)">
                             <div id="lup-name"> [Squared and Cubed] </div>
-                            <div id="lup-desc"> Unlock Squares and Prisms </div>
+                            <div id="lup-desc12"> Unlock Squares and Prisms </div>
                             <div id="lup-cost12"> Cost: 1,000,000 Linear Essence </div>
                         </button>
                     </div>

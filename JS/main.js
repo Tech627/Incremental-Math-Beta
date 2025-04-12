@@ -149,7 +149,7 @@ for(let i = 0; i < 12; i++) {
 function BuyBuilding(i) {
     let b = buildings[i - 1]
     if(player.points.gte(b.cost) && player.linear_challenges.chal3.inChal != true && player.linear_challenges.chal4.inChal != true) {
-        if(player.linear_upgrades.up9.bought === false) {
+        if(linearUpgrades[8].bought === false) {
             player.points = player.points.sub(b.cost)
         }
         if(i == 1) {
@@ -169,7 +169,7 @@ function BuyBuilding(i) {
 
 function BuyMultiplication() {
     if(player.points.gte(player.equations.multiplicator1.cost)) {
-        if(player.linear_upgrades.up9.bought === false) {
+        if(linearUpgrades[8].bought === false) {
             player.points = player.points.sub(player.equations.multiplicator1.cost)
         }
         player.equations.equation1.x = player.equations.equation1.x.mul(2)
@@ -188,7 +188,7 @@ function BuyMultiplication() {
 
 function BuyXBuyer() {
     if(player.points.gte(player.equations.xbuyer.cost)) {
-        if(player.linear_upgrades.up9.bought === false) {
+        if(linearUpgrades[8].bought === false) {
             player.points = player.points.sub(player.equations.xbuyer.cost)
         }
         player.equations.equation2.x = player.equations.equation2.x.add(1)
@@ -207,7 +207,7 @@ function BuyXBuyer() {
 
 function BuyNBuyer() {
     if(player.points.gte(player.equations.nbuyer.cost)) {
-        if(player.linear_upgrades.up9.bought === false) {
+        if(linearUpgrades[8].bought === false) {
             player.points = player.points.sub(player.equations.nbuyer.cost)
         }
         player.equations.equation2.n = player.equations.equation2.n.add(1)

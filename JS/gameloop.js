@@ -87,12 +87,8 @@ function UpdateGUI() {
         if(upgrades[2].bought != true) {
             document.getElementById("Equation").classList.remove("unlocked")
         }
-        if(upgrades[2].bought === true) {
-            player.achievements.achv4.completed = true
-        }
         if(upgrades[5].bought === true) {
             document.getElementById("Equation2").classList.add("unlocked")
-            player.achievements.achv7.completed = true
         }
         if(upgrades[5].bought != true) {
             document.getElementById("Equation2").classList.remove("unlocked")
@@ -131,11 +127,17 @@ function UpdateGUI() {
         if(buildings[2].amount.gte(1)) {
             achievements[2].completed = true
         }
+        if(upgrades[2].bought === true) {
+            achievements[3].completed = true
+        }
         if(player.points.gte(3e5)) {
             achievements[4].completed = true
         }
         if(player.points.gte(1e7)) {
             achievements[5].completed = true
+        }
+        if(upgrades[5].bought === true) {
+            achievements[6].completed = true
         }
         if(player.equations.equation2.y.gte(5)) {
             achievements[7].completed = true

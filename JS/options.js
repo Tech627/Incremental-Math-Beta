@@ -6,35 +6,33 @@ function Dark() {
     document.getElementById("body").classList.remove("light")
 }
 
-function TurnBuildingAutomation() {
-    if(player.buildings.Classmate.automation === false) {
-        player.buildings.Classmate.automation = true
-        document.getElementById("Building-automation").textContent = "On"
+var building = []
+
+for(let i = 0; i < 3; i++) {
+    let building = {
+        amount: new Decimal(0),
+        cost: new Decimal(10).pow(i+1),
+        eff: new Decimal(1).mul(new Decimal(11).pow(i)),
+        automation: false,
     }
-    else if (player.buildings.Classmate.automation === true) {
-        player.buildings.Classmate.automation = false
-        document.getElementById("Building-automation").textContent = "Off"
+    buildings.push(building)
+}
+
+function TurnBuildingAutomation(i) {
+    let b = buildings[i - 1]
+    if(b.automation === false) {
+        b.automation = true
+        document.getElementById("Building-automation" + i).textContent = "On"
+    }
+    else if (b.automation === true) {
+        b.automation = false
+        document.getElementById("Building-automation" + i).textContent = "Off"
     }
 }
 
-function TurnBuildingAutomation2() {
-    if(player.buildings.Teacher.automation === false) {
-        player.buildings.Teacher.automation = true
-        document.getElementById("Building-automation2").textContent = "On"
-    }
-    else if (player.buildings.Teacher.automation === true) {
-        player.buildings.Teacher.automation = false
-        document.getElementById("Building-automation2").textContent = "Off"
-    }
-}
+let alertcontent = false
 
-function TurnBuildingAutomation3() {
-    if(player.buildings.Professor.automation === false) {
-        player.buildings.Professor.automation = true
-        document.getElementById("Building-automation3").textContent = "On"
-    }
-    else if (player.buildings.Professor.automation === true) {
-        player.buildings.Professor.automation = false
-        document.getElementById("Building-automation3").textContent = "Off"
-    }
+function AlertButton() {
+    HardReset()
+    alertcontent = true
 }

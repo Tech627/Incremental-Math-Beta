@@ -13,6 +13,35 @@ body.light {
     height: 100%;
 }
 
+.Alert {
+    width: 350px;
+    height: 160px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -175px;
+    margin-top: -80px;
+    background-color: rgb(63, 63, 63);
+    display: flex;
+    justify-content: center;
+}
+
+#alert-txt {
+    position: absolute;
+    top: 10;
+}
+
+#alert-desc {
+    position: absolute;
+    top: 35;
+}
+
+#alert-ok-button {
+    position: absolute;
+    right: 10;
+    bottom: 10;
+}
+
 .Building-cost {
     background-color: rgba(227, 0, 0, 0.855);
     border: 2px solid maroon
@@ -29,6 +58,10 @@ body.light {
 
 .Building-buy:hover {
     background-color: rgba(0, 189, 0, 0.9);
+}
+
+#Bld-1.hide {
+    visibility: hidden;
 }
 
 #sub-tabs {
@@ -77,6 +110,37 @@ body.light {
     align-items: center;
 }
 
+#upgradetab {
+    width: 150px;
+    height: 50px;
+    background-color: rgba(43, 43, 43, 0.801);
+    color: rgb(135, 135, 135);
+    border: 1px solid rgb(78, 78, 78);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#upgradetab.available,
+#layertab.available {
+    border: 1px solid rgb(143, 26, 26);
+}
+
+#upgrade-available {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    top: 47;
+    left: -3;
+    background-color: rgb(22, 185, 22);
+    display: none;
+}
+
+#upgrade-available.show {
+    display: block;
+}
+
 #layertab {
     display: none;
 }
@@ -92,6 +156,21 @@ body.light {
     align-items: center;
 }
 
+#lupgrade-available {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    top: 97;
+    left: -3;
+    background-color: rgb(206, 35, 12);
+    display: none;
+}
+
+#lupgrade-available.show {
+    display: block;
+}
+
 .content {
     display: none;
 }
@@ -102,10 +181,12 @@ body.light {
 
 .sub-content {
     display: none;
+    position: relative;
 }
 
 .sub-content.active {
     display: block;
+    position: relative;
 }
 
 #s-text,
@@ -173,6 +254,12 @@ body.light {
     display: block;
 }
 
+#solved-equation {
+    color: rgb(87, 87, 87);
+    font-size: 14px;
+    margin-top: -10px;
+}
+
 #up-t {
     font-size: 25px;
     font-weight: bolder;
@@ -237,6 +324,17 @@ body.light {
     gap: 5px;
 }
 
+#row3 {
+    display: none;
+}
+
+#row3.show {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 25px;
+}
+
 .Achv {
     width: 150px;
     height: 150px;
@@ -284,6 +382,42 @@ body.light {
     margin-bottom: 5px;
 }
 
+#achv-row4 {
+    display: none;
+}
+
+#achv-row4.unlocked {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+#softcaptab {
+    width: 150px;
+    height: 50px;
+    background-color: rgba(43, 43, 43, 0.801);
+    color: rgb(135, 135, 135);
+    border: 1px solid rgb(78, 78, 78);
+    display: none;
+}
+
+#softcaptab.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#LEs,
+#Ps {
+    display: none;
+}
+
+#LEs.show,
+#Ps.show {
+    display: block;
+}
+
 #Save-notification {
     position: absolute;
     right: 0;
@@ -297,13 +431,14 @@ body.light {
 }
 
 #Save-notification.save {
-    display: block;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#Building {
+#Building1,
+#Building2,
+#Building3 {
     width: 300px;
     height: auto;
     padding-bottom: 5px;
@@ -338,10 +473,6 @@ body.light {
     height: 140px;
     font-size: 14px;
     font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
     background-color: rgba(128, 13, 13, 0.855);
 }
 
@@ -354,10 +485,6 @@ body.light {
     height: 140px;
     font-size: 14px;
     font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
     background-color: rgb(6, 61, 78);
 }
 
@@ -370,10 +497,6 @@ body.light {
     height: 140px;
     font-size: 14px;
     font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
     background-color: rgb(1, 218, 27);
 }
 
@@ -482,21 +605,6 @@ body.light {
     align-items: center;
 }
 
-#Squares-tab {
-    display: none;
-}
-
-#Squares-tab.unlocked {
-    width: 170px;
-    height: 30px;
-    padding: 5px;
-    background-color: rgba(14, 203, 58, 0.801);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 #Chal-grid {
     width: 1000px;
     height: auto;
@@ -512,10 +620,6 @@ body.light {
     height: 200px;
     font-size: 15px;
     font-weight: bolder;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
     background-color: rgba(227, 0, 0, 0.855);
 }
 
@@ -528,10 +632,6 @@ body.light {
     height: 200px;
     font-size: 15px;
     font-weight: bolder;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
     background-color: rgb(214, 169, 4);
 }
 
@@ -539,20 +639,34 @@ body.light {
     background-color: rgb(175, 138, 4);
 }
 
+.Challenge.beatable {
+    background-color: rgb(30, 135, 135);
+}
+
+.Challenge.beatable:hover {
+    background-color: rgba(0, 142, 140, 0.9);
+}
+
 .Challenge-completed {
     width: 300px;
     height: 200px;
     font-size: 15px;
     font-weight: bolder;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
     background-color: rgb(1, 218, 27);
 }
 
 .Challenge-completed:hover {
     background-color: rgba(0, 189, 0, 0.9);
+}
+
+#Challenge5,
+#Challenge6 {
+    display: none;
+}
+
+#Challenge5.show,
+#Challenge6.show {
+    display: block;
 }
 
 #Guide {
@@ -576,17 +690,14 @@ body.light {
 }
 
 .Linear-essence-guide,
-.Linear-chals-guide {
+.Linear-chals-guide,
+.Polygons-guide {
     display: none;
 }
 
-.Linear-essence-guide.unlocked {
-    display: block;
-    padding-top: 10px;
-    color: rgb(8, 224, 84);
-}
-
-.Linear-chals-guide.unlocked {
+.Linear-essence-guide.unlocked,
+.Linear-chals-guide.unlocked,
+.Polygons-guide.unlocked {
     display: block;
     padding-top: 10px;
     color: rgb(8, 224, 84);
@@ -600,95 +711,198 @@ body.light {
     display: block;
 }
 
-#square-and-prism {
-    display: flex;
+#Polygons-tab {
+    width: 150px;
+    height: 30px;
+    padding: 5px;
+    background-color: rgba(14, 203, 58, 0.801);
+    color: white;
     justify-content: center;
-    gap: 100px;
+    align-items: center;
+    display: none;
 }
 
-#s-t {
-    font-size: 32px;
+#Polygons-tab.show {
+    display: flex;
+}
+
+#polygoncanvas {
+    visibility: hidden;
+}
+
+#polygoncanvas.show {
+    visibility: visible;
+}
+
+#polygon-info {
+    position: absolute;
+    left: 50%;
+    top: 50%; 
+    margin-left: -250px; 
+    margin-top: 150px;
+}
+
+#polygon-info.hide {
+    visibility: hidden;
+}
+
+#Polygon-amount {
+    position: absolute;
+    left: 50%;
+    top: 50%; 
+    margin-left: -135px; 
+    margin-top: 445px;
+    visibility: hidden;
+}
+
+#Polygon-amount.show {
+    visibility: visible;
+}
+
+#Dimensions {
+    width: 380px;
+    position: absolute;
+    right: 0;
+    margin-right: 160px;
+    top: 10;
+    visibility: hidden;
+}
+
+#Dimensions.show {
+    visibility: visible;
+}
+
+#Polygon-boosts {
+    width: 390px;
+    position: absolute;
+    right: 0;
+    margin-right: 160px;
+    top: 200;
+    visibility: hidden;
+}
+
+#Polygon-dimension {
+    width: 260px;
+    text-align: center;
+    font-size: 18px;
+}
+
+#latex-equation {
+    font-size: 11px;
+    position: absolute;
+    right: 102;
+}
+
+#Polygon-boosts.show {
+    visibility: visible;
+}
+
+#Buyables {
+    position: absolute;
+    left: 0;
+    margin-left: 200px;
+    margin-top: 10px;
+    display: none;
+}
+
+#Buyables.show {
+    display: block;
+}
+
+.buyable {
+    width: 260px;
+    height: 170px;
+    padding: 5px;
+    font-size: 15px;
     font-weight: bolder;
-    font-style: italic;
-}
-
-#squares-amount {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-#a-buyer {
-    display: flex;
-    justify-content: center;
-}
-
-.Buy-a-square {
-    width: 120px;
-    height: 120px;
-    font-size: 14px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    background-color: rgba(227, 0, 0, 0.855);
+    background-color: rgba(125, 125, 125, 0.855);
 }
 
-.Buy-a-square:hover {
-    background-color: rgba(185, 1, 1, 0.838);
+.buyable.available {
+    background-color: rgb(61, 65, 117);
 }
 
-.Buy-a-square.bought {
-    width: 120px;
-    height: 120px;
-    font-size: 14px;
-    display: flex;
+#Height,
+#W-axis,
+#V-axis {
+    display: none;
+}
+
+#Height.show,
+#W-axis.show,
+#V-axis.show {
+    display: block;
+}
+
+#Tangent-tab {
+    width: 150px;
+    height: 30px;
+    padding: 5px;
+    background-color: rgba(14, 203, 58, 0.801);
+    color: white;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    background-color: rgb(1, 167, 218);
+    display: none;
 }
 
-.Buy-a-square.bought:hover {
-    background-color: rgba(0, 142, 140, 0.9);
+#Power-of-pi {
+    width: 300px;
+    position: absolute;
+    top: 10;
+    left: 0;
+    margin-left: 200px;
+    text-align: center;
 }
 
-#p-t {
-    font-size: 32px;
-    font-weight: bolder;
-    font-style: italic;
+#Tangent {
+    width: 500px;
+    position: absolute;
+    top: 10;
+    left: 50%;
+    margin-left: -250px;
+    text-align: center;
 }
 
-#prism-amount {
-    font-size: 24px;
-    font-weight: bold;
+#Equation-of-Tangent {
+    width: 300px;
+    position: absolute;
+    top: 10;
+    right: 0;
+    margin-right: 200px;
+    text-align: center;
 }
 
-.Buy-a-prism {
-    width: 120px;
-    height: 120px;
-    font-size: 14px;
+#Tangent-upgrades {
+    width: 500px;
+    margin-top: 5px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    background-color: rgba(227, 0, 0, 0.855);
+    gap: 2px;
 }
 
-.Buy-a-prism:hover {
-    background-color: rgba(185, 1, 1, 0.838);
-}
-
-.Buy-a-prism.bought {
-    width: 120px;
-    height: 120px;
-    font-size: 14px;
+#Tus {
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    background-color: rgb(1, 167, 218);
+    gap: 2px;
 }
 
-.Buy-a-prism.bought:hover {
-    background-color: rgba(0, 142, 140, 0.9);
+.Tup {
+    width: 250px;
+    height: 115px;
+    background-color: rgb(163, 163, 163);
+    font-size: 14px;
+    padding: 5px;
+}
+
+.Tup:hover {
+    background-color: rgb(145, 128, 128);
+    cursor: pointer;
+}
+
+#EoT-boost {
+    font-size: 13px;
 }

@@ -2,17 +2,6 @@ function saveitems(name, location) { // this basically just removes the localsto
     localStorage.setItem(name, JSON.stringify((location)));
 }
 
-var upgrades = []
-
-for(let i = 0; i < 6; i++) {
-    let upgrade = {
-        bought: false,
-        cost: new Decimal(20000),
-        eff: new Decimal(1),
-    }
-    upgrades.push(upgrade)
-}
-
 function Save() {
     if (localStorage) {
         saveitems("firstload", false)
@@ -35,21 +24,33 @@ function Save() {
             saveitems("amount" + (i + 1), b.amount)
             saveitems("eff" + (i + 1), b.eff)
             saveitems("cost" + (i + 1), b.cost)
+            saveitems("Building-automation" + (i + 1), b.automation)
         }
         saveitems("tbuildings", player.tbuildings)
-        for(let i = 0; i < 6; i++) {
+        for(let i = 0; i < 9; i++) {
             let u = upgrades[i]
             saveitems("up" + (i + 1) + "bought", u.bought)
             saveitems("up" + (i + 1) + "eff", u.eff)
         }
         for(let i = 0; i < 12; i++) {
             let lu = linearUpgrades[i]
-            saveitems("Lup" + (i + 1) + "bought", linearUpgrades[i].bought)
-            saveitems("Lup" + (i + 1) + "eff", linearUpgrades[i].eff)
+            saveitems("Lup" + (i + 1) + "bought", lu.bought)
+            saveitems("Lup" + (i + 1) + "eff", lu.eff)
         }
-        for(let i = 0; i < 15; i++) {
+        for(let i = 0; i < 20; i++) {
             let a = achievements[i]
-            saveitems("achv" + (i + 1) + "c", achievements[i].completed)
+            saveitems("achv" + (i + 1) + "c", a.completed)
+        }
+        for(let i = 0; i < 6; i++) {
+            let lc = linearChallenges[i]
+            saveitems("Lchal" + (i + 1) + "c", lc.completed)
+            saveitems("Lchal" + (i + 1) + "in", lc.inChal)
+            saveitems("Lchal" + (i + 1) + "eff", lc.eff)
+        }
+        for(let i = 0; i < 5; i++) {
+            let le = linearEquation[i]
+            saveitems((i + 1) + "amt", le.amount)
+            saveitems((i + 1) + "cost", le.cost)
         }
         saveitems("equation1eff", player.equations.equation1.eff)
         saveitems("equation1x", player.equations.equation1.x)
@@ -66,33 +67,21 @@ function Save() {
         saveitems("NBuyerUnl", player.equations.nbuyer.unlocked)
         saveitems("LinearEquationeff", player.equations.linear_equations.eff)
         saveitems("LinearEquationeff2", player.equations.linear_equations.eff2)
-        saveitems("Aamt", player.equations.linear_equations.a.amount)
-        saveitems("Acost", player.equations.linear_equations.a.cost)
-        saveitems("Xamt", player.equations.linear_equations.x.amount)
-        saveitems("Xcost", player.equations.linear_equations.x.cost)
-        saveitems("Bamt", player.equations.linear_equations.b.amount)
-        saveitems("Bcost", player.equations.linear_equations.b.cost)
-        saveitems("Yamt", player.equations.linear_equations.y.amount)
-        saveitems("Ycost", player.equations.linear_equations.y.cost)
-        saveitems("Camt", player.equations.linear_equations.c.amount)
-        saveitems("Ccost", player.equations.linear_equations.c.cost)
-        saveitems("Lchal1c", player.linear_challenges.chal1.completed)
-        saveitems("Lchal1in", player.linear_challenges.chal1.inChal)
-        saveitems("Lchal1eff", player.linear_challenges.chal1.eff)
-        saveitems("Lchal2c", player.linear_challenges.chal2.completed)
-        saveitems("Lchal2in", player.linear_challenges.chal2.inChal)
-        saveitems("Lchal3c", player.linear_challenges.chal3.completed)
-        saveitems("Lchal3in", player.linear_challenges.chal3.inChal)
-        saveitems("Lchal4c", player.linear_challenges.chal4.completed)
-        saveitems("Lchal4in", player.linear_challenges.chal4.inChal)
-        saveitems("squares-amt", player.squares_and_prism.squares.amount)
-        saveitems("squares-eff", player.squares_and_prism.squares.eff)
-        saveitems("a-square-amt", player.squares_and_prism.squares.abuyer.amount)
-        saveitems("a-square-cost", player.squares_and_prism.squares.abuyer.cost)
-        saveitems("prism-amt", player.squares_and_prism.square_prism.amount)
-        saveitems("prism-eff", player.squares_and_prism.square_prism.eff)
-        saveitems("a-prism-amt", player.squares_and_prism.square_prism.abuyer.amount)
-        saveitems("a-prism-cost", player.squares_and_prism.square_prism.abuyer.cost)
+        saveitems("psides", player.polygons.sides)
+        saveitems("pamount", player.polygons.amount)
+        saveitems("pdimensions", player.polygons.dimensions)
+        saveitems("length", player.polygons.length)
+        saveitems("width", player.polygons.width)
+        saveitems("height", player.polygons.height)
+        saveitems("w", player.polygons.w)
+        saveitems("v", player.polygons.v)
+        saveitems("punlocked", player.polygons.unlocked)
+        saveitems("pbuyable1c", player.polygons.buyable1.cost)
+        saveitems("pbuyable2c", player.polygons.buyable2.cost)
+        saveitems("alertcontent", alertcontent)
+        saveitems("LinearResetunl", LinearResetunl)
+        saveitems("softcapunl", player.softcapunl)
+        saveitems("lu3reset", lockedlu3reset)
         player.saved = true
         if(player.saved === true) {
             document.getElementById("Save-notification").classList.add("save")
@@ -106,7 +95,7 @@ function Save() {
 
 function GetItems(saved, newdecimal) { //removes json.parse and localstorage
     let location = "Error" // placeholder
-    if (saved) {
+    if (localStorage.getItem(saved)) {
         if (newdecimal) { // checks if the value your setting to needs to be in newdecimal or not
             location = new Decimal(JSON.parse(localStorage.getItem(saved)));
         } else {
@@ -125,7 +114,7 @@ function isFirstVisit() {
 }
 
 function Get() {
-    if (!localStorage) {return;}
+    if (!localStorage) return;
     if (!isFirstVisit()) {
         player.points = GetItems("points", true)
         player.pointgain = GetItems("pointgain", true)
@@ -145,9 +134,10 @@ function Get() {
             b.amount = GetItems("amount" + (i + 1), true)
             b.cost = GetItems("cost" + (i + 1), true)
             b.eff = GetItems("eff" + (i + 1), true)
+            b.automation = GetItems("Bulding-automation" + (i + 1), false)
         }
         player.tbuildings = GetItems("tbuildings", true)
-        for(let i = 0; i < 6; i++) {
+        for(let i = 0; i < 9; i++) {
             let u = upgrades[i]
             u.bought = GetItems("up" + (i + 1) + "bought", false)
             u.eff = GetItems("up" + (i + 1) + "eff", true)
@@ -157,9 +147,20 @@ function Get() {
             lu.bought = GetItems("Lup" + (i + 1) + "bought", false)
             lu.eff = GetItems("Lup" + (i + 1) + "eff", true)
         }
-        for(let i = 0; i < 15; i++) {
+        for(let i = 0; i < 20; i++) {
             let a = achievements[i]
             a.completed = GetItems("achv" + (i + 1) + "c", false)
+        }
+        for(let i = 0; i < 6; i++) {
+            let lc = linearChallenges[i]
+            lc.completed = GetItems("Lchal" + (i + 1) + "c", false)
+            lc.inChal = GetItems("Lchal" + (i + 1) + "in", false)
+            lc.eff = GetItems("Lchal" + (i + 1) + "eff", true)
+        }
+        for(let i = 0; i < 5; i++) {
+            let le = linearEquation[i]
+            le.amount = GetItems((i + 1) + "amt", true)
+            le.cost = GetItems((i + 1) + "cost", true)
         }
         player.equations.equation1.eff = GetItems("equation1eff", true)
         player.equations.equation1.x = GetItems("equation1x", true)
@@ -173,36 +174,25 @@ function Get() {
         player.equations.xbuyer.amount = GetItems("XBuyerAmt", true)
         player.equations.linear_equations.eff = GetItems("LinearEquationeff", true)
         player.equations.linear_equations.eff2 = GetItems("LinearEquationeff2", true)
-        player.equations.linear_equations.a.amount = GetItems("Aamt", true)
-        player.equations.linear_equations.a.cost = GetItems("Acost", true)
-        player.equations.linear_equations.x.amount = GetItems("Xamt", true)
-        player.equations.linear_equations.x.cost = GetItems("Xcost", true)
-        player.equations.linear_equations.b.amount = GetItems("Bamt", true)
-        player.equations.linear_equations.b.cost = GetItems("Bcost", true)
-        player.equations.linear_equations.y.amount = GetItems("Yamt", true)
-        player.equations.linear_equations.y.cost = GetItems("Ycost", true)
-        player.equations.linear_equations.c.amount = GetItems("Camt", true)
-        player.equations.linear_equations.c.cost = GetItems("Ccost", true)
         player.equations.nbuyer.cost = GetItems("NBuyerCost", true)
         player.equations.nbuyer.amount = GetItems("NBuyerAmt", true)
         player.equations.nbuyer.unlocked = GetItems("NBuyerUnl", false)
-        player.linear_challenges.chal1.completed = GetItems("Lchal1c", false)
-        player.linear_challenges.chal1.inChal = GetItems("Lchal1in", false)
-        player.linear_challenges.chal1.eff = GetItems("Lchal1eff", true)
-        player.linear_challenges.chal2.completed = GetItems("Lchal2c", false)
-        player.linear_challenges.chal2.inChal = GetItems("Lchal2in", false)
-        player.linear_challenges.chal3.completed = GetItems("Lchal3c", false)
-        player.linear_challenges.chal3.inChal = GetItems("Lchal3in", false)
-        player.linear_challenges.chal4.completed = GetItems("Lchal4c", false)
-        player.linear_challenges.chal4.inChal = GetItems("Lchal4in", false)
-        player.squares_and_prism.squares.amount = GetItems("squares-amt", true)
-        player.squares_and_prism.squares.eff = GetItems("squares-eff", true)
-        player.squares_and_prism.squares.abuyer.amount = GetItems("a-square-amt", true)
-        player.squares_and_prism.squares.abuyer.cost = GetItems("a-square-cost", true)
-        player.squares_and_prism.square_prism.amount = GetItems("prism-amt", true)
-        player.squares_and_prism.square_prism.eff = GetItems("prism-eff", true)
-        player.squares_and_prism.square_prism.abuyer.amount = GetItems("a-prism-amt", true)
-        player.squares_and_prism.square_prism.abuyer.cost = GetItems("a-prism-cost", true)
+        player.polygons.amount = GetItems("pamount", true)
+        player.polygons.sides = GetItems("psides", true)
+        player.polygons.dimensions = GetItems("pdimensions", true)
+        player.polygons.length = GetItems("length", true)
+        player.polygons.width = GetItems("width", true)
+        player.polygons.height = GetItems("height", true)
+        player.polygons.w = GetItems("w", true)
+        player.polygons.v = GetItems("v", true)
+        player.polygons.unlocked = GetItems("punlocked", false)
+        player.polygons.buyable1.cost = GetItems("pbuyable1c", true)
+        player.polygons.buyable2.cost = GetItems("pbuyable2c", true)
+        alertcontent = GetItems("alertcontent", false)
+        LinearResetunl = GetItems("LinearResetunl", false)
+        player.softcapunl = GetItems("softcapunl", false)
+        lockedlu3reset = GetItems("lu3reset", false)
+        fixSave() 
     } else {
         Save()
     }}
@@ -213,6 +203,33 @@ function HardReset() {
         saveitems("firstload", true)
         location.reload(true)
     }
+}
+
+function fixSave() {
+    defaultData = player
+
+    fixData(defaultData, player)
+}
+
+function fixData(defaultData, newData) {
+  for (item in defaultData) {
+    if (defaultData[item] == null) {
+      if (newData[item] === undefined) newData[item] = null;
+    } else if (Array.isArray(defaultData[item])) {
+      if (newData[item] === undefined) newData[item] = defaultData[item];
+      else fixData(defaultData[item], newData[item]);
+    } else if (defaultData[item] instanceof Decimal) {
+      // Convert to Decimal
+      if (newData[item] === undefined) newData[item] = defaultData[item];
+      else newData[item] = new Decimal(newData[item]);
+    } else if (!!defaultData[item] && typeof defaultData[item] === "object") {
+      if (newData[item] === undefined || typeof defaultData[item] !== "object")
+        newData[item] = defaultData[item];
+      else fixData(defaultData[item], newData[item]);
+    } else {
+      if (newData[item] === undefined) newData[item] = defaultData[item];
+    }
+  }
 }
 
 function Export() {
@@ -228,4 +245,4 @@ function Import() {
     window.location.reload()
 }
 
-//setInterval(Save, 15000)
+setInterval(Save, 15000)

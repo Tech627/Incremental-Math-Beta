@@ -70,6 +70,41 @@ function format(decimal, precision = 3, small) {
 
 }
 
+function lengthFormat(amount) {
+    amount = new Decimal(amount)
+    if(amount.lt(1000)) {
+        return format(amount) + " attometer"
+    }
+    if(amount.gte(1000) && amount.lt(1e6)) {
+        amount = amount.div(1000)
+        return format(amount) + " femtometer"
+    }
+    if(amount.gte(1e6) && amount.lt(1e9)) {
+        amount = amount.div(1e6)
+        return format(amount) + " picometer"
+    }
+    if(amount.gte(1e9) && amount.lt(1e12)) {
+        amount = amount.div(1e9)
+        return format(amount) + " nanometer"
+    }
+    if(amount.gte(1e12) && amount.lt(1e15)) {
+        amount = amount.div(1e12)
+        return format(amount) + " micrometer"
+    }
+    if(amount.gte(1e15) && amount.lt(1e16)) {
+        amount = amount.div(1e15)
+        return format(amount) + " millimeter"
+    }
+    if(amount.gte(1e16) && amount.lt(1e18)) {
+        amount = amount.div(1e16)
+        return format(amount) + " centimeter"
+    }
+    if(amount.gte(1e18)) {
+        amount = amount.div(1e18)
+        return format(amount) + " meter"
+    }
+}
+
 function formatWhole(decimal) {
     decimal = new Decimal(decimal)
     if (decimal.gte(1e9)) return format(decimal, 2)

@@ -691,13 +691,15 @@ body.light {
 
 .Linear-essence-guide,
 .Linear-chals-guide,
-.Polygons-guide {
+.Polygons-guide,
+.Tangent-guide {
     display: none;
 }
 
 .Linear-essence-guide.unlocked,
 .Linear-chals-guide.unlocked,
-.Polygons-guide.unlocked {
+.Polygons-guide.unlocked,
+.Tangent-guide.unlocked {
     display: block;
     padding-top: 10px;
     color: rgb(8, 224, 84);
@@ -849,6 +851,10 @@ body.light {
     display: none;
 }
 
+#Tangent-tab.show {
+    display: flex;
+}
+
 #Power-of-pi {
     width: 300px;
     position: absolute;
@@ -856,6 +862,30 @@ body.light {
     left: 0;
     margin-left: 200px;
     text-align: center;
+}
+
+.milestone {
+    width: 300px;
+    height: 95px;
+    font-size: 14px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    background-image: linear-gradient(90deg, rgb(73, 73, 73), rgb(26, 26, 26));
+    margin-bottom: 5px;
+}
+
+.pi-challenge {
+    width: 300px;
+    height: 120px;
+    font-size: 13px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    background-image: linear-gradient(90deg, rgb(73, 73, 73), rgb(26, 26, 26));
+    margin-top: 10px;
 }
 
 #Tangent {
@@ -879,9 +909,6 @@ body.light {
 #Tangent-upgrades {
     width: 500px;
     margin-top: 5px;
-    display: flex;
-    justify-content: center;
-    gap: 2px;
 }
 
 #Tus {
@@ -896,11 +923,34 @@ body.light {
     background-color: rgb(163, 163, 163);
     font-size: 14px;
     padding: 5px;
+    display: grid;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
 }
 
 .Tup:hover {
     background-color: rgb(145, 128, 128);
     cursor: pointer;
+}
+
+#Circle-arcs {
+    width: 500px;
+    text-align: center;
+}
+
+#CA {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#alpha-buyer,
+#radius-buyer {
+    width: 220px;
+    height: 65px;
+    font-size: 14px;
+    margin: 3px;
 }
 
 #EoT-boost {

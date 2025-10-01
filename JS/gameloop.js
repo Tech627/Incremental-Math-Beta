@@ -74,11 +74,14 @@ function UpdateGUI() {
         let b = buildings[i]
         document.getElementById("building-amount" + (i + 1)).textContent = "[" + formatWhole(b.amount) + "]"
         document.getElementById("building-production" + (i + 1)).textContent = "(+" + format(b.amount.mul(b.eff)) + " Points/sec)"
-        if (!linearChallenges[2].inChal && !linearChallenges[3].inChal) {
+        if (!linearChallenges[2].inChal) {
             document.getElementById("Building-cost" + (i + 1)).textContent = "Cost: " + format(b.cost) + " Points"
         } else {
             let l = linearChallenges[2].inChal ? 3 : 4;
                 document.getElementById("Building-cost" + (i + 1)).textContent = "LOCKED: LE Challenge " + l
+        }
+        if(b.automation == "Error") {
+            b.automation = false
         }
         if(b.automation) {
             if(upgrades[6].bought) {
@@ -108,7 +111,7 @@ function UpdateGUI() {
         upgrades[5].cost = new Decimal(1e7)
         upgrades[6].cost = new Decimal(1e85)
         upgrades[7].cost = new Decimal(1e100)
-        upgrades[8].cost = new Decimal(1e250)
+        upgrades[8].cost = new Decimal(1e200)
         buildings[0].eff = new Decimal(1)
         if(upgrades[0].bought) {
             buildings[0].eff = upgrades[0].eff
@@ -173,7 +176,7 @@ function UpdateGUI() {
         linearChallenges[0].goal = new Decimal(3e3)
         linearChallenges[1].goal = new Decimal(1e13)
         linearChallenges[2].goal = new Decimal(300)
-        linearChallenges[3].goal = new Decimal(500)
+        linearChallenges[3].goal = new Decimal(750)
         linearChallenges[4].goal = new Decimal(1e45)
         linearChallenges[5].goal = new Decimal(1e110)
         linearChallenges[0].eff = buildings[0].eff.pow(0.2).add(buildings[1].eff.pow(0.2).add(buildings[2].eff.pow(0.2)))
@@ -423,12 +426,18 @@ function UpdateGUI() {
         document.getElementById("Bld-1").classList.add("hide")
         document.getElementById("Building1").style.height = "90px"
     }
+    if(player.tangent.unlocked == "Error" || player.tangent.unlocked == null) {
+        player.tangent.unlocked = false
+    }
+    if(upgrades[8].bought) {
+        player.tangent.unlocked = true
+    }
 }
 
 function UpdateStyles() {
     for(let i = 0; i < 3; i++) {
         let b = buildings[i]
-        if(player.points.gte(b.cost) && !linearChallenges[2].inChal && !linearChallenges[3].inChal) {
+        if(player.points.gte(b.cost) && !linearChallenges[2].inChal) {
             document.getElementById("Building-cost" + (i + 1)).classList.remove("Building-cost")
             document.getElementById("Building-cost" + (i + 1)).classList.add("Building-buy")
         }
@@ -460,7 +469,7 @@ function UpdateStyles() {
             document.getElementById("up-cost" + (i + 1)).classList.add("Up-cost")
             document.getElementById("up-cost" + (i + 1)).classList.remove("Up-buy")
         }
-        if (linearChallenges[2].inChal || linearChallenges[3].inChal) {
+        if (linearChallenges[2].inChal) {
             document.getElementById("up-cost" + (i + 1)).classList.add("Up-cost")
             document.getElementById("up-cost" + (i + 1)).classList.remove("Up-buy")
             document.getElementById("up-cost" + (i + 1)).classList.remove("Up-bought")
@@ -606,6 +615,10 @@ function UpdateStyles() {
     else {
         document.getElementById("dimension-buy").classList.remove("available")
     }
+    if(player.tangent.unlocked) {
+        document.getElementById("Tangent-tab").classList.add("show")
+        document.getElementById("Tangent-guide").classList.add("unlocked")
+    }
 }
 
 var LastUpdate = Date.now()
@@ -690,7 +703,7 @@ function CalculateLEegain() {
         LEegain = LEegain.mul(linearChallenges[4].eff)
     }
     if(linearChallenges[5].completed) {
-        LEegain = LEegain.mul(1.5)
+        LEegain = LEegain.mul(1.3)
     }
     if(player.polygons.pboost5unl) {
         LEegain = LEegain.mul(player.polygons.eff5)

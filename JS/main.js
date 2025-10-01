@@ -73,6 +73,9 @@ let player = {
         pboost3unl: false,
         pboost4unl: false,
         pboost5unl: false,
+    },
+    tangent: {
+        unlocked: false,
     }
 }
 
@@ -136,7 +139,7 @@ for(let i = 0; i < 5; i++) {
 
 function BuyBuilding(i, auto = false) {
     let b = buildings[i - 1]
-    if(player.points.gte(b.cost) && !linearChallenges[2].inChal && !linearChallenges[3].inChal) {
+    if(player.points.gte(b.cost) && !linearChallenges[2].inChal) {
         if (!auto) {
             if(!linearUpgrades[8].bought) player.points = player.points.sub(b.cost)
             b.amount = b.amount.add(1)
@@ -207,7 +210,7 @@ function BuyNBuyer() {
 
 function BuyUp(i) {
     let u = upgrades[i - 1]
-    if(player.points.gte(u.cost) && !u.bought && !linearChallenges[1].inChal) {
+    if(player.points.gte(u.cost) && !u.bought && !linearChallenges[1].inChal && !linearChallenges[3].inChal) {
         player.points = player.points.sub(u.cost)
         u.bought = true
     }
@@ -246,7 +249,7 @@ function LinearEssenceReset(chal = false) {
                 u.bought = false
                 u.cost = new Decimal(20000)
                 u.eff = new Decimal(1)
-                if(linearUpgrades[2].bought && !linearChallenges[1].inChal) {
+                if(linearUpgrades[2].bought && !linearChallenges[1].inChal && !linearChallenges[3].inChal) {
                     upgrades[2].bought = true
                     upgrades[5].bought = true
                 }

@@ -82,6 +82,7 @@ function Save() {
         saveitems("LinearResetunl", LinearResetunl)
         saveitems("softcapunl", player.softcapunl)
         saveitems("lu3reset", lockedlu3reset)
+        saveitems("tangentunl", player.tangent.unlocked)
         player.saved = true
         if(player.saved === true) {
             document.getElementById("Save-notification").classList.add("save")
@@ -192,6 +193,7 @@ function Get() {
         LinearResetunl = GetItems("LinearResetunl", false)
         player.softcapunl = GetItems("softcapunl", false)
         lockedlu3reset = GetItems("lu3reset", false)
+        player.tangent.unlocked = GetItems("tangentunl", false)
         fixSave() 
     } else {
         Save()

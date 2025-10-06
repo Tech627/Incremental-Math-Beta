@@ -4,6 +4,8 @@ var linearUpgrades = []
 var achievements = []
 var linearChallenges = []
 var linearEquation = []
+var talmideUpgrades = []
+var inventorUpgrades = []
 let LinearResetunl = false
 let lockedlu3reset = false
 
@@ -61,15 +63,42 @@ for(let i = 0; i < 5; i++) {
     linearEquation.push(leVar)
 } 
 
+for(let i = 0; i < 6; i++) {
+    let talmideUpgrade = {
+        bought: false,
+        cost: new Decimal(100),
+        eff: new Decimal(1),
+    }
+    talmideUpgrades.push(talmideUpgrade)
+}
+
+for(let i = 0; i < 3; i++) {
+    let inventorUpgrade = {
+        bought: false,
+        cost: new Decimal(15000),
+        eff: new Decimal(1),
+    }
+    inventorUpgrades.push(inventorUpgrade)
+}
+
 function UpdateGUI() {
-    document.getElementById("Points").textContent = "You have " + format(player.points) + " Points"
+    if(player.tangent.pi_dimension.inDimension) {
+        document.getElementById("Points").textContent = "You have " + format(player.tangent.pi_dimension.papirus) + " Papirus"
+        document.getElementById("maintab").textContent = "The Circle"
+        document.getElementById("PointsPerSec").textContent = "(+" + format(player.tangent.pi_dimension.papirusPerSec) + " Papirus/sec)" 
+    }
+    else {
+        document.getElementById("Points").textContent = "You have " + format(player.points) + " Points"
+        document.getElementById("maintab").textContent = "Main"
+        document.getElementById("PointsPerSec").textContent = "(+" + format(player.pointsPerSec) + " Points/sec)" 
+    }
     if(player.pointgain.eq(1)) {
         document.getElementById("btn-gain").textContent = "+1 Point"
     }
     else if (player.pointgain.gt(1)) {
         document.getElementById("btn-gain").textContent = "+" + format(player.pointgain) + "Points"
     }
-    document.getElementById("PointsPerSec").textContent = "(+" + format(player.pointsPerSec) + " Points/sec)" 
+
     for(let i = 2; i > -1; i--) {
         let b = buildings[i]
         document.getElementById("building-amount" + (i + 1)).textContent = "[" + formatWhole(b.amount) + "]"
@@ -79,9 +108,6 @@ function UpdateGUI() {
         } else {
             let l = linearChallenges[2].inChal ? 3 : 4;
                 document.getElementById("Building-cost" + (i + 1)).textContent = "LOCKED: LE Challenge " + l
-        }
-        if(b.automation == "Error") {
-            b.automation = false
         }
         if(b.automation) {
             if(upgrades[6].bought) {
@@ -196,16 +222,52 @@ function UpdateGUI() {
         document.getElementById("LEequation-amt" + (i + 1)).innerHTML = "You have " + formatWhole(le.amount)
     }
 
-    if(LinearResetunl == "Error") {
-        LinearResetunl = false
-    }
-
-    for(let i = 0; i < 20; i++) {
-        if(achievements[i].completed == "Error") {
-            achievements[i].completed = false
+    for(let i = 0; i < 6; i++) {
+        talmideUpgrades[0].cost = new Decimal(100)
+        talmideUpgrades[1].cost = new Decimal(300)
+        talmideUpgrades[2].cost = new Decimal(1000)
+        talmideUpgrades[3].cost = new Decimal(3)
+        talmideUpgrades[4].cost = new Decimal(150)
+        talmideUpgrades[5].cost = new Decimal(5000)
+        talmideUpgrades[0].eff = player.tangent.pi_dimension.Thales.students.add(1)
+        talmideUpgrades[1].eff = player.tangent.pi_dimension.Archimedes.students.add(1)
+        talmideUpgrades[3].eff = player.tangent.pi_dimension.MathematicalInstruments.add(1)
+        talmideUpgrades[4].eff = player.tangent.pi_dimension.Miner.eff
+        player.tangent.pi_dimension.Water_worker.eff = new Decimal(1)
+        player.tangent.pi_dimension.Papirus_maker.eff = new Decimal(1)
+        player.tangent.pi_dimension.Miner.eff = new Decimal(1)
+        player.tangent.pi_dimension.CoalPerSec = new Decimal(1)
+        if(talmideUpgrades[0].bought) {
+            player.tangent.pi_dimension.Water_worker.eff = player.tangent.pi_dimension.Water_worker.eff.mul(talmideUpgrades[0].eff)
+        }
+        if(talmideUpgrades[1].bought) {
+            player.tangent.pi_dimension.Papirus_maker.eff = player.tangent.pi_dimension.Papirus_maker.eff.mul(talmideUpgrades[1].eff)
+        }
+        if(talmideUpgrades[3].bought) {
+            player.tangent.pi_dimension.CoalPerSec = player.tangent.pi_dimension.CoalPerSec.mul(talmideUpgrades[3].eff)
+            player.tangent.pi_dimension.Miner.eff = player.tangent.pi_dimension.Miner.eff.mul(talmideUpgrades[3].eff)
+        }
+        if(talmideUpgrades[4].bought) {
+            player.tangent.pi_dimension.Water_worker.eff = player.tangent.pi_dimension.Water_worker.eff.mul(talmideUpgrades[4].eff)
+        }
+        if(talmideUpgrades[5].bought) {
+            player.tangent.pi_dimension.Water_worker.eff = player.tangent.pi_dimension.Water_worker.eff.mul(InventorEff())
+            player.tangent.pi_dimension.Miner.eff = player.tangent.pi_dimension.Miner.eff.mul(InventorEff())
+        }
+        if([2,5].includes(i)) {
+            continue
+        }
+        else {
+            document.getElementById("tmp-eff" + (i + 1)).textContent = "Currently: " + format(talmideUpgrades[i].eff) + "x boost" 
         }
     }
 
+    for(let i = 0; i < 3; i++) {
+        inventorUpgrades[0].cost = new Decimal(1.5e4)
+        inventorUpgrades[1].cost = new Decimal(2e4)
+        inventorUpgrades[2].cost = new Decimal(3.5e3)
+    }
+ 
     if(buildings[0].amount.gte(1)) {
         achievements[0].completed = true
     }
@@ -275,9 +337,6 @@ function UpdateGUI() {
         else {
             document.getElementById("LinearReset").textContent = "Reset for " + format(CalculateLEgain()) + " Linear Essence"
         }
-    }
-    if(lockedlu3reset == "Error") {
-        lockedlu3reset = false
     }
     if(linearUpgrades[2].bought && !lockedlu3reset) {
         player.Linearup3reset = true
@@ -426,11 +485,50 @@ function UpdateGUI() {
         document.getElementById("Bld-1").classList.add("hide")
         document.getElementById("Building1").style.height = "90px"
     }
-    if(player.tangent.unlocked == "Error" || player.tangent.unlocked == null) {
-        player.tangent.unlocked = false
-    }
     if(upgrades[8].bought) {
         player.tangent.unlocked = true
+    }
+    document.getElementById("Inventor-cost1").textContent = "Cost: " + format(player.tangent.pi_dimension.Thales.cost) + " Papirus"
+    document.getElementById("Papirus-maker-cost").textContent = "Cost: " + format(player.tangent.pi_dimension.Papirus_maker.cost) + " Litres of Water"
+    document.getElementById("Full-Circle").textContent = "You have " + format(player.tangent.pi_dimension.fullCircles) + " Full Circles. (next number after the comma at 1,000)"
+    document.getElementById("Litres-of-Water").textContent = "You have " + format(player.tangent.pi_dimension.LitresOfWater) + " Litres of Water."
+    document.getElementById("Inventor-cost2").textContent = "Cost: " + format(player.tangent.pi_dimension.Archimedes.cost) + " Papirus"
+    if(player.tangent.pi_dimension.Water_worker.cap.eq(0)) {
+        document.getElementById("Water-worker-cost").textContent = "Cost: Free (cap: 1)"
+    }
+    else {
+        document.getElementById("Water-worker-cost").textContent = "Maxed out"
+    }
+    document.getElementById("student-amount1").textContent = "[" + formatWhole(player.tangent.pi_dimension.Thales.students) + "]"
+    document.getElementById("student-amount2").textContent = "[" + formatWhole(player.tangent.pi_dimension.Archimedes.students) + "]"
+    document.getElementById("Lines").textContent = format(player.tangent.pi_dimension.Lines)
+    document.getElementById("Line-maker-cost").textContent = "Cost: " + format(player.tangent.pi_dimension.Euclids_elements.cost) + " Papirus"
+    document.getElementById("Coal").textContent = format(player.tangent.pi_dimension.Coal)
+    document.getElementById("Coal-persec").textContent = format(player.tangent.pi_dimension.CoalPerSec)
+    if(player.tangent.pi_dimension.Miner.cap.eq(0)) {
+        document.getElementById("Miner-cost").textContent = "Cost: Free (cap: 1)"
+    }
+    else {
+        document.getElementById("Miner-cost").textContent = "Maxed out"
+    }
+    document.getElementById("Mathematical-instruments").textContent = format(player.tangent.pi_dimension.MathematicalInstruments)
+    document.getElementById("Mathematical-instruments-maker").textContent = "Cost: " + format(player.tangent.pi_dimension.Edmund_gunter.cost) + " Metal"
+    document.getElementById("Metal").textContent = format(player.tangent.pi_dimension.Metal)
+    document.getElementById("Metal-maker").textContent = "Cost: " + format(player.tangent.pi_dimension.Ancient_ones.cost) + " Coal"
+    document.getElementById("Shapes").textContent = format(player.tangent.pi_dimension.Shapes)
+    document.getElementById("Shape-maker").textContent = "Cost: " + format(player.tangent.pi_dimension.Plato.cost) + " Mathematical instruments and 5 Lines"
+    document.getElementById("IE-boost").textContent = "Your Inventor equation boosts all resources in The Circle by " + format(InventorEff()) + "x."
+    if(inventorUpgrades[0].bought) {
+        document.getElementById("IE-equation").textContent = " Ieb = Papirus / 1,250 + Litres of Water / 3,000 + Lines / 3 + Coal / 500 + Shapes / 2 + Mathematical instruments"
+           + "/ 5 + Metal / 10"
+    }
+    if(inventorUpgrades[0].bought && inventorUpgrades[1].bought) {
+        document.getElementById("IE-equation").textContent = " Ieb = Papirus / 1,250 + Litres of Water / 600 + Lines / 3 + Coal / 500 + Shapes / 2 + Mathematical instruments"
+           + "/ 5 + Metal / 10"
+    }
+    if(inventorUpgrades[0].bought && inventorUpgrades[1].bought && inventorUpgrades[2].bought) {
+        document.getElementById("IE-equation").textContent = " Ieb = Papirus / 1,250 + Litres of Water / 600 + Lines / 3 + Coal / 50 + Shapes / 2 + Mathematical instruments"
+           + "/ 5 + Metal / 10"
     }
 }
 
@@ -544,6 +642,62 @@ function UpdateStyles() {
             document.getElementById("LEe-cost" + (i + 1)).classList.remove("LEequation-bought")
         }
     }
+    for(let i = 0; i < 6; i++) {
+        let tmp = talmideUpgrades[i]
+        if(i == 0) {
+            if(player.tangent.pi_dimension.LitresOfWater.gte(tmp.cost)) {
+                document.getElementById("tmp-cost" + (i + 1)).classList.add("buy")
+            }
+            else {
+                document.getElementById("tmp-cost" + (i + 1)).classList.remove("buy")
+            }
+        } 
+        if(i == 1) {
+            if(player.tangent.pi_dimension.papirus.gte(tmp.cost)) {
+                document.getElementById("tmp-cost" + (i + 1)).classList.add("buy")
+            }
+            else {
+                document.getElementById("tmp-cost" + (i + 1)).classList.remove("buy")
+            }
+        }
+        if(i == 2) {
+            if(player.tangent.pi_dimension.papirus.gte(tmp.cost) && player.tangent.pi_dimension.LitresOfWater.gte(tmp.cost)) {
+                document.getElementById("tmp-cost" + (i + 1)).classList.add("buy")
+            }
+            else {
+                document.getElementById("tmp-cost" + (i + 1)).classList.remove("buy")
+            }
+        }
+        if(i == 3) {
+            if(player.tangent.pi_dimension.MathematicalInstruments.gte(tmp.cost)) {
+                document.getElementById("tmp-cost" + (i + 1)).classList.add("buy")
+            }
+            else {
+                document.getElementById("tmp-cost" + (i + 1)).classList.remove("buy")
+            }
+        }
+        if(i == 4) {
+            if(player.tangent.pi_dimension.Coal.gte(tmp.cost) && player.tangent.pi_dimension.LitresOfWater.gte(1500)) {
+                document.getElementById("tmp-cost" + (i + 1)).classList.add("buy")
+            }
+            else {
+                document.getElementById("tmp-cost" + (i + 1)).classList.remove("buy")
+            }
+        }
+        if(i == 5) {
+            if(player.tangent.pi_dimension.papirus.gte(tmp.cost) && player.tangent.pi_dimension.LitresOfWater.gte(3000) && player.tangent.pi_dimension.Coal.gte(500) &&
+            player.tangent.pi_dimension.MathematicalInstruments.gte(5) && player.tangent.pi_dimension.Metal.gte(10) && player.tangent.pi_dimension.Shapes.gte(2)) {
+                document.getElementById("tmp-cost" + (i + 1)).classList.add("buy")
+            }
+            else {
+                document.getElementById("tmp-cost" + (i + 1)).classList.remove("buy")
+            }
+        }
+        if(tmp.bought) {
+            document.getElementById("tmp-cost" + (i + 1)).classList.remove("buy")
+            document.getElementById("tmp-cost" + (i + 1)).classList.add("bought")
+        }
+    }
     for(let i = 0; i < 20; i++) {
         let a = achievements[i]
         if(a.completed) {
@@ -618,6 +772,27 @@ function UpdateStyles() {
     if(player.tangent.unlocked) {
         document.getElementById("Tangent-tab").classList.add("show")
         document.getElementById("Tangent-guide").classList.add("unlocked")
+    }
+    if(player.tangent.pi_dimension.inDimension) {
+        document.getElementById("Non-pi-dimension-main").classList.add("hide")
+        document.getElementById("Non-pi-dimension-upgrades").classList.add("hide")
+        document.getElementById("pi-dimension-main").classList.add("show")
+        document.getElementById("pi-dimension-upgrades").classList.add("show")
+        document.getElementById("pi-challenge-bg").classList.add("show")
+    }
+    else {
+        document.getElementById("Non-pi-dimension-main").classList.remove("hide")
+        document.getElementById("Non-pi-dimension-upgrades").classList.remove("hide")
+        document.getElementById("pi-dimension-main").classList.remove("show")
+        document.getElementById("pi-dimension-upgrades").classList.remove("show")
+        document.getElementById("pi-challenge-bg").classList.remove("show")
+    }
+    if(talmideUpgrades[2].bought) {
+        document.getElementById("plato-sub-tab").classList.add("show")
+        document.getElementById("tmp-row2").classList.add("show")
+    }
+    if(talmideUpgrades[5].bought) {
+        document.getElementById("inventorequationtab").classList.add("show")
     }
 }
 
@@ -717,22 +892,77 @@ function CalculateLengthGain() {
     return LengthGain
 }
 
+function CalculatePapirusGain() {
+    let PapirusGain = new Decimal(0)
+    PapirusGain = PapirusGain.add(player.tangent.pi_dimension.Papirus_maker.amt.mul(player.tangent.pi_dimension.Papirus_maker.eff))
+    if(talmideUpgrades[5].bought) {
+        PapirusGain = PapirusGain.mul(InventorEff())
+    }
+    return PapirusGain
+}
+
+function CalculateFullCirclesGain() {
+    let FullCirclesGain = new Decimal(0)
+    FullCirclesGain = FullCirclesGain.add(player.tangent.pi_dimension.Thales.students.mul(player.tangent.pi_dimension.Thales.eff))
+    FullCirclesGain = FullCirclesGain.add(player.tangent.pi_dimension.Archimedes.students.mul(player.tangent.pi_dimension.Archimedes.eff))
+    if(talmideUpgrades[5].bought) {
+        FullCirclesGain = FullCirclesGain.mul(InventorEff())
+    }
+    return FullCirclesGain
+}
+
+function InventorEff() {
+    let InventorEquationEff = new Decimal(1)
+    InventorEquationEff = InventorEquationEff.add(player.tangent.pi_dimension.papirus.div(5000).add(player.tangent.pi_dimension.LitresOfWater.div(3000).add(
+        player.tangent.pi_dimension.Lines.div(3).add(player.tangent.pi_dimension.Coal.div(500).add(player.tangent.pi_dimension.Shapes.div(2).add(
+            player.tangent.pi_dimension.MathematicalInstruments.div(5).add(player.tangent.pi_dimension.Metal.div(10))
+        ))))))
+    if(inventorUpgrades[0].bought) {
+        InventorEquationEff = InventorEquationEff.add(player.tangent.pi_dimension.papirus.div(1250).add(player.tangent.pi_dimension.LitresOfWater.div(3000).add(
+        player.tangent.pi_dimension.Lines.div(3).add(player.tangent.pi_dimension.Coal.div(500).add(player.tangent.pi_dimension.Shapes.div(2).add(
+            player.tangent.pi_dimension.MathematicalInstruments.div(5).add(player.tangent.pi_dimension.Metal.div(10))
+        ))))))
+    }
+    if(inventorUpgrades[0].bought && inventorUpgrades[1].bought) {
+        InventorEquationEff = InventorEquationEff.add(player.tangent.pi_dimension.papirus.div(1250).add(player.tangent.pi_dimension.LitresOfWater.div(600).add(
+        player.tangent.pi_dimension.Lines.div(3).add(player.tangent.pi_dimension.Coal.div(500).add(player.tangent.pi_dimension.Shapes.div(2).add(
+            player.tangent.pi_dimension.MathematicalInstruments.div(5).add(player.tangent.pi_dimension.Metal.div(10))
+        ))))))
+    }
+    if(inventorUpgrades[0].bought && inventorUpgrades[1].bought && inventorUpgrades[2].bought) {
+        InventorEquationEff = InventorEquationEff.add(player.tangent.pi_dimension.papirus.div(1250).add(player.tangent.pi_dimension.LitresOfWater.div(600).add(
+        player.tangent.pi_dimension.Lines.div(3).add(player.tangent.pi_dimension.Coal.div(50).add(player.tangent.pi_dimension.Shapes.div(2).add(
+            player.tangent.pi_dimension.MathematicalInstruments.div(5).add(player.tangent.pi_dimension.Metal.div(10))
+        ))))))
+    }
+    return InventorEquationEff
+}
+
 function productionLoop(diff) {
     player.TimeTillReset = player.TimeTillReset.sub(new Decimal(1).mul(diff))
     player.points = player.points.add(player.pointsPerSec.mul(diff))
     player.pointsPerSec = CalculatePointGain()
     player.tpoints = player.tpoints.add(player.pointsPerSec.mul(diff))
     player.equations.equation1.x = CalculateEquationGain()
+    player.tangent.pi_dimension.papirus = player.tangent.pi_dimension.papirus.add(player.tangent.pi_dimension.papirusPerSec.mul(diff))
+    player.tangent.pi_dimension.papirusPerSec = CalculatePapirusGain()
+    if(player.tangent.pi_dimension.Miner.cap.eq(1)) {
+        player.tangent.pi_dimension.Coal = player.tangent.pi_dimension.Coal.add(player.tangent.pi_dimension.CoalPerSec.mul(diff))
+    }
     if(player.LinearUnl) {
         player.LinearPower = player.LinearPower.add(CalculateLPgain().mul(diff))
         player.TimeinLinear = player.TimeinLinear.add(new Decimal(1).mul(diff))
     }
-    if (player.polygons.amount.gte(1)) {
+    if(player.polygons.amount.gte(1)) {
         player.polygons.length = player.polygons.length.add(CalculateLengthGain().mul(diff))
     }
-    if (upgrades[6].bought) {
+    if(upgrades[6].bought) {
         buildings[0].amount = buildings[0].amount.add(buildings[1].amount.mul(diff))
     }
+    if(player.tangent.pi_dimension.Water_worker.cap.eq(1)) {
+        player.tangent.pi_dimension.LitresOfWater = player.tangent.pi_dimension.LitresOfWater.add(player.tangent.pi_dimension.Water_worker.eff.mul(diff))
+    }
+    player.tangent.pi_dimension.fullCircles = player.tangent.pi_dimension.fullCircles.add(CalculateFullCirclesGain().mul(diff))
 }
 
 function MainLoop() {

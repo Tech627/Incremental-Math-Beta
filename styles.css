@@ -1,11 +1,30 @@
 body {
     background-color: rgb(0, 0, 0);
     color: white;
+    display: block;
 }
 
 body.light {
     background-color: white;
     color: black;
+}
+
+#pi-challenge-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: black; /* default color */
+    background-image: url("images/Pi dimension.png");
+    background-size: 100% 100%;
+    background-position: center top;
+    z-index: -1; /* behind all content */
+    display: none;
+}
+
+#pi-challenge-bg.show {
+    display: block;
 }
 
 #app {
@@ -105,6 +124,17 @@ body.light {
     padding: 5px;
     background-color: rgba(14, 203, 58, 0.801);
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#maintab {
+    width: 150px;
+    height: 50px;
+    background-color: rgba(43, 43, 43, 0.801);
+    color: rgb(135, 135, 135);
+    border: 1px solid rgb(78, 78, 78);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -937,6 +967,11 @@ body.light {
 #Circle-arcs {
     width: 500px;
     text-align: center;
+    display: none;
+}
+
+#Circle-arcs.show {
+    display: block;
 }
 
 #CA {
@@ -955,4 +990,258 @@ body.light {
 
 #EoT-boost {
     font-size: 13px;
+}
+
+#Non-pi-dimension-main,
+#pi-dimension-main.show,
+#pi-dimension-upgrades.show {
+    display: block;
+}
+
+#Non-pi-dimension-main.hide,
+#Non-pi-dimension-upgrades.hide,
+#pi-dimension-main,
+#pi-dimension-upgrades {
+    display: none;
+}
+
+.Inventors {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+#Inventor1 {
+    width: 350px;
+    padding: 5px;
+    position: relative;
+    background-color: rgb(88, 88, 36);
+    border: 2px solid yellow;
+    margin: 0;
+}
+
+#Inventor2 {
+    width: 350px;
+    padding: 5px;
+    position: relative;
+    background-color: rgb(134, 112, 13);
+    border: 2px solid orange;
+    margin: 0;
+}
+
+#Inventor3 {
+    width: 350px;
+    padding: 5px;
+    position: relative;
+    background-color: rgb(32, 32, 32);
+    border: 2px solid rgb(49, 49, 49);
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+#Inventor4 {
+    width: 350px;
+    height: 150px;
+    padding: 5px;
+    position: relative;
+    background-color: rgb(138, 0, 0);
+    border: 2px solid rgb(255, 51, 51);
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+#Inventor5 {
+    width: 350px;
+    padding: 5px;
+    position: relative;
+    background-color: rgb(160, 160, 160);
+    border: 2px solid rgb(121, 121, 121);
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+.Inventor-cost {
+    width: 250px;
+    background-color: yellowgreen;
+    border: 2px solid rgb(10, 61, 10);
+}
+
+.Papirus-maker-cost {
+    width: 250px;
+    background-color: rgb(95, 147, 216);
+    border: 2px solid rgb(29, 43, 92);
+}
+
+.Water-worker-cost {
+    width: 250px;
+    background-color: rgb(2, 2, 49);
+    border: 2px solid rgb(21, 21, 87);
+    color: white;
+}
+
+.Line-maker-cost {
+    width: 250px;
+    background-color: rgb(8, 8, 8);
+    border: 2px solid rgb(37, 37, 37);
+    color: white;
+}
+
+.Miners-cost {
+    width: 250px;
+    background-color: rgb(124, 33, 33);
+    border: 2px solid brown;
+}
+
+.Shape-maker {
+    width: 250px;
+    background-color: rgb(121, 255, 121);
+    border: 2px solid rgb(50, 255, 50);
+}
+
+.Mathematical-instruments-maker {
+    width: 250px;
+    background-color: rgb(8, 8, 8);
+    border: 2px solid rgb(37, 37, 37);
+    color: white;
+}
+
+.Metal-maker {
+    width: 250px;
+    background-color: silver;
+    border: 2px solid white;
+}
+
+#tmp-t {
+    font-size: 25px;
+    color: rgb(57, 192, 192);
+    font-weight: bolder;
+    margin-bottom: 15px;
+    text-shadow: 0 0 5px rgb(98, 255, 255), 0 0 10px rgb(69, 255, 255), 0 0 15px rgb(41, 255, 255), 0 0 15px rgb(14, 255, 255),
+     0 0 20px rgb(0, 204, 204), 0 0 25px rgb(0, 175, 175), 0 0 30px rgb(0, 136, 136);
+}
+
+#tmp-row1 {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+#tmp-row2 {
+    display: none;
+    justify-content: center;
+    gap: 5px;
+}
+
+#tmp-row2.show {
+    display: flex;
+}
+
+.Tmp-cost {
+    width: 300px;
+    height: 130px;
+    font-size: 13px;
+    background-color: rgba(226, 40, 8, 0.925);
+    border: 2px solid rgb(167, 20, 9);
+    margin-bottom: 10px;
+}
+
+.Tmp-cost.buy {
+    width: 300px;
+    height: 130px;
+    font-size: 13px;
+    background-color: rgb(78, 78, 252);
+    border: 2px solid blue;
+    margin-bottom: 10px;
+}
+
+.Tmp-cost.bought {
+    width: 300px;
+    height: 130px;
+    font-size: 13px;
+    background-color: rgb(16, 165, 211);
+    border: 2px solid rgb(0, 255, 191);
+    margin-bottom: 10px;
+}
+
+#circle-sub-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#circle-sub-tab {
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(134, 134, 61);
+    border: 2px solid rgb(127, 163, 55);
+}
+
+#circle-sub-tab:hover,
+#plate-sub-tab {
+    cursor: pointer;
+}
+
+#plato-sub-tab {
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(134, 134, 61);
+    border: 2px solid rgb(127, 163, 55);
+    display: none;
+}
+
+#plato-sub-tab.show {
+    display: block;
+}
+
+#inventorequationtab {
+    width: 200px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    background-color: rgb(20, 196, 137);
+    border: 2px solid rgb(26, 150, 150);
+}
+
+#inventorequationtab.show {
+    display: flex;
+}
+
+.values-of-the-circle {
+    width: 350px;
+    height: 100px;
+    display: grid;
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+#IE-boost,
+#IE-equation {
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+#IE-upgrades {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.IE-cost {
+    width: 300px;
+    height: 130px;
+    font-size: 13px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    background-color: rgb(148, 49, 10);
 }

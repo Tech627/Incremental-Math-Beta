@@ -8,6 +8,7 @@
     <title> Incremental Math </title>
 </head>
 <body onload="Get()" id="body">
+    <div id="pi-challenge-bg"></div>
     <div class="Alert" id="Alert"> 
         <div class="alert-txt" id="alert-txt"> Alert! </div>   
         <div id="alert-desc"> As of v0.2.1 I want you to do a hard reset, due to many and many balance changes and new content it's needed </div> 
@@ -21,8 +22,9 @@
         <button class="tab-btn" id="softcaptab"> Softcaps </button>
     </div>
     <div class="btn-group" id="contenttabs">
-        <button class="tab-btn" id="tab"> Main </button>
+        <button class="tab-btn" id="maintab"> Main </button>
         <button class="tab-btn" id="upgradetab"> Upgrades <div id="upgrade-available"></div> </button>
+        <button class="tab-btn" id="inventorequationtab"> Inventor Equation </button>
         <button class="tab-btn" id="layertab"> Linear essence <div id="lupgrade-available"></div> </button>
     </div>
     <div class="alert alert-info" id="Save-notification">
@@ -303,7 +305,7 @@
         </div>
     </div>
     <div class="content">
-        <div class="container pt-5">
+        <div class="container pt-5" id="Non-pi-dimension-main">
             <div class="container d-flex justify-content-center">
                 <div class="container" id="Building1">
                     <div class="text-center h5"> Classmate <span id="building-amount1"> [0] </span> </div>
@@ -355,7 +357,7 @@
                     <div class="container d-flex justify-content-center gap-3">
                         <div class="text-center">
                             <div class="text-secondary h5"> Increase x by 1 </div>
-                            <button class="btn btn-secondary" id="mult-cost2" onclick="BuyXBuyer()"> Cost: 1e10 Points</button>
+                            <button class="btn btn-secondary" id="mult-cost2" onclick="BuyXBuyer()"> Cost: 1e10 Points </button>
                         </div>
                         <div class="text-center" id="NBuyer">
                             <div class="text-secondary h5"> Increase n by 1 </div>
@@ -365,9 +367,89 @@
                 </div>
             </div>
         </div>
+        <div class="container pt-5" id="pi-dimension-main">
+            <div class="btn-group gap-4" id="circle-sub-tabs">
+                <button class="subtab-btn" id="circle-sub-tab"> Circle Inventors </button>
+                <button class="subtab-btn" id="plato-sub-tab"> Plato's research </button>
+            </div>
+            <div class="sub-content">
+                <div class="Inventors">
+                    <div class="container" id="Inventor1">
+                        <div class="text-center h4"> <strong> Thales </strong> </div>
+                        <div class="text-center h6"> Student <span id="student-amount1"> [0] </span> </div>
+                        <div class="text-center h6"> +1 Full Circles/sec </div> 
+                        <div class="text-center">
+                            <button class="Inventor-cost" id="Inventor-cost1" onclick="BuyThalesStudent()"> Cost: 10 Papirus </button>
+                        </div>
+                        <div class="text-center pt-3">
+                            <div class="text-center h5"> Papirus maker </div>
+                            <div class="text-center h6"> +1 Papirus/sec </div>
+                            <div class="text-center">
+                                <button class="Papirus-maker-cost" id="Papirus-maker-cost" onclick="BuyPapirusMaker()"> Cost: 10 Litres of Water </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="values-of-the-circle">
+                        <div id="Full-Circle"> You have 0 Full circles. (next number after the comma at 1,000) </div>
+                        <div id="Litres-of-Water"> You have 0 Litres of Water. </div>
+                    </div>
+                    <div class="container" id="Inventor2">
+                        <div class="text-center h4"> <strong> Archimedes </strong> </div>
+                        <div class="text-center h6"> Student <span id="student-amount2"> [0] </span> </div>
+                        <div class="text-center h6"> +10 Full Circles/sec </div>
+                        <div class="text-center">
+                            <button class="Inventor-cost" id="Inventor-cost2" onclick="BuyArchimedesStudent()"> Cost: 50 Papirus </button>
+                        </div>
+                        <div class="text-center pt-3">
+                            <div class="text-center h5"> Water worker </div>
+                            <div class="text-center h6"> +1 Litre of Water/sec </div>
+                            <div class="text-center">
+                                <button class="Water-worker-cost" id="Water-worker-cost" onclick="BuyWaterWorker()"> Cost: Free (cap: 1) </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sub-content">
+                <div class="Inventors">
+                    <div class="container" id="Inventor3">
+                        <div class="text-center h4"> <strong> Euclid's elements </strong> </div>
+                        <div class="text-center h6"> You have made <span id="Lines"> 0 </span> Lines. </div>
+                        <div class="text-center">
+                            <button class="Line-maker-cost" id="Line-maker-cost" onclick="BuyEuclidsElements()"> Cost: 1500 Papirus </button>
+                        </div>
+                        <div class="text-center h5"> Miner </div>
+                        <div class="text-center h6"> You have <span id="Coal"> 0 </span> Coal. </div>
+                        <div class="text-center h6"> +<span id="Coal-persec"> 0 </span> Coal/sec </div>
+                        <div class="text-center">
+                            <button class="Miners-cost" id="Miner-cost" onclick="BuyMiner()"> Cost: free (cap: 1) </button>
+                        </div>
+                    </div> 
+                    <div class="container" id="Inventor4">
+                        <div class="text-center h4"> <strong> Plato </strong> </div>
+                        <div class="text-center h6"> You have made <span id="Shapes"> 0 </span> Shapes. </div>
+                        <div class="text-center">
+                            <button class="Shape-maker" id="Shape-maker" onclick="BuyPlato()"> Cost: 1 Mathematical instrument and 3 Lines </button>
+                        </div>
+                    </div>
+                    <div class="container" id="Inventor5">
+                        <div class="text-center h4"> <strong> Edmund Gunter </strong> </div>
+                        <div class="text-center h6"> You made <span id="Mathematical-instruments"> 0 </span> Mathematical instruments. </div>
+                        <div class="text-center">
+                            <button class="Mathematical-instruments-maker" id="Mathematical-instruments-maker" onclick="BuyEdmundGunter()"> Cost: 10 Metal </button>
+                        </div>
+                        <div class="text-center h5"> Ancient ones </div>
+                        <div class="text-center h6"> You have <span id="Metal"> 0 </span> Metal. </div>
+                        <div class="text-center">
+                            <button class="Metal-maker" id="Metal-maker" onclick="BuyAncientOnes()"> Cost: 10 Coal </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="content">
-        <div class="container">
+        <div class="container" id="Non-pi-dimension-upgrades">
             <div class="text-center pt-3" id="Upgrades">
                 <div id="up-t"> Union of Upgrades </div>
                 <div class="container" id="row1">
@@ -433,6 +515,76 @@
                 </div>
             </div>
         </div>
+        <div class="container" id="pi-dimension-upgrades">
+            <div class="text-center pt-3" id="Talmide-upgrades">
+                <div id="tmp-t"> Talmide Upgrades </div>
+                <div class="container" id="tmp-row1">
+                    <button class="Tmp-cost" id="tmp-cost1" onclick="BuyTmp(1)">
+                        <div id="tmp-name"> [New beginnings] </div>
+                        <div id="tmp-desc"> Amount of Thales students boost the Water worker efficiency. </div>
+                        <div id="tmp-eff1"> Currently: 1x boost </div>
+                        <div id="tmp-cost1"> Cost: 100 Litres of Water </div>
+                    </button>
+                    <button class="Tmp-cost" id="tmp-cost2" onclick="BuyTmp(2)">
+                        <div id="tmp-name"> [New ways of making] </div>
+                        <div id="tmp-desc"> Amount of Archimides students boost the Papirus maker efficiency. </div>
+                        <div id="tmp-eff2"> Currently: 1x boost </div>
+                        <div id="tmp-cost2"> Cost: 300 Papirus </div>
+                    </button>
+                    <button class="Tmp-cost" id="tmp-cost3" onclick="BuyTmp(3)">
+                        <div id="tmp-name"> [Plato's research] </div>
+                        <div id="tmp-desc"> Unlock Plato's research tab in The Circle. </div>
+                        <div id="tmp-eff3"></div>
+                        <div id="tmp-cost3"> Cost: 1000 Papirus and 1000 Litres of Water </div>
+                    </button>
+                </div>
+                <div class="container" id="tmp-row2">
+                    <button class="Tmp-cost" id="tmp-cost4" onclick="BuyTmp(4)">
+                        <div id="tmp-name"> [Mathematical tools] </div>
+                        <div id="tmp-desc"> Amount of Mathematical instruments boost Miner's efficiency </div>
+                        <div id="tmp-eff4"> Currently: 1x boost </div>
+                        <div id="tmp-cost4"> Cost: 3 Mathematical instruments </div>
+                    </button>
+                    <button class="Tmp-cost" id="tmp-cost5" onclick="BuyTmp(5)">
+                        <div id="tmp-name"> [Water pumper] </div>
+                        <div id="tmp-desc"> Miner's efficiency boosts Water worker's efficiency </div>
+                        <div id="tmp-eff5"> Currently: 1x boost </div>
+                        <div id="tmp-cost5"> Cost: 150 Coal and 1500 Litres of Water </div>
+                    </button>
+                    <button class="Tmp-cost" id="tmp-cost6" onclick="BuyTmp(6)">
+                        <div id="tmp-name"> [Inventors of our time] </div>
+                        <div id="tmp-desc"> Unlock the Inventor equation </div>
+                        <div id="tmp-eff6"></div>
+                        <div id="tmp-cost6"> Cost: 5,000 Papirus, 3,000 Litres of Water, 500 Coal, 5 Mathematical instruments, 10 Metal and 2 Shapes </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="text-center h4 pt-5" id="IE-boost"> Your Inventor equation boosts all resources in The Circle by 1x. </div>
+        <div class="text-center h5" id="IE-equation"> Ieb = Papirus / 5,000 + Litres of Water / 3,000 + Lines / 3 + Coal / 500 + Shapes / 2 + Mathematical instruments
+            / 5 + Metal / 10 </div>
+        <div class="text-center pt-4">
+            <div class="container" id="IE-upgrades">
+                <div class="IE-cost" id="ie-cost1">
+                    <div id="IE-name"> [Better Papirus Inventor] </div>
+                    <div id="IE-desc"> Papirus in the Inventor equation gets multiplied by 4 </div>
+                    <div id="IE-cost1"> Cost: 15,000 Papirus </div>
+                </div>
+                <div class="IE-cost" id="ie-cost2">
+                    <div id="IE-name"> [Pumping more water] </div>
+                    <div id="IE-desc"> Litres of Water in the Inventor equation gets multiplied by 5 </div>
+                    <div id="IE-cost2"> Cost: 20,000 Litres of Water </div>
+                </div>
+                <div class="IE-cost" id="ie-cost3">
+                    <div id="IE-name"> [Efficiency V] </div>
+                    <div id="IE-desc"> Coal in the Inventor equation gets multiplied by 10 </div>
+                    <div id="IE-cost3"> Cost: 3,500 Coal </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center pt-2"> Buy in chronological order </div>
     </div>
     <div class="content">
         <div class="container text-center pt-2">
@@ -676,7 +828,7 @@
                             <div id="pim-req"> Req: 7 numbers after comma </div>
                         </div>
                     </div>
-                    <div class="pi-challenge">
+                    <div class="pi-challenge" onclick="EnterTheCircle()">
                         <div id="pic-name"> [The Circle] </div>
                         <div id="pic-desc"> When you enter the circle, you enter a parallel dimension. You can start getting those numbers after the comma.
                             Rest is in the guide. </div>
@@ -737,6 +889,7 @@
 <script src="JS/break_eternity.js"></script>
 <script src="JS/numberformatting.js"></script>
 <script src="JS/save.js"></script>
+<script src="JS/errorfix.js"></script>
 <script src="JS/main.js"></script>
 <script src="JS/tabs.js"></script>
 <script src="JS/options.js"></script>

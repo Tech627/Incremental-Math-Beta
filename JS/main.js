@@ -76,6 +76,54 @@ let player = {
     },
     tangent: {
         unlocked: false,
+        pi_dimension: {
+            inDimension: false,
+            papirus: new Decimal(10),
+            papirusPerSec: new Decimal(0),
+            fullCircles: new Decimal(0),
+            LitresOfWater: new Decimal(0),
+            Lines: new Decimal(0),
+            Coal: new Decimal(0),
+            CoalPerSec: new Decimal(0),
+            MathematicalInstruments: new Decimal(0),
+            Metal: new Decimal(0),
+            Shapes: new Decimal(0),
+            Thales: {
+                students: new Decimal(0),
+                eff: new Decimal(0),
+                cost: new Decimal(10),
+            },
+            Papirus_maker: {
+                eff: new Decimal(1),
+                amt: new Decimal(0),
+                cost: new Decimal(10),
+            },
+            Archimedes: {
+                students: new Decimal(0),
+                eff: new Decimal(0),
+                cost: new Decimal(50),
+            },
+            Water_worker: {
+                cap: new Decimal(0),
+                eff: new Decimal(1),
+            },
+            Euclids_elements: {
+                cost: new Decimal(1500),
+            },
+            Miner: {
+                cap: new Decimal(0),
+                eff: new Decimal(1),
+            },
+            Edmund_gunter: {
+                cost: new Decimal(2),
+            },
+            Ancient_ones: {
+                cost: new Decimal(5),
+            },
+            Plato: {
+                cost: new Decimal(1),
+            }
+        }
     }
 }
 
@@ -89,6 +137,8 @@ var upgrades = []
 var linearUpgrades = []
 var linearChallenges = []
 var linearEquation = []
+var talmideUpgrades = []
+var inventorUpgrades = []
 
 for(let i = 0; i < 3; i++) {
     let building = {
@@ -135,6 +185,24 @@ for(let i = 0; i < 5; i++) {
         amount: new Decimal(0),
     }
     linearEquation.push(leVar)
+}
+
+for(let i = 0; i < 6; i++) {
+    let talmideUpgrade = {
+        bought: false,
+        cost: new Decimal(100),
+        eff: new Decimal(1),
+    }
+    talmideUpgrades.push(talmideUpgrade)
+}
+
+for(let i = 0; i < 3; i++) {
+    let inventorUpgrade = {
+        bought: false,
+        cost: new Decimal(15000),
+        eff: new Decimal(1),
+    }
+    inventorUpgrades.push(inventorUpgrade)
 }
 
 function BuyBuilding(i, auto = false) {
@@ -223,6 +291,76 @@ function BuyLup(i) {
         lu.bought = true
         player.lc5eff = player.lc5eff.mul(2)
         lu.amt = lu.amt.add(1)
+    }
+}
+
+function BuyTmp(i) {
+    let tmp = talmideUpgrades[i - 1]
+    if(i == 1) {
+        if(player.tangent.pi_dimension.LitresOfWater.gte(tmp.cost)) {
+            player.tangent.pi_dimension.LitresOfWater = player.tangent.pi_dimension.LitresOfWater.sub(tmp.cost)
+            tmp.bought = true
+        }
+    }
+    if(i == 2) {
+        if(player.tangent.pi_dimension.papirus.gte(tmp.cost)) {
+            player.tangent.pi_dimension.papirus = player.tangent.pi_dimension.papirus.sub(tmp.cost)
+            tmp.bought = true
+        }
+    }
+    if(i == 3) {
+        if(player.tangent.pi_dimension.papirus.gte(tmp.cost) && player.tangent.pi_dimension.LitresOfWater.gte(tmp.cost)) {
+            player.tangent.pi_dimension.papirus = player.tangent.pi_dimension.papirus.sub(tmp.cost)
+            player.tangent.pi_dimension.LitresOfWater = player.tangent.pi_dimension.LitresOfWater.sub(tmp.cost)
+            tmp.bought = true
+        }
+    }
+    if(i == 4) {
+        if(player.tangent.pi_dimension.MathematicalInstruments.gte(tmp.cost)) {
+            player.tangent.pi_dimension.MathematicalInstruments = player.tangent.pi_dimension.MathematicalInstruments.sub(tmp.cost)
+            tmp.bought = true
+        }
+    }
+    if(i == 5) {
+        if(player.tangent.pi_dimension.Coal.gte(tmp.cost) && player.tangent.pi_dimension.LitresOfWater.gte(1500)) {
+            player.tangent.pi_dimension.Coal = player.tangent.pi_dimension.Coal.sub(tmp.cost)
+            player.tangent.pi_dimension.LitresOfWater = player.tangent.pi_dimension.LitresOfWater.sub(3000)
+            tmp.bought = true
+        }
+    }
+    if(i == 6) {
+        if(player.tangent.pi_dimension.papirus.gte(tmp.cost) && player.tangent.pi_dimension.LitresOfWater.gte(3000) && player.tangent.pi_dimension.Coal.gte(500)
+        && player.tangent.pi_dimension.MathematicalInstruments.gte(5) && player.tangent.pi_dimension.Metal(10) && player.tangent.pi_dimension.Shapes.gte(2)) {
+            player.tangent.pi_dimension.papirus = player.tangent.pi_dimension.papirus.sub(tmp.cost)
+            player.tangent.pi_dimension.LitresOfWater = player.tangent.pi_dimension.LitresOfWater.sub(5000)
+            player.tangent.pi_dimension.Coal = player.tangent.pi_dimension.Coal.sub(1000)
+            player.tangent.pi_dimension.MathematicalInstruments = player.tangent.pi_dimension.MathematicalInstruments.sub(50)
+            player.tangent.pi_dimension.Metal = player.tangent.pi_dimension.Metal.sub(100)
+            player.tangent.pi_dimension.Shapes = player.tangent.pi_dimension.Shapes.sub(25)
+            tmp.bought = true
+        }
+    }
+}
+
+function BuyIup(i) {
+    let iup = inventorUpgrades[i - 1]
+    if(i == 1) {
+        if(player.tangent.pi_dimension.papirus.gte(iup.cost)) {
+            player.tangent.pi_dimension.papirus = player.tangent.pi_dimension.papirus.sub(iup.cost)
+            iup.bought = true
+        }
+    }
+    if(i == 2) {
+        if(player.tangent.pi_dimension.LitresOfWater.gte(iup.cost)) {
+            player.tangent.pi_dimension.LitresOfWater = player.tangent.pi_dimension.LitresOfWater.sub(iup.cost)
+            iup.bought = true
+        }
+    }
+    if(i == 3) {
+        if(player.tangent.pi_dimension.Coal.gte(iup.cost)) {
+            player.tangent.pi_dimension.Coal = player.tangent.pi_dimension.Coal.sub(iup.cost)
+            iup.bought = true
+        }
     }
 }
 
@@ -359,4 +497,83 @@ function BuyBuyable2() {
         }
         player.polygons.dimensions = player.polygons.dimensions.add(1)
     }
+}
+
+function EnterTheCircle() {
+    if(!player.tangent.pi_dimension.inDimension) {
+        player.tangent.pi_dimension.inDimension = true
+    }
+    else {
+        player.tangent.pi_dimension.inDimension = false
+    }
+}
+
+function BuyThalesStudent() {
+    if(player.tangent.pi_dimension.papirus.gte(player.tangent.pi_dimension.Thales.cost)) {
+        player.tangent.pi_dimension.papirus = player.tangent.pi_dimension.papirus.sub(player.tangent.pi_dimension.Thales.cost)
+        player.tangent.pi_dimension.Thales.students = player.tangent.pi_dimension.Thales.students.add(1)
+        player.tangent.pi_dimension.Thales.eff = player.tangent.pi_dimension.Thales.eff.add(1)
+        player.tangent.pi_dimension.Thales.cost = player.tangent.pi_dimension.Thales.cost.mul(1.5)
+    }
+}
+
+function BuyPapirusMaker() {
+    if(player.tangent.pi_dimension.LitresOfWater.gte(player.tangent.pi_dimension.Papirus_maker.cost)) {
+        player.tangent.pi_dimension.LitresOfWater = player.tangent.pi_dimension.LitresOfWater.sub(player.tangent.pi_dimension.Papirus_maker.cost)
+        player.tangent.pi_dimension.Papirus_maker.cost = player.tangent.pi_dimension.Papirus_maker.cost.mul(1.5)
+        player.tangent.pi_dimension.Papirus_maker.amt = player.tangent.pi_dimension.Papirus_maker.amt.add(1)
+    }
+}
+
+function BuyArchimedesStudent() {
+    if(player.tangent.pi_dimension.papirus.gte(player.tangent.pi_dimension.Archimedes.cost)) {
+        player.tangent.pi_dimension.papirus = player.tangent.pi_dimension.papirus.sub(player.tangent.pi_dimension.Archimedes.cost)
+        player.tangent.pi_dimension.Archimedes.cost = player.tangent.pi_dimension.Archimedes.cost.mul(2.5)
+        player.tangent.pi_dimension.Archimedes.eff = player.tangent.pi_dimension.Archimedes.eff.add(10)
+        player.tangent.pi_dimension.Archimedes.students = player.tangent.pi_dimension.Archimedes.students.add(1)
+    }
+}
+
+function BuyWaterWorker() {
+    if(player.tangent.pi_dimension.Water_worker.cap.lt(1)) {
+        player.tangent.pi_dimension.Water_worker.cap = player.tangent.pi_dimension.Water_worker.cap.add(1)
+    }
+}
+
+function BuyEuclidsElements() {
+    if(player.tangent.pi_dimension.papirus.gte(player.tangent.pi_dimension.Euclids_elements.cost)) {
+        player.tangent.pi_dimension.papirus = player.tangent.pi_dimension.papirus.sub(player.tangent.pi_dimension.Euclids_elements.cost)
+        player.tangent.pi_dimension.Euclids_elements.cost = player.tangent.pi_dimension.Euclids_elements.cost.mul(1.2)
+        player.tangent.pi_dimension.Lines = player.tangent.pi_dimension.Lines.add(1)
+    }
+}
+
+function BuyMiner() {
+    if(player.tangent.pi_dimension.Miner.cap.lt(1)) {
+        player.tangent.pi_dimension.Miner.cap = player.tangent.pi_dimension.Miner.cap.add(1)
+    }
+}
+
+function BuyEdmundGunter() {
+    if(player.tangent.pi_dimension.Metal.gte(player.tangent.pi_dimension.Edmund_gunter.cost)) {
+        player.tangent.pi_dimension.Metal = player.tangent.pi_dimension.Metal.sub(player.tangent.pi_dimension.Edmund_gunter.cost)
+        player.tangent.pi_dimension.Edmund_gunter.cost = player.tangent.pi_dimension.Edmund_gunter.cost.mul(1.3)
+        player.tangent.pi_dimension.MathematicalInstruments = player.tangent.pi_dimension.MathematicalInstruments.add(1)
+    }
+}
+
+function BuyAncientOnes() {
+    if(player.tangent.pi_dimension.Coal.gte(player.tangent.pi_dimension.Ancient_ones.cost)) {
+        player.tangent.pi_dimension.Coal = player.tangent.pi_dimension.Coal.sub(player.tangent.pi_dimension.Ancient_ones.cost)
+        player.tangent.pi_dimension.Ancient_ones.cost = player.tangent.pi_dimension.Ancient_ones.cost.mul(1.1)
+        player.tangent.pi_dimension.Metal = player.tangent.pi_dimension.Metal.add(1)
+    }
+}
+
+function BuyPlato() {
+    if(player.tangent.pi_dimension.MathematicalInstruments.gte(player.tangent.pi_dimension.Plato.cost) && player.tangent.pi_dimension.Lines.gte(3)) {
+        player.tangent.pi_dimension.MathematicalInstruments = player.tangent.pi_dimension.MathematicalInstruments.sub(player.tangent.pi_dimension.Plato.cost)
+        player.tangent.pi_dimension.Lines = player.tangent.pi_dimension.Lines.sub(3)
+        player.tangent.pi_dimension.Plato.cost = player.tangent.pi_dimension.Plato.cost.add(1)
+    } 
 }

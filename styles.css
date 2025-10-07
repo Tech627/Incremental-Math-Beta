@@ -201,6 +201,18 @@ body.light {
     display: block;
 }
 
+#btn-gain {
+    width: 150px;
+    border-radius: 0;
+    background-color: black;
+    border: 2px solid rgb(26, 26, 26);
+}
+
+#btn-gain:hover {
+    background-color: rgb(20, 20, 20);
+    border: 2px solid rgb(49, 49, 49);
+}
+
 .content {
     display: none;
 }
@@ -1009,6 +1021,8 @@ body.light {
     display: flex;
     justify-content: center;
     gap: 5px;
+    margin-left: 200px;
+    margin-right: 200px;
 }
 
 #Inventor1 {
@@ -1038,6 +1052,7 @@ body.light {
     display: grid;
     justify-content: center;
     align-content: center;
+    margin: 0;
 }
 
 #Inventor4 {
@@ -1050,6 +1065,7 @@ body.light {
     display: grid;
     justify-content: center;
     align-content: center;
+    margin: 0;
 }
 
 #Inventor5 {
@@ -1061,6 +1077,7 @@ body.light {
     display: grid;
     justify-content: center;
     align-content: center;
+    margin: 0;
 }
 
 .Inventor-cost {
@@ -1243,5 +1260,34 @@ body.light {
     display: grid;
     justify-content: center;
     align-content: center;
-    background-color: rgb(148, 49, 10);
+    background-color: rgb(209, 77, 24);
+    position: relative;
+    border-radius: 5px;
+}
+
+.IE-cost:hover {
+    cursor: pointer;
+    background-color: rgb(172, 69, 0);
+}
+
+#inner-IE-styles {
+    width: 230px;
+    height: 90px;
+    z-index: -1;
+    background-color: rgb(197, 72, 23);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -115px;
+    margin-top: -45px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px rgb(194, 66, 15);
+}
+
+#IE-name,
+#IE-desc,
+#IE-cost1,
+#IE-cost2,
+#IE-cost3 {
+    z-index: 0;
 }

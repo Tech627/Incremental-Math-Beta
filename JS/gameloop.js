@@ -512,23 +512,21 @@ function UpdateGUI() {
         document.getElementById("Miner-cost").textContent = "Maxed out"
     }
     document.getElementById("Mathematical-instruments").textContent = format(player.tangent.pi_dimension.MathematicalInstruments)
-    document.getElementById("Mathematical-instruments-maker").textContent = "Cost: " + format(player.tangent.pi_dimension.Edmund_gunter.cost) + " Metal"
     document.getElementById("Metal").textContent = format(player.tangent.pi_dimension.Metal)
-    document.getElementById("Metal-maker").textContent = "Cost: " + format(player.tangent.pi_dimension.Ancient_ones.cost) + " Coal"
     document.getElementById("Shapes").textContent = format(player.tangent.pi_dimension.Shapes)
-    document.getElementById("Shape-maker").textContent = "Cost: " + format(player.tangent.pi_dimension.Plato.cost) + " Mathematical instruments and 5 Lines"
+    document.getElementById("Shape-maker").textContent = "Cost: " + format(player.tangent.pi_dimension.Plato.cost) + " Mathematical instruments and 3 Lines"
     document.getElementById("IE-boost").textContent = "Your Inventor equation boosts all resources in The Circle by " + format(InventorEff()) + "x."
     if(inventorUpgrades[0].bought) {
-        document.getElementById("IE-equation").textContent = " Ieb = Papirus / 1,250 + Litres of Water / 3,000 + Lines / 3 + Coal / 500 + Shapes / 2 + Mathematical instruments"
-           + "/ 5 + Metal / 10"
+        document.getElementById("IE-equation").textContent = " Ieb = log10(Papirus / 1,250 + Litres of Water / 15,000 + Lines / 3 + Coal / 1000 + Shapes / 2 + "
+         + "Mathematical instruments / 25 + Metal / 35)"
     }
     if(inventorUpgrades[0].bought && inventorUpgrades[1].bought) {
-        document.getElementById("IE-equation").textContent = " Ieb = Papirus / 1,250 + Litres of Water / 600 + Lines / 3 + Coal / 500 + Shapes / 2 + Mathematical instruments"
-           + "/ 5 + Metal / 10"
+        document.getElementById("IE-equation").textContent = " Ieb = log10(Papirus / 1,250 + Litres of Water / 3000 + Lines / 3 + Coal / 1000 + Shapes / 2 + "
+         + "Mathematical instruments / 25 + Metal / 35"
     }
     if(inventorUpgrades[0].bought && inventorUpgrades[1].bought && inventorUpgrades[2].bought) {
-        document.getElementById("IE-equation").textContent = " Ieb = Papirus / 1,250 + Litres of Water / 600 + Lines / 3 + Coal / 50 + Shapes / 2 + Mathematical instruments"
-           + "/ 5 + Metal / 10"
+        document.getElementById("IE-equation").textContent = " Ieb = log10(Papirus / 1,250 + Litres of Water / 3000 + Lines / 3 + Coal / 100 + Shapes / 2 + "
+         + "Mathematical instruments / 25 + Metal / 35"
     }
 }
 
@@ -878,7 +876,7 @@ function CalculateLEegain() {
         LEegain = LEegain.mul(linearChallenges[4].eff)
     }
     if(linearChallenges[5].completed) {
-        LEegain = LEegain.mul(1.3)
+        LEegain = LEegain.mul(1.2)
     }
     if(player.polygons.pboost5unl) {
         LEegain = LEegain.mul(player.polygons.eff5)
@@ -913,26 +911,27 @@ function CalculateFullCirclesGain() {
 
 function InventorEff() {
     let InventorEquationEff = new Decimal(1)
-    InventorEquationEff = InventorEquationEff.add(player.tangent.pi_dimension.papirus.div(5000).add(player.tangent.pi_dimension.LitresOfWater.div(3000).add(
-        player.tangent.pi_dimension.Lines.div(3).add(player.tangent.pi_dimension.Coal.div(500).add(player.tangent.pi_dimension.Shapes.div(2).add(
-            player.tangent.pi_dimension.MathematicalInstruments.div(5).add(player.tangent.pi_dimension.Metal.div(10))
+    InventorEquationEff = InventorEquationEff.add(player.tangent.pi_dimension.papirus.div(5000).add(player.tangent.pi_dimension.LitresOfWater.div(1.5e4).add(
+        player.tangent.pi_dimension.Lines.div(3).add(player.tangent.pi_dimension.Coal.add(1).div(1e3).add(player.tangent.pi_dimension.Shapes.div(2).add(
+            player.tangent.pi_dimension.MathematicalInstruments.div(25).add(player.tangent.pi_dimension.Metal.div(35))
         ))))))
+    InventorEquationEff = InventorEquationEff.add(1).log10().add(1)
     if(inventorUpgrades[0].bought) {
-        InventorEquationEff = InventorEquationEff.add(player.tangent.pi_dimension.papirus.div(1250).add(player.tangent.pi_dimension.LitresOfWater.div(3000).add(
-        player.tangent.pi_dimension.Lines.div(3).add(player.tangent.pi_dimension.Coal.div(500).add(player.tangent.pi_dimension.Shapes.div(2).add(
-            player.tangent.pi_dimension.MathematicalInstruments.div(5).add(player.tangent.pi_dimension.Metal.div(10))
+        InventorEquationEff = InventorEquationEff.add(player.tangent.pi_dimension.papirus.div(1250).add(player.tangent.pi_dimension.LitresOfWater.div(1.5e4).add(
+        player.tangent.pi_dimension.Lines.div(3).add(player.tangent.pi_dimension.Coal.div(1e3).add(player.tangent.pi_dimension.Shapes.div(2).add(
+            player.tangent.pi_dimension.MathematicalInstruments.div(25).add(player.tangent.pi_dimension.Metal.div(35))
         ))))))
     }
     if(inventorUpgrades[0].bought && inventorUpgrades[1].bought) {
-        InventorEquationEff = InventorEquationEff.add(player.tangent.pi_dimension.papirus.div(1250).add(player.tangent.pi_dimension.LitresOfWater.div(600).add(
-        player.tangent.pi_dimension.Lines.div(3).add(player.tangent.pi_dimension.Coal.div(500).add(player.tangent.pi_dimension.Shapes.div(2).add(
-            player.tangent.pi_dimension.MathematicalInstruments.div(5).add(player.tangent.pi_dimension.Metal.div(10))
+        InventorEquationEff = InventorEquationEff.add(player.tangent.pi_dimension.papirus.div(1250).add(player.tangent.pi_dimension.LitresOfWater.div(3000).add(
+        player.tangent.pi_dimension.Lines.div(3).add(player.tangent.pi_dimension.Coal.div(1e3).add(player.tangent.pi_dimension.Shapes.div(2).add(
+            player.tangent.pi_dimension.MathematicalInstruments.div(25).add(player.tangent.pi_dimension.Metal.div(35))
         ))))))
     }
     if(inventorUpgrades[0].bought && inventorUpgrades[1].bought && inventorUpgrades[2].bought) {
-        InventorEquationEff = InventorEquationEff.add(player.tangent.pi_dimension.papirus.div(1250).add(player.tangent.pi_dimension.LitresOfWater.div(600).add(
-        player.tangent.pi_dimension.Lines.div(3).add(player.tangent.pi_dimension.Coal.div(50).add(player.tangent.pi_dimension.Shapes.div(2).add(
-            player.tangent.pi_dimension.MathematicalInstruments.div(5).add(player.tangent.pi_dimension.Metal.div(10))
+        InventorEquationEff = InventorEquationEff.add(player.tangent.pi_dimension.papirus.div(1250).add(player.tangent.pi_dimension.LitresOfWater.div(3000).add(
+        player.tangent.pi_dimension.Lines.div(3).add(player.tangent.pi_dimension.Coal.div(100).add(player.tangent.pi_dimension.Shapes.div(2).add(
+            player.tangent.pi_dimension.MathematicalInstruments.div(25).add(player.tangent.pi_dimension.Metal.div(35))
         ))))))
     }
     return InventorEquationEff
@@ -944,8 +943,10 @@ function productionLoop(diff) {
     player.pointsPerSec = CalculatePointGain()
     player.tpoints = player.tpoints.add(player.pointsPerSec.mul(diff))
     player.equations.equation1.x = CalculateEquationGain()
-    player.tangent.pi_dimension.papirus = player.tangent.pi_dimension.papirus.add(player.tangent.pi_dimension.papirusPerSec.mul(diff))
-    player.tangent.pi_dimension.papirusPerSec = CalculatePapirusGain()
+    if(player.tangent.pi_dimension.inDimension) {
+        player.tangent.pi_dimension.papirus = player.tangent.pi_dimension.papirus.add(player.tangent.pi_dimension.papirusPerSec.mul(diff))
+        player.tangent.pi_dimension.papirusPerSec = CalculatePapirusGain()
+    }
     if(player.tangent.pi_dimension.Miner.cap.eq(1)) {
         player.tangent.pi_dimension.Coal = player.tangent.pi_dimension.Coal.add(player.tangent.pi_dimension.CoalPerSec.mul(diff))
     }

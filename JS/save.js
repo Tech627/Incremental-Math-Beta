@@ -2,6 +2,68 @@ function saveitems(name, location) { // this basically just removes the localsto
     localStorage.setItem(name, JSON.stringify((location)));
 }
 
+var upgrades = []
+var linearUpgrades = []
+var linearChallenges = []
+var linearEquation = []
+var talmideUpgrades = []
+var inventorUpgrades = []
+
+for(let i = 0; i < 6; i++) {
+    let upgrade = {
+        bought: false,
+        cost: new Decimal(20000).mul(i + 1),
+        eff: new Decimal(1),
+    }
+    upgrades.push(upgrade)
+}
+
+for(let i = 0; i < 12; i++) {
+    let linearUpgrade = {
+        bought: false,
+        cost: new Decimal(1),
+        eff: new Decimal(1),
+        amt: new Decimal(1)
+    }
+    linearUpgrades.push(linearUpgrade)
+}
+
+for(let i = 0; i < 6; i++) {
+    let linearChallenge = {
+        completed: false,
+        inChal: false,
+        goal: new Decimal(3000),
+        eff: new Decimal(1),
+    }
+    linearChallenges.push(linearChallenge)
+}
+
+for(let i = 0; i < 5; i++) {
+    let leVar = {
+        cost: new Decimal(100).mul(i + 1).pow(1.5),
+        amount: new Decimal(0),
+    }
+    linearEquation.push(leVar)
+}
+
+for(let i = 0; i < 6; i++) {
+    let talmideUpgrade = {
+        bought: false,
+        cost: new Decimal(100),
+        eff: new Decimal(1),
+    }
+    talmideUpgrades.push(talmideUpgrade)
+}
+
+for(let i = 0; i < 3; i++) {
+    let inventorUpgrade = {
+        bought: false,
+        cost: new Decimal(15000),
+        eff: new Decimal(1),
+    }
+    inventorUpgrades.push(inventorUpgrade)
+}
+
 function Save() {
     if (localStorage) {
         saveitems("firstload", false)
@@ -52,6 +114,16 @@ function Save() {
             saveitems((i + 1) + "amt", le.amount)
             saveitems((i + 1) + "cost", le.cost)
         }
+        for(let i = 0; i < 6; i++) {
+            let tmp = talmideUpgrades[i]
+            saveitems("tmp-bought" + (i + 1), tmp.bought)
+            saveitems("tmp-eff" + (i + 1), tmp.eff)
+        }
+        for(let i = 0; i < 3; i++) {
+            let iup = inventorUpgrades[i]
+            saveitems("iup-bought" + (i + 1), iup.bought)
+            saveitems("iup-eff" + (i + 1), iup.eff)
+        }
         saveitems("equation1eff", player.equations.equation1.eff)
         saveitems("equation1x", player.equations.equation1.x)
         saveitems("multiplicator1cost", player.equations.multiplicator1.cost)
@@ -83,6 +155,34 @@ function Save() {
         saveitems("softcapunl", player.softcapunl)
         saveitems("lu3reset", lockedlu3reset)
         saveitems("tangentunl", player.tangent.unlocked)
+        saveitems("inDimension", player.tangent.pi_dimension.inDimension)
+        saveitems("papirus", player.tangent.pi_dimension.papirus)
+        saveitems("papirusPerSec", player.tangent.pi_dimension.papirusPerSec)
+        saveitems("fullCircles", player.tangent.pi_dimension.fullCircles)
+        saveitems("LitresOfWater", player.tangent.pi_dimension.LitresOfWater)
+        saveitems("Lines", player.tangent.pi_dimension.Lines)
+        saveitems("Coal", player.tangent.pi_dimension.Coal)
+        saveitems("CoalPerSec", player.tangent.pi_dimension.CoalPerSec)
+        saveitems("MathematicalInstruments", player.tangent.pi_dimension.MathematicalInstruments)
+        saveitems("Metal", player.tangent.pi_dimension.Metal)
+        saveitems("Shapes", player.tangent.pi_dimension.Shapes)
+        saveitems("ThalesStudents", player.tangent.pi_dimension.Thales.students)
+        saveitems("ThalesEff", player.tangent.pi_dimension.Thales.eff)
+        saveitems("ThalesCost", player.tangent.pi_dimension.Thales.cost)
+        saveitems("PapirusMakerEff", player.tangent.pi_dimension.Papirus_maker.eff)
+        saveitems("PapirusMakerAmt", player.tangent.pi_dimension.Papirus_maker.amt)
+        saveitems("PapirusMakerCost", player.tangent.pi_dimension.Papirus_maker.cost)
+        saveitems("ArchimedesStudents", player.tangent.pi_dimension.Archimedes.students)
+        saveitems("ArchimedesEff", player.tangent.pi_dimension.Archimedes.eff)
+        saveitems("ArchimedesCost", player.tangent.pi_dimension.Archimedes.cost)
+        saveitems("WaterWorkerCap", player.tangent.pi_dimension.Water_worker.cap)
+        saveitems("WaterWorkerEff", player.tangent.pi_dimension.Water_worker.eff)
+        saveitems("EuclidsElementsCost", player.tangent.pi_dimension.Euclids_elements.cost)
+        saveitems("MinerCap", player.tangent.pi_dimension.Miner.cap)
+        saveitems("MinerEff", player.tangent.pi_dimension.Miner.eff)
+        saveitems("EdmundGunterCost", player.tangent.pi_dimension.Edmund_gunter.cost)
+        saveitems("AncientOnesCost", player.tangent.pi_dimension.Ancient_ones.cost)
+        saveitems("PlatoCost", player.tangent.pi_dimension.Plato.cost)
         player.saved = true
         if(player.saved === true) {
             document.getElementById("Save-notification").classList.add("save")
@@ -163,6 +263,16 @@ function Get() {
             le.amount = GetItems((i + 1) + "amt", true)
             le.cost = GetItems((i + 1) + "cost", true)
         }
+        for(let i = 0; i < 6; i++) {
+            let tmp = talmideUpgrades[i]
+            tmp.bought = GetItems("tmp-bought" + (i + 1), false)
+            tmp.eff = GetItems("tmp-eff" + (i + 1), true)
+        }
+        for(let i = 0; i < 3; i++) {
+            let iup = inventorUpgrades[i]
+            iup.bought = GetItems("iup-bought" + (i + 1), false)
+            iup.eff = GetItems("iup-eff" + (i + 1), true)
+        }
         player.equations.equation1.eff = GetItems("equation1eff", true)
         player.equations.equation1.x = GetItems("equation1x", true)
         player.equations.multiplicator1.cost = GetItems("multiplicator1cost", true)
@@ -194,6 +304,34 @@ function Get() {
         player.softcapunl = GetItems("softcapunl", false)
         lockedlu3reset = GetItems("lu3reset", false)
         player.tangent.unlocked = GetItems("tangentunl", false)
+        player.tangent.pi_dimension.inDimension = GetItems("inDimension", false)
+        player.tangent.pi_dimension.papirus = GetItems("papirus", true)
+        player.tangent.pi_dimension.papirusPerSec = GetItems("papirusPerSec", true)
+        player.tangent.pi_dimension.fullCircles = GetItems("fullCircles", true)
+        player.tangent.pi_dimension.LitresOfWater = GetItems("LitresOfWater", true)
+        player.tangent.pi_dimension.Lines = GetItems("Lines", true)
+        player.tangent.pi_dimension.Coal = GetItems("Coal", true)
+        player.tangent.pi_dimension.CoalPerSec = GetItems("CoalPerSec", true)
+        player.tangent.pi_dimension.MathematicalInstruments = GetItems("MathematicalInstruments", true)
+        player.tangent.pi_dimension.Metal = GetItems("Metal", true)
+        player.tangent.pi_dimension.Shapes = GetItems("Shapes", true)
+        player.tangent.pi_dimension.Thales.students = GetItems("ThalesStudents", true)
+        player.tangent.pi_dimension.Thales.eff = GetItems("ThalesEff", true)
+        player.tangent.pi_dimension.Thales.cost = GetItems("ThalesCost", true)
+        player.tangent.pi_dimension.Papirus_maker.amt = GetItems("PapirusMakerAmt", true)
+        player.tangent.pi_dimension.Papirus_maker.eff = GetItems("PapirusMakerEff", true)
+        player.tangent.pi_dimension.Papirus_maker.cost = GetItems("PapirusMakerCost", true)
+        player.tangent.pi_dimension.Archimedes.students = GetItems("ArchimedesStudents", true)
+        player.tangent.pi_dimension.Archimedes.eff = GetItems("ArchimedesEff", true)
+        player.tangent.pi_dimension.Archimedes.cost = GetItems("ArchimedesCost", true)
+        player.tangent.pi_dimension.Water_worker.cap = GetItems("WaterWorkerCap", true)
+        player.tangent.pi_dimension.Water_worker.eff  = GetItems("WaterWorkerEff", true)
+        player.tangent.pi_dimension.Euclids_elements.cost = GetItems("EuclidsElementsCost", true)
+        player.tangent.pi_dimension.Miner.cap = GetItems("MinerCap", true)
+        player.tangent.pi_dimension.Miner.eff = GetItems("MinerEff", true)
+        player.tangent.pi_dimension.Edmund_gunter.cost = GetItems("EdmundGunterCost", true)
+        player.tangent.pi_dimension.Ancient_ones.cost = GetItems("AncientOnesCost", true)
+        player.tangent.pi_dimension.Plato.cost = GetItems("PlatoCost", true)
         fixSave() 
     } else {
         Save()

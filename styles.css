@@ -123,6 +123,7 @@ body.light {
     height: 30px;
     padding: 5px;
     background-color: rgba(14, 203, 58, 0.801);
+    border: 2px solid rgb(56, 116, 56);
     color: white;
     display: flex;
     justify-content: center;
@@ -296,6 +297,25 @@ body.light {
     display: block;
 }
 
+#mult-cost,
+#mult-cost1,
+#mult-cost2,
+#mult-cost3 {
+    width: 200px;
+    height: 50px;
+    font-size: 13px;
+    background-color: rgb(54, 54, 54);
+    border: 2px solid rgb(77, 77, 77);
+}
+
+#mult-cost:hover,
+#mult-cost1:hover,
+#mult-cost2:hover,
+#mult-cost3:hover {
+    background-color: rgb(59, 59, 59);
+    border: 2px solid rgb(20, 20, 20);
+}
+
 #solved-equation {
     color: rgb(87, 87, 87);
     font-size: 14px;
@@ -435,19 +455,23 @@ body.light {
     margin-bottom: 5px;
 }
 
-#softcaptab {
-    width: 150px;
-    height: 50px;
-    background-color: rgba(43, 43, 43, 0.801);
-    color: rgb(135, 135, 135);
-    border: 1px solid rgb(78, 78, 78);
+#softcap-tab {
+    width: 100px;
+    height: 25px;
     display: none;
-}
-
-#softcaptab.show {
-    display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 13px;
+    background-color: rgb(59, 59, 59);
+}
+
+#softcap-tab:hover {
+    cursor: pointer;
+    background-color: rgb(43, 43, 43);
+}
+
+#softcap-tab.show {
+    display: flex;
 }
 
 #LEs,
@@ -510,6 +534,14 @@ body.light {
     background-color: rgb(8, 195, 73);
 }
 
+#Linear-essence-gain-formula {
+    display: none;
+}
+
+#Linear-essence-gain-formula.show {
+    display: block;
+}
+
 .Lup-cost {
     width: 250px;
     height: 140px;
@@ -527,11 +559,13 @@ body.light {
     height: 140px;
     font-size: 14px;
     font-weight: bold;
-    background-color: rgb(6, 61, 78);
+    background-color: rgb(4, 46, 59);
+    border: 2px solid rgb(5, 121, 121);
 }
 
 .Lup-bought:hover {
     background-color: rgba(5, 86, 85, 0.9);
+    border: 2px solid rgb(4, 105, 105);
 }
 
 .Lup-buy {
@@ -539,11 +573,12 @@ body.light {
     height: 140px;
     font-size: 14px;
     font-weight: bold;
-    background-color: rgb(1, 218, 27);
+    background-color: rgb(6, 155, 23);
+    border: 2px solid rgb(59, 170, 59);
 }
 
 .Lup-buy:hover {
-    background-color: rgba(0, 189, 0, 0.9);
+    background-color: rgba(7, 126, 7, 0.9);
 }
 
 #Lrow1 {
@@ -569,11 +604,13 @@ body.light {
     justify-content: center;
 }
 
-#NBuyer {
+#NBuyer,
+#KBuyer {
     display: none;
 }
 
-#NBuyer.unlocked {
+#NBuyer.unlocked,
+#KBuyer.unlocked {
     display: block;
 }
 
@@ -641,6 +678,7 @@ body.light {
     height: 30px;
     padding: 5px;
     background-color: rgba(14, 203, 58, 0.801);
+    border: 2px solid rgb(56, 116, 56);
     color: white;
     display: flex;
     justify-content: center;
@@ -760,6 +798,7 @@ body.light {
     height: 30px;
     padding: 5px;
     background-color: rgba(14, 203, 58, 0.801);
+    border: 2px solid rgb(56, 116, 56);
     color: white;
     justify-content: center;
     align-items: center;
@@ -831,14 +870,22 @@ body.light {
     font-size: 18px;
 }
 
-#latex-equation {
-    font-size: 11px;
-    position: absolute;
-    right: 102;
-}
-
 #Polygon-boosts.show {
     visibility: visible;
+}
+
+#Polytope-boosts,
+#Polytop-boost1,
+#Polytop-boost2,
+#Polytop-boost3 {
+    display: none;
+}
+
+#Polytope-boosts.show,
+#Polytop-boost1.show,
+#Polytop-boost2.show,
+#Polytop-boost3.show {
+    display: block;
 }
 
 #Buyables {
@@ -887,6 +934,7 @@ body.light {
     height: 30px;
     padding: 5px;
     background-color: rgba(14, 203, 58, 0.801);
+    border: 2px solid rgb(56, 116, 56);
     color: white;
     justify-content: center;
     align-items: center;
@@ -906,16 +954,52 @@ body.light {
     text-align: center;
 }
 
-.milestone {
-    width: 300px;
-    height: 95px;
-    font-size: 14px;
+#Pi-power-boost,
+#pip-boost {
+    display: none;
+}
+
+#Pi-power-boost.show,
+#pip-boost.show {
+    display: block;
+}
+
+.pi-milestones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+
+.pi-milestone1,
+.pi-milestone2 {
+    width: 200px;
+    height: 80px;
+    font-size: 12px;
     display: grid;
     justify-content: center;
     align-content: center;
     flex-wrap: wrap;
     background-image: linear-gradient(90deg, rgb(73, 73, 73), rgb(26, 26, 26));
     margin-bottom: 5px;
+}
+
+.pi-milestone-gotten {
+    width: 200px;
+    height: 80px;
+    font-size: 12px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    background: linear-gradient(90deg, rgb(33, 56, 33)), rgb(26, 26, 26);
+    margin-bottom: 5px;
+}
+
+#pic-name {
+    font-size: 15px;
+    font-weight: bold;
 }
 
 .pi-challenge {
@@ -926,8 +1010,16 @@ body.light {
     justify-content: center;
     align-content: center;
     flex-wrap: wrap;
-    background-image: linear-gradient(90deg, rgb(73, 73, 73), rgb(26, 26, 26));
+    background-image: linear-gradient(90deg, rgb(131, 131, 131), rgb(78, 110, 100));
+    border: 2px solid rgb(59, 8, 8);
+    box-shadow: 0 0 5px rgb(126, 3, 3);
     margin-top: 10px;
+}
+
+.pi-challenge:hover {
+    background-image: linear-gradient(90deg, rgb(94, 94, 94), rgb(68, 114, 99));
+    cursor: pointer;
+    box-shadow: 0 0 5px rgb(170, 5, 5);
 }
 
 #Tangent {
@@ -961,9 +1053,10 @@ body.light {
 
 .Tup {
     width: 250px;
-    height: 115px;
-    background-color: rgb(163, 163, 163);
-    font-size: 14px;
+    height: 100px;
+    background-color: rgb(2, 27, 34);
+    border: 2px solid rgb(28, 92, 92);
+    font-size: 13px;
     padding: 5px;
     display: grid;
     justify-content: center;
@@ -972,8 +1065,22 @@ body.light {
 }
 
 .Tup:hover {
-    background-color: rgb(145, 128, 128);
+    background-color: rgb(8, 42, 58);
+    border: 2px solid rgb(51, 114, 114);
     cursor: pointer;
+}
+
+.Tup.bought {
+    width: 250px;
+    height: 100px;
+    background-color: rgb(10, 107, 62);
+    border: 2px solid rgb(10, 88, 36);
+    font-size: 13px;
+    padding: 5px;
+    display: grid;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
 }
 
 #Circle-arcs {
@@ -983,6 +1090,16 @@ body.light {
 }
 
 #Circle-arcs.show {
+    display: block;
+}
+
+#Circle-arcs-formula,
+#Circle-arcs-tf {
+    display: none;
+}
+
+#Circle-arcs-formula.show,
+#Circle-arcs-tf.show {
     display: block;
 }
 
@@ -998,6 +1115,29 @@ body.light {
     height: 65px;
     font-size: 14px;
     margin: 3px;
+    background-color: rgb(7, 78, 5);
+    border: 2px solid rgb(29, 117, 29);
+}
+
+#alpha-buyer:hover,
+#radius-buyer:hover {
+    background-color: rgb(11, 110, 8);
+    border: 2px solid rgb(53, 151, 53);
+}
+
+#EoT-c-btn,
+#EoT-x-btn {
+    width: 200px;
+    height: 40px;
+    font-size: 14px;
+    background-color: rgb(87, 4, 87);
+    border: 2px solid rgb(138, 14, 138);
+} 
+
+#EoT-c-btn:hover,
+#EoT-x-btn:hover {
+    background-color: rgb(71, 3, 71);
+    border: 2px solid rgb(104, 31, 104);
 }
 
 #EoT-boost {
@@ -1290,4 +1430,39 @@ body.light {
 #IE-cost2,
 #IE-cost3 {
     z-index: 0;
+}
+
+#alpha-amount,
+#radius-amount {
+    width: auto;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+#angle-amount,
+#tradius-amount {
+    margin-top: 14px;
+}
+
+#guide-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+#guide-sub-tab {
+    width: 100px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    background-color: rgb(59, 59, 59);
+}
+
+#guide-sub-tab:hover {
+    cursor: pointer;
+    background-color: rgb(43, 43, 43);
 }

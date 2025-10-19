@@ -7,7 +7,6 @@ var linearUpgrades = []
 var linearChallenges = []
 var linearEquation = []
 var talmideUpgrades = []
-var inventorUpgrades = []
 
 for(let i = 0; i < 6; i++) {
     let upgrade = {
@@ -53,15 +52,6 @@ for(let i = 0; i < 6; i++) {
         eff: new Decimal(1),
     }
     talmideUpgrades.push(talmideUpgrade)
-}
-
-for(let i = 0; i < 3; i++) {
-    let inventorUpgrade = {
-        bought: false,
-        cost: new Decimal(15000),
-        eff: new Decimal(1),
-    }
-    inventorUpgrades.push(inventorUpgrade)
 }
 
 function Save() {
@@ -118,11 +108,6 @@ function Save() {
             let tmp = talmideUpgrades[i]
             saveitems("tmp-bought" + (i + 1), tmp.bought)
             saveitems("tmp-eff" + (i + 1), tmp.eff)
-        }
-        for(let i = 0; i < 3; i++) {
-            let iup = inventorUpgrades[i]
-            saveitems("iup-bought" + (i + 1), iup.bought)
-            saveitems("iup-eff" + (i + 1), iup.eff)
         }
         saveitems("equation1eff", player.equations.equation1.eff)
         saveitems("equation1x", player.equations.equation1.x)
@@ -183,6 +168,19 @@ function Save() {
         saveitems("EdmundGunterCost", player.tangent.pi_dimension.Edmund_gunter.cost)
         saveitems("AncientOnesCost", player.tangent.pi_dimension.Ancient_ones.cost)
         saveitems("PlatoCost", player.tangent.pi_dimension.Plato.cost)
+        saveitems("circlearc-angle", player.tangent.angle)
+        saveitems("circlearc-radius", player.tangent.radius)
+        saveitems("circlearcs-buyable1-cost", player.tangent.circle_arcs.buyable1.cost)
+        saveitems("circlearcs-buyable2-cost", player.tangent.circle_arcs.buyable2.cost)
+        saveitems("pi-milestone1-gotten", player.tangent.pi_milestones.milestone1.gotten)
+        saveitems("pi-milestone2-gotten", player.tangent.pi_milestones.milestone2.gotten)
+        saveitems("tangentupgrade1-level", player.tangent.tangent_upgrades.upgrade1.level)
+        saveitems("tangentupgrade1-bought", player.tangent.tangent_upgrades.upgrade1.bought)
+        saveitems("tangentupgrade2-bought", player.tangent.tangent_upgrades.upgrade2.bought)
+        saveitems("EoT-c", player.tangent.equation_of_tangent.c_buyer.amount)
+        saveitems("EoT-x", player.tangent.equation_of_tangent.x_buyer.amount)
+        saveitems("EoT-c-cost", player.tangent.equation_of_tangent.c_buyer.cost)
+        saveitems("EoT-x-cost", player.tangent.equation_of_tangent.x_buyer.cost)
         player.saved = true
         if(player.saved === true) {
             document.getElementById("Save-notification").classList.add("save")
@@ -268,11 +266,6 @@ function Get() {
             tmp.bought = GetItems("tmp-bought" + (i + 1), false)
             tmp.eff = GetItems("tmp-eff" + (i + 1), true)
         }
-        for(let i = 0; i < 3; i++) {
-            let iup = inventorUpgrades[i]
-            iup.bought = GetItems("iup-bought" + (i + 1), false)
-            iup.eff = GetItems("iup-eff" + (i + 1), true)
-        }
         player.equations.equation1.eff = GetItems("equation1eff", true)
         player.equations.equation1.x = GetItems("equation1x", true)
         player.equations.multiplicator1.cost = GetItems("multiplicator1cost", true)
@@ -332,6 +325,19 @@ function Get() {
         player.tangent.pi_dimension.Edmund_gunter.cost = GetItems("EdmundGunterCost", true)
         player.tangent.pi_dimension.Ancient_ones.cost = GetItems("AncientOnesCost", true)
         player.tangent.pi_dimension.Plato.cost = GetItems("PlatoCost", true)
+        player.tangent.angle = GetItems("circlearc-angle", true)
+        player.tangent.radius = GetItems("circlearc-radius", true)
+        player.tangent.circle_arcs.buyable1.cost = GetItems("circlearcs-buyable1-cost", true)
+        player.tangent.circle_arcs.buyable2.cost = GetItems("circlearcs-buyable2-cost", true)
+        player.tangent.pi_milestones.milestone1.gotten = GetItems("pi-milestone1-gotten", false)
+        player.tangent.pi_milestones.milestone2.gotten = GetItems("pi-milestone2-gotten", false)
+        player.tangent.tangent_upgrades.upgrade1.level = GetItems("tangentupgrade1-level", true)
+        player.tangent.tangent_upgrades.upgrade1.bought = GetItems("tangentupgrade1-bought", false)
+        player.tangent.tangent_upgrades.upgrade2.bought = GetItems("tangentupgrade2-bought", false)
+        player.tangent.equation_of_tangent.c_buyer.amount = GetItems("EoT-c", true)
+        player.tangent.equation_of_tangent.x_buyer.amount = GetItems("EoT-x", true)
+        player.tangent.equation_of_tangent.c_buyer.cost = GetItems("EoT-c-cost", true)
+        player.tangent.equation_of_tangent.x_buyer.cost = GetItems("EoT-x-cost", true)
         fixSave() 
     } else {
         Save()

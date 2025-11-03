@@ -437,7 +437,7 @@ function LinearEssenceReset(chal = false) {
             player.equations.equation2.eff = new Decimal(1)
         }
         player.GoneLinear = player.GoneLinear.add(1)
-        if(player.TimeinLinear.gte(player.FastestLinear)) {
+        if(player.TimeinLinear.lt(player.FastestLinear)) {
             player.FastestLinear = player.TimeinLinear
         }
         player.TimeinLinear = new Decimal(0)

@@ -393,17 +393,44 @@ function fixData(defaultData, newData) {
   }
 }
 
-function Export() {
-    const Exported = btoa(JSON.stringify(player))
-    navigator.clipboard.writeText(Exported);
+async function Export() {
+    try {
+        const savedData = {};
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          savedData[key] = localStorage.getItem(key);
+        }
+    
+        // Convert to JSON
+        const jsonData = JSON.stringify(savedData, null, 2);
+    
+        // Copy to clipboard
+        await navigator.clipboard.writeText(btoa(jsonData));
+        alert('Your save has been exported')
+      } catch (error) {
+        alert('bro something messed up i couldnt paste to clipboard')
+      }
 }
 
-function Import() {
-    let userResponse = prompt("Enter your exported save")
-    const Imported = userResponse
-    player = JSON.parse(atob(Imported))
-    Save()
-    window.location.reload()
+async function Import() {
+    try {
+        // Read clipboard text
+        clipboardData = prompt("Enter your exported save")
+        clipboardData = atob(clipboardData)
+        const importedData = JSON.parse(clipboardData);
+    
+        // Restore to localStorage
+        localStorage.clear();
+        Object.keys(importedData).forEach(key => {
+          localStorage.setItem(key, importedData[key]);
+        });
+    
+        alert('Save got imported')
+        location.reload()
+      } catch (error) {
+          alert("i fucked up")
+          console.error(error)
+      }
 }
 
 setInterval(Save, 15000)

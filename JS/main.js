@@ -425,6 +425,7 @@ function LinearEssenceReset(chal = false) {
         if(!linearUpgrades[2].bought) {
             player.equations.equation1.x = new Decimal(1)
             player.equations.equation2.x = new Decimal(0)
+            player.equations.equation2.k = new Decimal(1)
             player.equations.equation2.n = new Decimal(1)
             player.equations.equation2.y = new Decimal(1)
             player.equations.multiplicator1.cost = new Decimal(1.25e5)
@@ -435,9 +436,10 @@ function LinearEssenceReset(chal = false) {
             player.equations.equation1.eff = new Decimal(1)
             player.equations.equation2.eff = new Decimal(1)
         }
-        player.equations.equation2.k = new Decimal(1)
         player.GoneLinear = player.GoneLinear.add(1)
-        if(player.TimeinLinear.gte(player.FastestLinear)) player.FastestLinear = player.TimeinLinear
+        if(player.TimeinLinear.gte(player.FastestLinear)) {
+            player.FastestLinear = player.TimeinLinear
+        }
         player.TimeinLinear = new Decimal(0)
         player.LinearUnl = true
     }

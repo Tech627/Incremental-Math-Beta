@@ -37,7 +37,7 @@ for(let i = 0; i < 12; i++) {
     linearUpgrades.push(linearUpgrade)
 }
 
-for(let i = 0; i < 20; i++) {
+for(let i = 0; i < 30; i++) {
     let achievement = {
         completed: false,
     }
@@ -169,7 +169,7 @@ function UpdateGUI() {
     }
     for(let i = 0; i < 6; i++) {
         linearChallenges[0].goal = new Decimal(3e3)
-        linearChallenges[1].goal = new Decimal(1e38)
+        linearChallenges[1].goal = new Decimal(5e9)
         linearChallenges[2].goal = new Decimal(300)
         linearChallenges[3].goal = new Decimal(5e3)
         linearChallenges[4].goal = new Decimal(1e55)
@@ -234,6 +234,15 @@ function UpdateGUI() {
     if(player.polygons.pboost2unl) achievements[17].completed = true
     if(upgrades[6].bought) achievements[18].completed = true
     if(player.polygons.pboost5unl) achievements[19].completed = true
+    if(upgrades[8].bought) achievements[20].completed = true
+    if(player.tangent.pi_dimension.Papirus_maker.amt.gt(0)) achievements[21].completed = true
+    if(talmideUpgrades[0].bought && talmideUpgrades[1].bought && talmideUpgrades[2].bought) achievements[22].completed = true
+    if(player.tangent.pi_dimension.MathematicalInstruments.gt(0)) achievements[23].completed = true
+    if(talmideUpgrades[5].bought) achievements[24].completed = true
+    if(player.tangent.pi_milestones.milestone1.gotten && player.tangent.pi_milestones.milestone2.gotten) achievements[25].completed = true
+    if(player.tangent.circle_arcs_amt.gte(100)) achievements[26].completed = true
+    if(player.tangent.equation_of_tangent.x_buyer.amount.gte(5)) achievements[27].completed = true
+    if(player.tangent.pi_power.gte(10)) achievements[28].completed = true
     if(player.equations.equation1.x.eq(1)) document.getElementById("Equation1").textContent = "1+x=2"
     else document.getElementById("Equation1").textContent = "1+(x/" + format(CalculateEquationGain(), precision = 0) + ")=2"
     document.getElementById("LinearReset").textContent = "Reset for " + format(CalculateLEgain()) + " Linear Essence"
@@ -283,7 +292,15 @@ function UpdateGUI() {
     document.getElementById("Linear-essence").textContent = "You have " + format(player.LinearEssence) + " linear essence"
     document.getElementById("mult-cost3").textContent = "Cost: " + format(player.equations.nbuyer.cost) + " Points"
     document.getElementById("LP").textContent = format(player.LinearPower)
-    document.getElementById("LEequation").textContent = "ax + by + c + 1 = " + format(CalculateLEegain()) 
+    if(!linearChallenges[4].completed) {
+        document.getElementById("LEequation").textContent = "ax + by + c + 1 = " + format(CalculateLEegain()) 
+    }
+    else {
+        document.getElementById("LEequation").textContent = "(ax + by + c + 1)*" + format(linearChallenges[4].eff) + " boost = " + format(CalculateLEegain()) 
+    }
+    if(linearChallenges[5].completed) {
+        document.getElementById("LEequation").textContent = "(ax + by + c + 1)*" + format(linearChallenges[4].eff) + " * 1.2 = " + format(CalculateLEegain()) 
+    }
     document.getElementById("LP-eff").textContent = "Multiplying your points, buildings, y boost by " 
     + format(CalculateLEegain()) + "x, and x from 1st equation gets divided" 
     + " by 4 every time you reach a multiple of 10"
@@ -396,6 +413,14 @@ function UpdateGUI() {
     document.getElementById("Shapes").textContent = format(player.tangent.pi_dimension.Shapes)
     document.getElementById("Shape-maker").textContent = "Cost: " + format(player.tangent.pi_dimension.Plato.cost) + " Mathematical instruments and 3 Lines"
     document.getElementById("IE-boost").textContent = "Your Inventor equation boosts all resources in The Circle by " + format(InventorEff()) + "x."
+    if(InventorEff().lt(5)) {
+        document.getElementById("IE-equation").textContent = "Ieb = log10(Papirus / 5,000 + Litres of Water / 15,000 + Lines / 3 + Coal / 1000 + Shapes / 2 + Mathematical instruments"
+        + "/ 25 + Metal / 35)"
+    }
+    else if(InventorEff().gte(5)) {
+        document.getElementById("IE-equation").textContent = "Ieb = min(log10(Papirus / 5,000 + Litres of Water / 15,000 + Lines / 3 + Coal / 1000 + Shapes / 2 + Mathematical "
+        + "instruments / 25 + Metal / 35), 5)"
+    }
     if(player.tangent.pi_dimension.fullCircles.gte(player.tangent.pi_ac_req)) {
         player.tangent.pi_ac_req = player.tangent.pi_ac_req.mul(10)
         player.tangent.pi_after_comma = player.tangent.pi_after_comma.add(1)
@@ -409,17 +434,17 @@ function UpdateGUI() {
     document.getElementById("angle-amount").textContent = formatWhole(player.tangent.angle)
     document.getElementById("tradius-amount").textContent = formatWhole(player.tangent.radius)
     document.getElementById("Circle-arcs-amt").textContent = "You have " + format(CalculateCircleArcs()) + " Circle arcs"
-    document.getElementById("alpha-buyer").innerHTML = "Increase your angle by 1. <br> Cost: " + format(player.tangent.circle_arcs.buyable1.cost) + " Tangent Length"
-    document.getElementById("radius-buyer").innerHTML = "Increase your radius by 1. <br> Cost: " + format(player.tangent.circle_arcs.buyable2.cost) + " Tangent Length"
-    document.getElementById("EoT-c-btn").textContent = "Cost: " + format(player.tangent.equation_of_tangent.c_buyer.cost) + " Circle arcs"
-    document.getElementById("EoT-x-btn").textContent = "Cost: " + format(player.tangent.equation_of_tangent.x_buyer.cost) + " Circle arcs"
+    document.getElementById("alpha-buyer").innerHTML = "Increase your angle by 1. <br> Cost: " + format(player.tangent.circle_arcs.buyable1.cost) + " Tangent Length centimeters"
+    document.getElementById("radius-buyer").innerHTML = "Increase your radius by 1. <br> Cost: " + format(player.tangent.circle_arcs.buyable2.cost) + " Tangent Length centimeters"
+    document.getElementById("EoT-c-btn").textContent = "Req: " + format(player.tangent.equation_of_tangent.c_buyer.cost) + " Circle arcs"
+    document.getElementById("EoT-x-btn").textContent = "Req: " + format(player.tangent.equation_of_tangent.x_buyer.cost) + " Circle arcs"
     document.getElementById("EoT-y").textContent = "y = " + formatWhole(player.tangent.equation_of_tangent.m_buyer.amount.mul(player.tangent.equation_of_tangent.x_buyer.amount).add(
         player.tangent.equation_of_tangent.c_buyer.amount))
     document.getElementById("EoT-m").textContent = "m = " + formatWhole(player.tangent.equation_of_tangent.m_buyer.amount)
     document.getElementById("EoT-x").textContent = "x = " + formatWhole(player.tangent.equation_of_tangent.x_buyer.amount)
     document.getElementById("EoT-c").textContent = "c = " + formatWhole(player.tangent.equation_of_tangent.c_buyer.amount)
     document.getElementById("EoT-boost").textContent = "Your Equation of Tangent gives a " + format(CalculateEquationOfTangent()) + "x boost to points, buildings, y boost."
-    + " For each factorial of 10 your x from 1st equation gets divided by 16."
+    + " For each multiple of 10 your x from 1st equation gets divided by 16."
     document.getElementById("pi-power").textContent = "Your pi in the circle is at " + player.tangent.pi_power.mul(10) + "% power."
     document.getElementById("Tup-cost1").textContent = "Cost: " + formatWhole(player.tangent.tangent_upgrades.upgrade1.cost) + " Circle arcs"
     document.getElementById("Tup-level").textContent = player.tangent.tangent_upgrades.upgrade1.level + "/9 Level"
@@ -592,7 +617,7 @@ function UpdateStyles() {
             document.getElementById("tmp-cost" + (i + 1)).classList.add("bought")
         }
     }
-    for(let i = 0; i < 20; i++) {
+    for(let i = 0; i < 30; i++) {
         let a = achievements[i]
         if(a.completed) document.getElementById("Achv-" + (i + 1)).classList.add("completed")
         else document.getElementById("Achv-" + (i + 1)).classList.remove("completed")
@@ -687,7 +712,10 @@ function UpdateStyles() {
     }
     if(player.tangent.tangent_upgrades.upgrade2.bought) {
         document.getElementById("Tup2").classList.add("bought")
+        document.getElementById("EoT-x-buyer").classList.add("show")
     }
+    if(achievements[19].completed) document.getElementById("achv-row5").classList.add("unlocked")
+    if(achievements[24].completed) document.getElementById("achv-row6").classList.add("unlocked")
 }
 
 var LastUpdate = Date.now()
@@ -698,7 +726,7 @@ function CalculatePointGain() {
         let b = buildings[i]
         gain = gain.add(b.amount.mul(b.eff))
     }
-    gain = gain.mul(player.equations.equation1.x)
+    if(!linearChallenges[1].inChal) gain = gain.mul(player.equations.equation1.x)
     gain = gain.mul(CalculateLEegain())
     gain = gain.mul(CalculateEquationOfTangent())
     if(linearUpgrades[0].bought && !linearChallenges[4].inChal) gain = gain.mul(linearUpgrades[0].eff)
@@ -722,7 +750,8 @@ function CalculateEquationGain() {
     if(player.equations.equation2.y.gt(1)) xeff = xeff.mul(new Decimal(2).pow(player.equations.equation2.y))
     if(player.equations.linear_equations.eff2.gte(1)) xeff = xeff.mul(new Decimal(4).pow(player.equations.linear_equations.eff2))
     if((player.tangent.equation_of_tangent.m_buyer.amount.mul(player.tangent.equation_of_tangent.x_buyer.amount).add(player.tangent.equation_of_tangent.c_buyer.amount)).gte(10)) {
-        xeff = xeff.mul(16)
+        xeff = xeff.mul(16).pow(((player.tangent.equation_of_tangent.m_buyer.amount.mul(player.tangent.equation_of_tangent.x_buyer.amount).add(
+            player.tangent.equation_of_tangent.c_buyer.amount)).div(10)).floor())
     }
     return xeff
 }
@@ -782,6 +811,7 @@ function InventorEff() {
             player.tangent.pi_dimension.MathematicalInstruments.div(25).add(player.tangent.pi_dimension.Metal.div(35))
         ))))))
     InventorEquationEff = InventorEquationEff.add(1).log10().add(1)
+    if(InventorEquationEff.gte(5)) InventorEquationEff = new Decimal(5)
     return InventorEquationEff
 }
 
@@ -836,7 +866,7 @@ function productionLoop(diff) {
         if(player.tangent.pi_dimension.Water_worker.cap.eq(1)) player.tangent.pi_dimension.LitresOfWater = player.tangent.pi_dimension.LitresOfWater.add(player.tangent.pi_dimension.Water_worker.eff.mul(diff))
         player.tangent.pi_dimension.fullCircles = player.tangent.pi_dimension.fullCircles.add(CalculateFullCirclesGain().mul(diff))
     }
-    else {
+    else if(!player.tangent.pi_dimension.inDimension && upgrades[8].bought) {
         player.tangent.tangent_length = player.tangent.tangent_length.add(player.tangent.tlPerSec.mul(diff))
         player.tangent.tlPerSec = TangentLength()
     }

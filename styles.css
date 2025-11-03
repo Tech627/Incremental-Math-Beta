@@ -415,40 +415,20 @@ body.light {
     background-color: rgb(1, 218, 27);
 }
 
-#achv-row1 {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    margin-bottom: 5px;
-}
-
-#achv-row2 {
+#achv-row2,
+#achv-row3,
+#achv-row4,
+#achv-row5,
+#achv-row6 {
     display: none;
 }
 
-#achv-row2.unlocked {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    margin-bottom: 5px;
-}
-
-#achv-row3 {
-    display: none;
-}
-
-#achv-row3.unlocked {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    margin-bottom: 5px;
-}
-
-#achv-row4 {
-    display: none;
-}
-
-#achv-row4.unlocked {
+#achv-row1,
+#achv-row2.unlocked,
+#achv-row3.unlocked,
+#achv-row4.unlocked,
+#achv-row5.unlocked,
+#achv-row6.unlocked {
     display: flex;
     justify-content: center;
     gap: 5px;
@@ -1112,7 +1092,7 @@ body.light {
 #alpha-buyer,
 #radius-buyer {
     width: 220px;
-    height: 65px;
+    height: auto;
     font-size: 14px;
     margin: 3px;
     background-color: rgb(7, 78, 5);
@@ -1133,6 +1113,14 @@ body.light {
     background-color: rgb(87, 4, 87);
     border: 2px solid rgb(138, 14, 138);
 } 
+
+#EoT-x-buyer {
+    display: none;
+}
+
+#EoT-x-buyer.show {
+    display: block;
+}
 
 #EoT-c-btn:hover,
 #EoT-x-btn:hover {
@@ -1276,8 +1264,8 @@ body.light {
     color: rgb(57, 192, 192);
     font-weight: bolder;
     margin-bottom: 15px;
-    text-shadow: 0 0 5px rgb(98, 255, 255), 0 0 10px rgb(69, 255, 255), 0 0 15px rgb(41, 255, 255), 0 0 15px rgb(14, 255, 255),
-     0 0 20px rgb(0, 204, 204), 0 0 25px rgb(0, 175, 175), 0 0 30px rgb(0, 136, 136);
+    text-shadow: 0 0 5px rgb(66, 253, 253), 0 0 10px rgb(38, 255, 255), 0 0 15px rgb(19, 255, 255), 0 0 15px rgb(8, 255, 255),
+     0 0 20px rgb(1, 226, 226);
 }
 
 #tmp-row1 {

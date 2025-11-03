@@ -89,7 +89,7 @@ function Save() {
             saveitems("Lup" + (i + 1) + "bought", lu.bought)
             saveitems("Lup" + (i + 1) + "eff", lu.eff)
         }
-        for(let i = 0; i < 20; i++) {
+        for(let i = 0; i < 30; i++) {
             let a = achievements[i]
             saveitems("achv" + (i + 1) + "c", a.completed)
         }
@@ -122,6 +122,8 @@ function Save() {
         saveitems("NBuyerCost", player.equations.nbuyer.cost)
         saveitems("NBuyerAmt", player.equations.nbuyer.amount)
         saveitems("NBuyerUnl", player.equations.nbuyer.unlocked)
+        saveitems("KBuyerCost", player.equations.kbuyer.cost)
+        saveitems("KBuyerAmt", player.equations.kbuyer.amount)
         saveitems("LinearEquationeff", player.equations.linear_equations.eff)
         saveitems("LinearEquationeff2", player.equations.linear_equations.eff2)
         saveitems("psides", player.polygons.sides)
@@ -168,6 +170,7 @@ function Save() {
         saveitems("EdmundGunterCost", player.tangent.pi_dimension.Edmund_gunter.cost)
         saveitems("AncientOnesCost", player.tangent.pi_dimension.Ancient_ones.cost)
         saveitems("PlatoCost", player.tangent.pi_dimension.Plato.cost)
+        saveitems("PiPower", player.tangent.pi_power)
         saveitems("circlearc-angle", player.tangent.angle)
         saveitems("circlearc-radius", player.tangent.radius)
         saveitems("circlearcs-buyable1-cost", player.tangent.circle_arcs.buyable1.cost)
@@ -175,6 +178,7 @@ function Save() {
         saveitems("pi-milestone1-gotten", player.tangent.pi_milestones.milestone1.gotten)
         saveitems("pi-milestone2-gotten", player.tangent.pi_milestones.milestone2.gotten)
         saveitems("tangentupgrade1-level", player.tangent.tangent_upgrades.upgrade1.level)
+        saveitems("tangentupgrade1-cost", player.tangent.tangent_upgrades.upgrade1.cost)
         saveitems("tangentupgrade1-bought", player.tangent.tangent_upgrades.upgrade1.bought)
         saveitems("tangentupgrade2-bought", player.tangent.tangent_upgrades.upgrade2.bought)
         saveitems("EoT-c", player.tangent.equation_of_tangent.c_buyer.amount)
@@ -199,6 +203,7 @@ function GetItems(saved, newdecimal) { //removes json.parse and localstorage
             location = new Decimal(JSON.parse(localStorage.getItem(saved)));
         } else {
             location = JSON.parse(localStorage.getItem(saved));
+            if (location == "Error") console.error(`"` + saved + `" doesn't exist in the localstorage. Check for any mistypos if it's supposed to be.`)
         }
     }
     return location;
@@ -233,7 +238,7 @@ function Get() {
             b.amount = GetItems("amount" + (i + 1), true)
             b.cost = GetItems("cost" + (i + 1), true)
             b.eff = GetItems("eff" + (i + 1), true)
-            b.automation = GetItems("Bulding-automation" + (i + 1), false)
+            b.automation = GetItems("Building-automation" + (i + 1), false)
         }
         player.tbuildings = GetItems("tbuildings", true)
         for(let i = 0; i < 9; i++) {
@@ -246,7 +251,7 @@ function Get() {
             lu.bought = GetItems("Lup" + (i + 1) + "bought", false)
             lu.eff = GetItems("Lup" + (i + 1) + "eff", true)
         }
-        for(let i = 0; i < 20; i++) {
+        for(let i = 0; i < 30; i++) {
             let a = achievements[i]
             a.completed = GetItems("achv" + (i + 1) + "c", false)
         }
@@ -281,6 +286,8 @@ function Get() {
         player.equations.nbuyer.cost = GetItems("NBuyerCost", true)
         player.equations.nbuyer.amount = GetItems("NBuyerAmt", true)
         player.equations.nbuyer.unlocked = GetItems("NBuyerUnl", false)
+        player.equations.kbuyer.cost = GetItems("KBuyerCost", true)
+        player.equations.kbuyer.amount = GetItems("KBuyerAmt", true)
         player.polygons.amount = GetItems("pamount", true)
         player.polygons.sides = GetItems("psides", true)
         player.polygons.dimensions = GetItems("pdimensions", true)
@@ -325,6 +332,7 @@ function Get() {
         player.tangent.pi_dimension.Edmund_gunter.cost = GetItems("EdmundGunterCost", true)
         player.tangent.pi_dimension.Ancient_ones.cost = GetItems("AncientOnesCost", true)
         player.tangent.pi_dimension.Plato.cost = GetItems("PlatoCost", true)
+        player.tangent.pi_power = GetItems("PiPower", true)
         player.tangent.angle = GetItems("circlearc-angle", true)
         player.tangent.radius = GetItems("circlearc-radius", true)
         player.tangent.circle_arcs.buyable1.cost = GetItems("circlearcs-buyable1-cost", true)
@@ -332,6 +340,7 @@ function Get() {
         player.tangent.pi_milestones.milestone1.gotten = GetItems("pi-milestone1-gotten", false)
         player.tangent.pi_milestones.milestone2.gotten = GetItems("pi-milestone2-gotten", false)
         player.tangent.tangent_upgrades.upgrade1.level = GetItems("tangentupgrade1-level", true)
+        player.tangent.tangent_upgrades.upgrade1.cost = GetItems("tangentupgrade1-cost", true)
         player.tangent.tangent_upgrades.upgrade1.bought = GetItems("tangentupgrade1-bought", false)
         player.tangent.tangent_upgrades.upgrade2.bought = GetItems("tangentupgrade2-bought", false)
         player.tangent.equation_of_tangent.c_buyer.amount = GetItems("EoT-c", true)
@@ -343,13 +352,17 @@ function Get() {
         Save()
     }}
 
+let isHardResetting = false
 function HardReset() {
     if(confirm("Are you sure you want to hard reset?") === true) {
+        isHardResetting = true
         localStorage.clear(); // wipe localstorage
-        saveitems("firstload", true)
         location.reload(true)
     }
 }
+window.addEventListener("beforeunload", () => {
+    if(!isHardResetting) Save()
+})
 
 function fixSave() {
     defaultData = player

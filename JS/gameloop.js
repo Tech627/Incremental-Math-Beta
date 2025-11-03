@@ -413,14 +413,8 @@ function UpdateGUI() {
     document.getElementById("Shapes").textContent = format(player.tangent.pi_dimension.Shapes)
     document.getElementById("Shape-maker").textContent = "Cost: " + format(player.tangent.pi_dimension.Plato.cost) + " Mathematical instruments and 3 Lines"
     document.getElementById("IE-boost").textContent = "Your Inventor equation boosts all resources in The Circle by " + format(InventorEff()) + "x."
-    if(InventorEff().lt(5)) {
-        document.getElementById("IE-equation").textContent = "Ieb = log10(Papirus / 5,000 + Litres of Water / 15,000 + Lines / 3 + Coal / 1000 + Shapes / 2 + Mathematical instruments"
-        + "/ 25 + Metal / 35)"
-    }
-    else if(InventorEff().gte(5)) {
-        document.getElementById("IE-equation").textContent = "Ieb = min(log10(Papirus / 5,000 + Litres of Water / 15,000 + Lines / 3 + Coal / 1000 + Shapes / 2 + Mathematical "
-        + "instruments / 25 + Metal / 35), 5)"
-    }
+    document.getElementById("IE-equation").textContent = "Ieb = min(log10(Papirus / 5,000 + Litres of Water / 15,000 + Lines / 3 + Coal / 1000 + Shapes / 2 + Mathematical "
+    + "instruments / 25 + Metal / 35), 5)"
     if(player.tangent.pi_dimension.fullCircles.gte(player.tangent.pi_ac_req)) {
         player.tangent.pi_ac_req = player.tangent.pi_ac_req.mul(10)
         player.tangent.pi_after_comma = player.tangent.pi_after_comma.add(1)

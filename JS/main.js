@@ -620,7 +620,7 @@ function BuyTangentEquationXBuyer() {
 }
 
 function BuyTangentUpgrade1() {
-    if(player.tangent.circle_arcs_amt.gte(player.tangent.tangent_upgrades.upgrade1.cost) && player.tangent.tangent_upgrades.upgrade1.level.lt(10)) {
+    if(player.tangent.circle_arcs_amt.gte(player.tangent.tangent_upgrades.upgrade1.cost) && player.tangent.tangent_upgrades.upgrade1.level.lt(9)) {
         if(player.tangent.tangent_upgrades.upgrade1.level.eq(0)) {
             player.tangent.tangent_upgrades.upgrade1.cost = new Decimal(10)
         }

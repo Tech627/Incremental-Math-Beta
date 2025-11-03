@@ -426,6 +426,7 @@ async function Import() {
         });
     
         alert('Save got imported')
+        isHardResetting = true
         location.reload()
       } catch (error) {
           alert("i fucked up")

@@ -395,6 +395,7 @@ function fixData(defaultData, newData) {
 
 async function Export() {
     try {
+        Save()
         const savedData = {};
         for (let i = 0; i < localStorage.length; i++) {
           const key = localStorage.key(i);

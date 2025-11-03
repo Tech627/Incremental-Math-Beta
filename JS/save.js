@@ -204,9 +204,9 @@ function GetItems(saved, newdecimal) { //removes json.parse and localstorage
             location = new Decimal(JSON.parse(localStorage.getItem(saved)));
         } else {
             location = JSON.parse(localStorage.getItem(saved));
-            if (location == "Error") console.error(`"` + saved + `" doesn't exist in the localstorage. Check for any mistypos if it's supposed to be.`)
         }
     }
+    if (location == "Error") console.error(`"` + saved + `" doesn't exist in the localstorage. Check for any mistypos if it's supposed to be.`)
     return location;
 }
 

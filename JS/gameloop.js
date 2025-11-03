@@ -100,8 +100,7 @@ function UpdateGUI() {
         }
         if(b.automation) {
             if(upgrades[6].bought) {
-                BuyBuilding(3, true)
-                BuyBuilding(2, true)
+                BuyBuilding(i+1, true)
             }
             else {
                 BuyBuilding(i+1, true)
@@ -296,10 +295,10 @@ function UpdateGUI() {
         document.getElementById("LEequation").textContent = "ax + by + c + 1 = " + format(CalculateLEegain()) 
     }
     else {
-        document.getElementById("LEequation").textContent = "(ax + by + c + 1)*" + format(linearChallenges[4].eff) + " boost = " + format(CalculateLEegain()) 
+        document.getElementById("LEequation").textContent = "(ax + by + c + 1) * " + format(linearChallenges[4].eff) + " boost = " + format(CalculateLEegain()) 
     }
     if(linearChallenges[5].completed) {
-        document.getElementById("LEequation").textContent = "(ax + by + c + 1)*" + format(linearChallenges[4].eff) + " * 1.2 = " + format(CalculateLEegain()) 
+        document.getElementById("LEequation").textContent = "(ax + by + c + 1) * " + format(linearChallenges[4].eff) + " * 1.2 = " + format(CalculateLEegain()) 
     }
     document.getElementById("LP-eff").textContent = "Multiplying your points, buildings, y boost by " 
     + format(CalculateLEegain()) + "x, and x from 1st equation gets divided" 
@@ -440,7 +439,7 @@ function UpdateGUI() {
     document.getElementById("EoT-boost").textContent = "Your Equation of Tangent gives a " + format(CalculateEquationOfTangent()) + "x boost to points, buildings, y boost."
     + " For each multiple of 10 your x from 1st equation gets divided by 16."
     document.getElementById("pi-power").textContent = "Your pi in the circle is at " + player.tangent.pi_power.mul(10) + "% power."
-    document.getElementById("Tup-cost1").textContent = "Cost: " + formatWhole(player.tangent.tangent_upgrades.upgrade1.cost) + " Circle arcs"
+    document.getElementById("Tup-cost1").textContent = "Req: " + formatWhole(player.tangent.tangent_upgrades.upgrade1.cost) + " Circle arcs"
     document.getElementById("Tup-level").textContent = player.tangent.tangent_upgrades.upgrade1.level + "/9 Level"
     if(player.tangent.tangent_upgrades.upgrade1.level.eq(9)) {
         player.tangent.tangent_upgrades.upgrade1.bought = true

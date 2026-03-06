@@ -34,6 +34,7 @@ function FixError() {
     if(player.tangent.pi_power == "Error" || player.tangent.pi_power == "NaN") player.tangent.pi_power = new Decimal(1)
     if(player.tangent.tangent_upgrades.upgrade1.cost == "NaN") player.tangent.tangent_upgrades.upgrade1.cost = new Decimal(5)
     if(player.tangent.tangent_length == "NaN") player.tangent.tangent_length = new Decimal(0)
+    if(player.points == "Infinity") player.points = new Decimal(1.797e308)
 }
 
 setInterval(FixError, 33)

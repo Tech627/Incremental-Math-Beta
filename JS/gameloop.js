@@ -5,6 +5,8 @@ var achievements = []
 var linearChallenges = []
 var linearEquation = []
 var talmideUpgrades = []
+var constantUpgrades = []
+var infinityConstantUpgrades = []
 let LinearResetunl = false
 let lockedlu3reset = false
 
@@ -18,7 +20,7 @@ for(let i = 0; i < 3; i++) {
     buildings.push(building)
 }
 
-for(let i = 0; i < 9; i++) {
+for(let i = 0; i < 12; i++) {
     let upgrade = {
         bought: false,
         cost: new Decimal(20000),
@@ -69,6 +71,22 @@ for(let i = 0; i < 6; i++) {
         eff: new Decimal(1),
     }
     talmideUpgrades.push(talmideUpgrade)
+}
+
+for(let i = 0; i < 12; i++) {
+    let constantUpgrade = {
+        bought: false,
+        cost: new Decimal(1)
+    }
+    constantUpgrades.push(constantUpgrade)
+}
+
+for(let i = 0; i < 12; i++) {
+    let infinityConstantUpgrade = {
+        bought: false,
+        cost: new Decimal(3),
+    }
+    infinityConstantUpgrades.push(infinityConstantUpgrade)
 }
 
 function UpdateGUI() {
@@ -124,6 +142,9 @@ function UpdateGUI() {
         upgrades[6].cost = new Decimal(1e90)
         upgrades[7].cost = new Decimal(1e100)
         upgrades[8].cost = new Decimal(1e150)
+        upgrades[9].cost = new Decimal("1e500")
+        upgrades[10].cost = new Decimal("1e650")
+        upgrades[11].cost = new Decimal("1e1000")
         buildings[0].eff = new Decimal(1)
         if(upgrades[0].bought) buildings[0].eff = upgrades[0].eff
         if(linearUpgrades[1].bought && !linearChallenges[4].inChal) upgrades[0].eff = upgrades[0].eff.mul(5)
@@ -212,6 +233,34 @@ function UpdateGUI() {
         }
         if([2,5].includes(i)) continue
         else document.getElementById("tmp-eff" + (i + 1)).textContent = "Currently: " + format(talmideUpgrades[i].eff) + "x boost" 
+    }
+    for(let i = 0; i < 12; i++) {
+        constantUpgrades[0].cost = new Decimal(1)
+        constantUpgrades[1].cost = new Decimal(2)
+        constantUpgrades[2].cost = new Decimal(3)
+        constantUpgrades[3].cost = new Decimal(1)
+        constantUpgrades[4].cost = new Decimal(2)
+        constantUpgrades[5].cost = new Decimal(3)
+        constantUpgrades[6].cost = new Decimal(1)
+        constantUpgrades[7].cost = new Decimal(2)
+        constantUpgrades[8].cost = new Decimal(3)
+        constantUpgrades[9].cost = new Decimal(1)
+        constantUpgrades[10].cost = new Decimal(2)
+        constantUpgrades[11].cost = new Decimal(3)
+    }
+    for(let i = 0; i < 12; i++) {
+        infinityConstantUpgrades[0].cost = new Decimal(3)
+        infinityConstantUpgrades[1].cost = new Decimal(5)
+        infinityConstantUpgrades[2].cost = new Decimal(15)
+        infinityConstantUpgrades[3].cost = new Decimal(100)
+        infinityConstantUpgrades[4].cost = new Decimal(150)
+        infinityConstantUpgrades[5].cost = new Decimal(500)
+        infinityConstantUpgrades[6].cost = new Decimal(1e3)
+        infinityConstantUpgrades[7].cost = new Decimal(2.5e3)
+        infinityConstantUpgrades[8].cost = new Decimal(5e3)
+        infinityConstantUpgrades[9].cost = new Decimal(3)
+        infinityConstantUpgrades[10].cost = new Decimal(3)
+        infinityConstantUpgrades[11].cost = new Decimal(3)
     }
     if(buildings[0].amount.gte(1)) achievements[0].completed = true
     if(buildings[1].amount.gte(1)) achievements[1].completed = true
@@ -444,6 +493,96 @@ function UpdateGUI() {
     if(player.tangent.tangent_upgrades.upgrade1.level.eq(9)) {
         player.tangent.tangent_upgrades.upgrade1.bought = true
     }  
+    if(player.points.gte(constant.req)) {
+        document.getElementById("Points").textContent = "You have Infinity Points"
+    }                        
+    document.getElementById("CL").textContent = formatWhole(constant.constantLevel)
+    document.getElementById("const-p").textContent = format(constant.constant_points, precision = 2)
+    if(constant.brokeConstantInfinity) {
+        if(constant.constantLevel.eq(1)) {
+            constant.req = new Decimal("1e360")
+        }
+        if(player.points.gte("1.798e308")) {
+            document.getElementById("Softcap").classList.add("show")
+        }
+        else {
+            document.getElementById("Softcap").classList.remove("show")
+        }
+    }
+    document.getElementById("Softcap").textContent = "Your Points are softcapped, getting divided by /" + format(Softcap(), precision = 2) + "."  
+    document.getElementById("ConstantResetbtn").innerHTML = " Increase your constant level by 1. <br> Req: " + format(constant.req) + " Points" 
+    document.getElementById("CU-switch-p").textContent = constant.CU_switch_p
+    if(constant.CU_switch_p.eq(1)) {
+        document.getElementById("Constant-Upgrades").classList.add("show")
+        document.getElementById("Infinity-Constant-Upgrades").classList.remove("show")
+    }
+    else if(constant.CU_switch_p.eq(2)) {
+        document.getElementById("Infinity-Constant-Upgrades").classList.add("show")
+        document.getElementById("Constant-Upgrades").classList.remove("show")
+    }
+    if(constant.in_trip) {
+        document.getElementById("Points").classList.add("intrip")
+        document.getElementById("Points").textContent = "You've climbed " + formatWhole(constant.trip.meters) + " meters up the mountain"
+        document.getElementById("PointsPerSec").style.display = "none"
+        document.getElementById("btn-gain").style.display = "none"
+        document.getElementById("Stamina-amt").textContent = formatWhole(constant.trip.stamina) + "/" + formatWhole(new Decimal(10).add(constant.trip.ice))
+        document.getElementById("icetab").classList.add("show")
+        if(constant.trip.stamina.lte(2) && !constant.trip.refill_stamina) constant.trip.refill_stamina = true
+        document.getElementById("Ice").textContent = format(constant.trip.ice)
+        document.getElementById("Ice-frags-amt").textContent = "You have " + format(constant.trip.ice_frags) + " ice fragments."
+        if(!constant.trip.icc_up1.bought) {
+            document.getElementById("icct-t").textContent = format(constant.trip.tank_filled.mul(20), precision = 0) + "%"
+        }
+        else {
+            document.getElementById("icct-t").textContent = format(constant.trip.tank_filled.mul(50), precision = 0) + "%"
+        }
+        if(constant.trip.tank_filled.eq(5) && !constant.trip.icc_up1.bought) {
+            constant.trip.tank_filled = new Decimal(0)
+            constant.trip.ice = constant.trip.ice.add(1)
+        }
+        else if(constant.trip.icc_up1.bought && constant.trip.tank_filled.eq(2)) {
+            constant.trip.tank_filled = new Decimal(0)
+            constant.trip.ice = constant.trip.ice.add(1)
+        }
+        document.getElementById("number").textContent = constant.trip.number
+    }
+    document.getElementById("Constant-p-passive").innerHTML = "Multiply your passive Constant Points gain by 3x. <br> Cost: " + format(constant.passive_const_up_cost) +
+    " Constant Points"
+    document.getElementById("Math-mana").innerHTML = "You have " + formatWhole(constant.Math_mana) + "/100 <span id='mm-t'>Math Mana</span>"
+    if(!constant.activate_skill1) {
+        document.getElementById("activate-skill1").textContent = "Activate"
+    }
+    else {
+        document.getElementById("activate-skill1").textContent = "Already Activated"
+    }
+    if(!constant.activate_skill2) {
+        document.getElementById("activate-skill2").textContent = "Activate"
+    }
+    else {
+        document.getElementById("activate-skill2").textContent = "Already Activated"
+    }
+    if(!constant.activate_skill3) {
+        document.getElementById("activate-skill3").textContent = "Activate"
+    }
+    else {
+        document.getElementById("activate-skill3").textContent = "Already Activated"
+    }
+    if(!constant.activate_skill4) {
+        document.getElementById("activate-skill4").textContent = "Meditate"
+    }
+    else {
+        document.getElementById("activate-skill4").textContent = "Meditating"
+    }
+    document.getElementById("skill-timer").innerHTML = "How long until <span id='mm-t'>Math Mana</span> is back at 100: " + formatWhole(constant.skill4_timer) + " seconds"
+    document.getElementById("len").textContent = "n = " + formatWhole(constant.le_n)
+    document.getElementById("lex").textContent = "x = " + formatWhole(constant.le_x)
+    document.getElementById("leq-boost").textContent = "Your Math Points raise Points by " + format(constant.mp_boost, precision = 3) + "."
+    document.getElementById("Math-Points").textContent = "You have " + format(constant.math_points) + " Math Points"
+    document.getElementById("Coordinate-power").textContent = "You have " + format(constant.coordinatePower) + " Coordinate Power"
+    document.getElementById("x1-in-slope").textContent = "Your x1 coordinates are " + formatWhole(constant.x1) + "."
+    document.getElementById("y1-in-slope").textContent = "Your y1 coordinates are " + formatWhole(constant.y1) + "."
+    document.getElementById("x2-in-slope").textContent = "Your x2 coordinates are " + formatWhole(constant.x2) + "."
+    document.getElementById("y2-in-slope").textContent = "Your y2 coordinates are " + formatWhole(constant.y2) + "."
 }
 
 function UpdateStyles() {
@@ -460,7 +599,7 @@ function UpdateStyles() {
         if(linearUpgrades[2].bought) document.getElementById("Building-automation" + (i + 1)).classList.add("unlocked")
     }
     let upgradenotification = false
-    for(let i = 0; i < 9; i++) {
+    for(let i = 0; i < 12; i++) {
         let u = upgrades[i]
         if(player.points.lt(u.cost) && !u.bought) {
             document.getElementById("up-cost" + (i + 1)).classList.add("Up-cost")
@@ -610,17 +749,42 @@ function UpdateStyles() {
             document.getElementById("tmp-cost" + (i + 1)).classList.add("bought")
         }
     }
+    for(let i = 0; i < 12; i++) {
+        let cup = constantUpgrades[i]
+        if(cup.bought) {
+            document.getElementById("Constant-Upgrade" + (i + 1)).classList.add("bought")
+            document.getElementById("Constant-Upgrade" + (i + 1)).classList.remove("available")
+        }
+        else if(!cup.bought && constant.constant_points.gte(cup.cost)) {
+            document.getElementById("Constant-Upgrade" + (i + 1)).classList.add("available")
+        }
+        else {
+            document.getElementById("Constant-Upgrade" + (i + 1)).classList.remove("available")
+        }
+    }
+    for(let i = 0; i < 9; i++) {
+        let icup = infinityConstantUpgrades[i]
+        if(icup.bought) {
+            document.getElementById("Infinity-Constant-Upgrade" + (i + 1)).classList.add("bought")
+            document.getElementById("Infinity-Constant-Upgrade" + (i + 1)).classList.remove("available")
+        }
+        else if(!icup.bought && constant.constant_points.gte(icup.cost)) {
+            document.getElementById("Infinity-Constant-Upgrade" + (i + 1)).classList.add("available")
+        }
+        else {
+            document.getElementById("Infinity-Constant-Upgrade" + (i + 1)).classList.remove("available")
+        }
+    }
     for(let i = 0; i < 30; i++) {
         let a = achievements[i]
         if(a.completed) document.getElementById("Achv-" + (i + 1)).classList.add("completed")
         else document.getElementById("Achv-" + (i + 1)).classList.remove("completed")
     }
-    
     if(player.LinearUnl) {
         document.getElementById("Linear-statistics").classList.add("unlocked")
         document.getElementById("layertab").classList.add("unlocked")
         document.getElementById("achv-row3").classList.add("unlocked")
-        document.getElementById("Linear-essence-guide").classList.add("unlocked")
+        document.getElementById("Linear-essence-gid").classList.add("unlocked")
         document.getElementById("LEs").classList.add("show")
     }
     if(player.points.gte(5e10)) LinearResetunl = true
@@ -630,7 +794,7 @@ function UpdateStyles() {
     }
     if(linearUpgrades[7].bought) {
         document.getElementById("Chals-tab").classList.add("unlocked")
-        document.getElementById("Linear-chals-guide").classList.add("unlocked")
+        document.getElementById("Linear-chals-gid").classList.add("unlocked")
     }
     if(linearUpgrades[3].bought) {
         document.getElementById("NBuyer").classList.add("unlocked")
@@ -646,10 +810,9 @@ function UpdateStyles() {
         document.getElementById("polygon-info").classList.add("hide")
         document.getElementById("Polygon-boosts").classList.add("show")
         document.getElementById("Dimensions").classList.add("show")
-        document.getElementById("Polygons-guide").classList.add("unlocked")
+        document.getElementById("Polytopes-gid").classList.add("unlocked")
         document.getElementById("Ps").classList.add("show")
     }
-    if(alertcontent) document.getElementById("Alert").style.display = "none"
     if(player.equations.equation1.x.gte(1e20)) player.softcapunl = true
     if(player.softcapunl) document.getElementById("softcap-tab").classList.add("show")
     if(player.polygons.pboost3unl) {
@@ -664,7 +827,7 @@ function UpdateStyles() {
     else document.getElementById("dimension-buy").classList.remove("available")
     if(player.tangent.unlocked) {
         document.getElementById("Tangent-tab").classList.add("show")
-        document.getElementById("Tangent-guide").classList.add("unlocked")
+        document.getElementById("Tangent-gid").classList.add("unlocked")
     }
     if(player.tangent.pi_dimension.inDimension) {
         document.getElementById("Non-pi-dimension-main").classList.add("hide")
@@ -709,6 +872,83 @@ function UpdateStyles() {
     }
     if(achievements[19].completed) document.getElementById("achv-row5").classList.add("unlocked")
     if(achievements[24].completed) document.getElementById("achv-row6").classList.add("unlocked")
+    if(player.points.gte(1.79e308)) document.getElementById("ConstantReset").classList.add("unlocked")
+    if(constant.unlocked) document.getElementById("constanttab").classList.add("unlocked")
+    if(constant.constantLevel.gte(1)) constant.constant_milestones.milestone1.gotten = true 
+    if(constant.constant_milestones.milestone1.gotten) {
+        document.getElementById("cupsub-tab").classList.add("show")
+        document.getElementById("Constant-Milestone").classList.add("gotten")
+        document.getElementById("Constant-Milestone2").classList.add("show")
+    }
+    if(infinityConstantUpgrades[3].bought) {
+        document.getElementById("Building1").classList.add("hide")
+        document.getElementById("Building2").classList.add("hide")
+        document.getElementById("Building3").classList.add("hide")
+        document.getElementById("Building4").classList.add("show")
+    }
+    if(infinityConstantUpgrades[4].bought) {
+        document.getElementById("Linear-upg-tab").classList.add("hide")
+    }
+    if(constant.in_trip) {
+        document.getElementById("maintab").classList.add("hide")
+        document.getElementById("upgradetab").classList.add("hide")
+        document.getElementById("layertab").classList.remove("unlocked")
+        document.getElementById("constanttab").classList.add("hide")
+        document.getElementById("ResetForLE").classList.remove("unlocked")
+        document.getElementById("ConstantReset").classList.remove("unlocked")
+        document.getElementById("triptab").classList.add("show")
+        if(!constant.trip.icc_up1.bought) {
+            document.getElementById("icct-fill").style.height = constant.trip.tank_filled.mul(20) + "%"
+        }
+        else {
+            document.getElementById("icct-fill").style.height = constant.trip.tank_filled.mul(50) + "%"
+        }
+        if(constant.trip.icc_up1.bought) {
+            document.getElementById("icc-up1").classList.add("bought")
+        }
+        if(constant.trip.icc_up2.bought) {
+            document.getElementById("icc-up2").classList.add("bought")
+        }
+    }
+    if(constant.trip.meters.gte(500)) {
+        constant.in_trip = false
+        constant.e_chal = true
+        document.getElementById("maintab").classList.remove("hide")
+        document.getElementById("upgradetab").classList.remove("hide")
+        document.getElementById("layertab").classList.add("unlocked")
+        document.getElementById("constanttab").classList.remove("hide")
+        document.getElementById("ResetForLE").classList.add("unlocked")
+        document.getElementById("ConstantReset").classList.add("unlocked")
+        document.getElementById("triptab").classList.remove("show")
+        document.getElementById("icetab").classList.remove("show")
+    }
+    if(infinityConstantUpgrades[6].bought) {
+        document.getElementById("row4").classList.add("show")
+    }
+    if(infinityConstantUpgrades[4].bought) {
+        document.getElementById("Constant-p-passive").classList.add("show")
+    }
+    if(infinityConstantUpgrades[5].bought) {
+        document.getElementById("cchsub-tab").classList.add("show")
+    }
+    if(infinityConstantUpgrades[7].bought) {
+        document.getElementById("cssub-tab").classList.add("show")
+    }
+    if(infinityConstantUpgrades[8].bought) {
+        document.getElementById("lesub-tab").classList.add("show")
+    }
+    if(constant.le_up1.bought) {
+        document.getElementById("leq-up1").classList.add("bought")
+    }
+    if(constant.le_up2.bought) {
+        document.getElementById("leq-up2").classList.add("bought")
+    }
+    if(constant.le_up3.bought) {
+        document.getElementById("leq-up3").classList.add("bought")
+    }
+    if(upgrades[11].bought) {
+        document.getElementById("coordinatetab").classList.add("show")
+    }
 }
 
 var LastUpdate = Date.now()
@@ -734,6 +974,11 @@ function CalculatePointGain() {
     if(player.polygons.pboost3unl) gain = gain.mul(player.polygons.eff3)
     if(player.polygons.pboost4unl) gain = gain.mul(player.polygons.eff4)
     if(player.polygons.pboost5unl) gain = gain.mul(player.polygons.eff5)
+    if(constantUpgrades[0].bought) gain = gain.mul(100)
+    if(constantUpgrades[1].bought) gain = gain.mul(1e5)
+    if(constantUpgrades[2].bought) gain = gain.mul(1e10)
+    if(player.points.gte("1.798e308")) gain = gain.div(Softcap())
+    if(constant.activate_skill1) gain = gain.pow(1.1)
     return gain
 }
 
@@ -756,6 +1001,11 @@ function CalculateLEgain() {
     }
     if(linearUpgrades[5].bought) LEgain = LEgain.mul(linearUpgrades[5].eff)
     if(player.polygons.pboost4unl) LEgain = LEgain.mul(player.polygons.eff4.mul(5))
+    if(constantUpgrades[3].bought) LEgain = LEgain.mul(5)
+    if(constantUpgrades[4].bought) LEgain = LEgain.mul(10)
+    if(constantUpgrades[5].bought) LEgain = LEgain.mul(50)
+    if(constant.activate_skill3) LEgain = LEgain.pow(1.1)
+    if(constant.le_up2.bought) LEgain = LEgain.pow(constant.mp_boost)
     LEgain = LEgain.floor()
     return LEgain
 }
@@ -764,6 +1014,7 @@ function CalculateLPgain() {
     let LPgain = new Decimal(0)
     LPgain = LPgain.add(CalculateLEegain())
     if(linearUpgrades[10].bought) LPgain = LPgain.mul(linearUpgrades[10].eff)
+    if(constantUpgrades[6].bought) LPgain = LPgain.mul(10)
     return LPgain
 }
 
@@ -786,6 +1037,7 @@ function CalculatePapirusGain() {
     let PapirusGain = new Decimal(0)
     PapirusGain = PapirusGain.add(player.tangent.pi_dimension.Papirus_maker.amt.mul(player.tangent.pi_dimension.Papirus_maker.eff))
     if(talmideUpgrades[5].bought) PapirusGain = PapirusGain.mul(InventorEff())
+    if(constantUpgrades[8].bought) PapirusGain = PapirusGain.mul(20)
     return PapirusGain
 }
 
@@ -829,6 +1081,7 @@ function TangentLength() {
     else if(player.tangent.tangent_upgrades.upgrade1.level.lte(9)) {
         TLgain = TLgain.mul(player.tangent.pi_power.pow(2.3).mul(1.5))
     }
+    if(constantUpgrades[7].bought) TLgain = TLgain.mul(5)
     return TLgain
 }
 
@@ -840,10 +1093,53 @@ function CalculateCircleArcs() {
 
 function CalculateEquationOfTangent() {
     let EOTgain = new Decimal(0)
-    EOTgain=EOTgain.add(player.tangent.equation_of_tangent.m_buyer.amount.mul(player.tangent.equation_of_tangent.x_buyer.amount).add(
+    EOTgain = EOTgain.add(player.tangent.equation_of_tangent.m_buyer.amount.mul(player.tangent.equation_of_tangent.x_buyer.amount).add(
         player.tangent.equation_of_tangent.c_buyer.amount))
     EOTgain = EOTgain.pow(1.5)
     return EOTgain 
+}
+
+function CalculateConstantPoints() {
+    let Constant_points_persec = new Decimal(0)
+    if(infinityConstantUpgrades[0].bought) {
+        Constant_points_persec = new Decimal(0.1)
+    }
+    if(infinityConstantUpgrades[1].bought) {
+        Constant_points_persec = Constant_points_persec.mul(5)
+    }
+    if(infinityConstantUpgrades[2].bought) {
+        Constant_points_persec = Constant_points_persec.mul(20)
+    }
+    Constant_points_persec = Constant_points_persec.mul(new Decimal(3).pow(constant.passive_const_up_amt))
+    if(constant.activate_skill2) {
+        Constant_points_persec = Constant_points_persec.mul(10)
+    }
+    if(constant.le_up1.bought) {
+        Constant_points_persec = Constant_points_persec.mul(constant.math_points.log10())
+    }
+    return Constant_points_persec
+}
+
+function CalculateLoopingEquation() {
+    let LoopingEquationBoost = new Decimal(0)
+    if(!constant.le_up3.bought) {
+        for(let i = 0; i <= constant.le_n; i++) {
+            LoopingEquationBoost = LoopingEquationBoost.add(i)
+        }
+    }
+    else {
+        for(let i = 0; i <= constant.le_n; i++) {
+            let squaredi = i**2
+            LoopingEquationBoost = LoopingEquationBoost.add(squaredi)
+        }
+    }
+    return LoopingEquationBoost
+}
+
+function Softcap() {
+    let softcap = new Decimal(1)
+    softcap = softcap.mul(player.points.add(1).log10())
+    return softcap
 }
 
 function productionLoop(diff) {
@@ -870,6 +1166,58 @@ function productionLoop(diff) {
     if(player.polygons.amount.gte(1)) player.polygons.length = player.polygons.length.add(CalculateLengthGain().mul(diff))
     if(upgrades[6].bought) buildings[0].amount = buildings[0].amount.add(buildings[1].amount.mul(diff))
     player.tangent.circle_arcs_amt = CalculateCircleArcs()
+    if(constant.constant_milestones.milestone1.gotten) {
+        player.LinearEssence = player.LinearEssence.add(player.LEgain.mul(diff))
+    }
+    if(constant.trip.refill_stamina) {
+        if(constant.trip.stamina.gte(new Decimal(10).add(constant.trip.ice))) {
+            constant.trip.refill_stamina = false
+        }
+        constant.trip.stamina = constant.trip.stamina.add(new Decimal(1).mul(diff))
+    }
+    constant.constant_points = constant.constant_points.add(CalculateConstantPoints().mul(diff))
+    if(!constant.trip.icc_up1.bought) {
+        constant.trip.ice_frags = (constant.trip.meters.div(10)).floor().sub(constant.trip.tank_filled).sub(constant.trip.ice.mul(5))
+    }
+    else {
+        constant.trip.ice_frags = (constant.trip.meters.div(10)).floor().sub(constant.trip.tank_filled).sub(constant.trip.ice.mul(2))
+    }
+    if(constant.Math_mana.lte(0)) {
+        constant.Math_mana = new Decimal(0)
+        constant.activate_skill1 = false
+        constant.activate_skill2 = false
+        constant.activate_skill3 = false
+    }
+    if(constant.Math_mana.gte(100)) {
+        constant.activate_skill4 = false
+        constant.skill4_timer = new Decimal(15)
+    }
+    if(constant.activate_skill1) {
+        constant.Math_mana = constant.Math_mana.sub(new Decimal(10).mul(diff))
+    }
+    if(constant.activate_skill2) {
+        constant.Math_mana = constant.Math_mana.sub(new Decimal(15).mul(diff))
+    }
+    if(constant.activate_skill3) {
+        constant.Math_mana = constant.Math_mana.sub(new Decimal(10).mul(diff))
+    }
+    if(constant.activate_skill4) {
+        constant.activate_skill1 = false
+        constant.activate_skill2 = false
+        constant.activate_skill3 = false
+        constant.skill4_timer = constant.skill4_timer.sub(new Decimal(1).mul(diff))
+    }
+    if(constant.skill4_timer.lte(0)) {
+        constant.Math_mana = new Decimal(100)
+    } 
+    constant.math_points = CalculateLoopingEquation().pow(1.1)
+    constant.mp_boost = constant.math_points.add(1).log10().cbrt()
+    constant.le_x = CalculateLoopingEquation()
+    if(upgrades[11].bought) {
+        constant.x1 = constant.x1.add(new Decimal(1).mul(diff))
+        constant.y1 = constant.y1.add(new Decimal(1).mul(diff))
+    }
+    constant.coordinatePower = ((constant.x2.sub(constant.x1)).pow(2).add((constant.y2.sub(constant.y1)).pow(2))).sqrt()
 }
 
 function MainLoop() {

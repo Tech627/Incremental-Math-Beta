@@ -203,7 +203,7 @@ for(let i = 0; i < 3; i++) {
     buildings.push(building)
 }
 
-for(let i = 0; i < 6; i++) {
+for(let i = 0; i < 12; i++) {
     let upgrade = {
         bought: false,
         cost: new Decimal(20000).mul(i + 1),
@@ -397,28 +397,32 @@ function BuyIup(i) {
     }
 }
 
-function LinearEssenceReset(chal = false) {
-    if(player.LEgain.gte(1) && player.TimeTillReset.lte(0) || chal) {
+function LinearEssenceReset(chal = false, constantreset = false) {
+    if(player.LEgain.gte(1) && player.TimeTillReset.lte(0) || chal || constantreset) {
         player.TimeTillReset = new Decimal(5)
         if(!chal) player.LinearEssence = player.LinearEssence.add(player.LEgain) 
         player.points = new Decimal(0)
         player.pointsPerSec = new Decimal(0)
-        for(let i = 0; i < 3; i++) {
-            let b = buildings[i]
-            b.amount = new Decimal(0)
-            b.cost = new Decimal(10).pow(i + 1)
-            b.eff = new Decimal(1)
-            if(upgrades[6].bought) buildings[1].amount = new Decimal(1)
+        if(!constantUpgrades[11].bought) {
+            for(let i = 0; i < 3; i++) {
+                let b = buildings[i]
+                b.amount = new Decimal(0)
+                b.cost = new Decimal(10).pow(i + 1)
+                b.eff = new Decimal(1)
+                if(upgrades[6].bought) buildings[1].amount = new Decimal(1)
+            }
         }
-        if(linearUpgrades[6].bought == false || linearChallenges[1].inChal == true) {
-            for(let i = 0; i < 9; i++) {
-                let u = upgrades[i]
-                u.bought = false
-                u.cost = new Decimal(20000)
-                u.eff = new Decimal(1)
-                if(linearUpgrades[2].bought && !linearChallenges[1].inChal && !linearChallenges[3].inChal) {
-                    upgrades[2].bought = true
-                    upgrades[5].bought = true
+        if(!constantUpgrades[9].bought) {
+            if(linearUpgrades[6].bought == false || linearChallenges[1].inChal == true) {
+                for(let i = 0; i < 9; i++) {
+                    let u = upgrades[i]
+                    u.bought = false
+                    u.cost = new Decimal(20000)
+                    u.eff = new Decimal(1)
+                    if(linearUpgrades[2].bought && !linearChallenges[1].inChal && !linearChallenges[3].inChal) {
+                        upgrades[2].bought = true
+                        upgrades[5].bought = true
+                    }
                 }
             }
         }

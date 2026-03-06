@@ -61,6 +61,24 @@ body.light {
     bottom: 10;
 }
 
+details {
+    width: 100%;
+}
+
+#Linear-essence-gid,
+#Linear-chals-gid,
+#Polytopes-gid,
+#Tangent-gid {
+    display: none;
+}
+
+#Linear-essence-gid.unlocked,
+#Linear-chals-gid.unlocked,
+#Polytopes-gid.unlocked,
+#Tangent-gid.unlocked {
+    display: block;
+}
+
 .Building-cost {
     background-color: rgba(227, 0, 0, 0.855);
     border: 2px solid maroon
@@ -118,7 +136,8 @@ body.light {
     align-items: center;
 }
 
-#sub-tab {
+#sub-tab,
+#Linear-upg-tab {
     width: 150px;
     height: 30px;
     padding: 5px;
@@ -128,6 +147,10 @@ body.light {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#Linear-upg-tab.hide {
+    display: none;
 }
 
 #maintab {
@@ -141,7 +164,45 @@ body.light {
     align-items: center;
 }
 
+#maintab.hide {
+    display: none;
+}
+
+#coordinatetab {
+    display: none;
+}
+
+#coordinatetab.show {
+    width: 150px;
+    height: 50px;
+    background-color: rgba(43, 43, 43, 0.801);
+    color: rgb(135, 135, 135);
+    border: 1px solid rgb(78, 78, 78);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #upgradetab {
+    width: 150px;
+    height: 50px;
+    background-color: rgba(43, 43, 43, 0.801);
+    color: rgb(135, 135, 135);
+    border: 1px solid rgb(78, 78, 78);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#upgradetab.hide {
+    display: none;
+}
+
+#triptab {
+    display: none;
+}
+
+#triptab.show {
     width: 150px;
     height: 50px;
     background-color: rgba(43, 43, 43, 0.801);
@@ -172,7 +233,8 @@ body.light {
     display: block;
 }
 
-#layertab {
+#layertab,
+#constanttab {
     display: none;
 }
 
@@ -181,6 +243,7 @@ body.light {
     width: 150px;
     height: 50px;
     background-color: rgba(9, 101, 30, 0.801);
+    border: 2px solid green;
     color: white;
     display: flex;
     justify-content: center;
@@ -202,11 +265,84 @@ body.light {
     display: block;
 }
 
-#btn-gain {
+#constanttab {
     width: 150px;
+    height: 50px;
+    background-color: rgb(0, 140, 255);
+    border: 2px solid aquamarine;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#constanttab:hover {
+    background-color: rgb(0, 126, 199);
+    cursor: pointer;
+}
+
+#constanttab.hide {
+    display: none;
+}
+
+#Header {
+    width: 1000px;
+    top: 5;
+    left: 50%;
+    margin-left: -500px;
+    height: 120px;
+    padding: 15px;
+    position: relative;
+}
+
+#Points {
+    position: absolute;
+    top: 5;
+    left: 50%;
+    width: 500px;
+    margin-left: -250px;
+    z-index: 1000;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#Points.intrip {
+    position: absolute;
+    top: 5;
+    left: 50%;
+    width: 700px;
+    margin-left: -350px;
+    z-index: 1000;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#PointsPerSec {
+    position: absolute;
+    top: 50;
+    left: 50%;
+    width: 300px;
+    margin-left: -150px;
+    z-index: 1000;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#btn-gain {
+    position: absolute;
+    top: 75;
+    left: 50%;
+    width: 150px;
+    margin-left: -75px;
     border-radius: 0;
     background-color: black;
     border: 2px solid rgb(26, 26, 26);
+    z-index: 1000;
 }
 
 #btn-gain:hover {
@@ -220,6 +356,9 @@ body.light {
 
 .content.active {
     display: block;
+    position: absolute;
+    left: 150;
+    right: 150;
 } 
 
 .sub-content {
@@ -340,7 +479,56 @@ body.light {
     background-color: rgba(128, 13, 13, 0.855);
     border: 2px solid rgb(129, 35, 35);
     font-size: 13px;
-    color: rgb(204, 201, 201);
+    color: rgb(255, 255, 255);
+    position: relative;
+    margin-bottom: 10px;
+}
+
+#up-name {
+    position: absolute;
+    top: 5;
+    left: 50%;
+    width: 250px;
+    margin-left: -125px;
+    font-size: 16px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    border-bottom: 1q solid white;
+}
+
+#upg-cost1,
+#upg-cost2,
+#upg-cost3,
+#upg-cost4,
+#upg-cost5,
+#upg-cost6,
+#upg-cost7,
+#upg-cost8,
+#upg-cost9,
+#upg-cost10,
+#upg-cost11,
+#upg-cost12,
+#lupg-cost1,
+#lupg-cost2,
+#lupg-cost3,
+#lupg-cost4,
+#lupg-cost5,
+#lupg-cost6,
+#lupg-cost7,
+#lupg-cost8,
+#lupg-cost9,
+#lupg-cost10,
+#lupg-cost11,
+#lupg-cost12,
+#CUp-cost {
+    position: absolute;
+    bottom: 0;
+    left: 2;
+}
+
+#up-desc,
+#lup-desc {
+    margin-top: 15px;
 }
 
 .Up-cost:hover {
@@ -353,6 +541,7 @@ body.light {
     background-color: rgb(6, 61, 78);
     border: 2px solid rgb(30, 135, 135);
     font-size: 13px;
+    position: relative;
 }
 
 .Up-bought:hover {
@@ -362,8 +551,10 @@ body.light {
 .Up-buy {
     width: 300px;
     height: 130px;
-    background-color: rgb(1, 218, 27);
+    background-color: rgb(1, 143, 112);
+    border: 2px solid rgb(2, 196, 99);
     font-size: 13px;
+    position: relative;
 }
 
 .Up-buy:hover {
@@ -386,15 +577,25 @@ body.light {
     gap: 5px;
 }
 
-#row3 {
+#row3,
+#row4 {
     display: none;
+    position: relative;
 }
 
-#row3.show {
+#row3.show,
+#row4.show {
     display: flex;
     justify-content: center;
     gap: 5px;
     margin-top: 25px;
+}
+
+#intersection-ups-name {
+    position: absolute;
+    top: -30;
+    font-size: 17px;
+    text-shadow: 0 0 5px rgb(211, 0, 0), 0 0 5px maroon, 0 0 3px rgb(136, 0, 0);
 }
 
 .Achv {
@@ -485,6 +686,7 @@ body.light {
 #Building1,
 #Building2,
 #Building3 {
+    display: block;
     width: 300px;
     height: auto;
     padding-bottom: 5px;
@@ -493,7 +695,28 @@ body.light {
     position: relative;
 }
 
-#ResetForLE {
+#Building1.hide,
+#Building2.hide,
+#Building3.hide {
+    display: none;
+}
+
+#Building4 {
+    display: none;
+}
+
+#Building4.show {
+    display: block;
+    width: 300px;
+    height: auto;
+    padding-bottom: 5px;
+    font-size: 17px;
+    background-color: rgba(68, 5, 5, 0.967);
+    position: relative;
+}
+
+#ResetForLE,
+#ConstantReset {
     display: none;
 }
 
@@ -501,7 +724,7 @@ body.light {
     position: absolute;
     width: 250px;
     top: 30;
-    left: 65%;
+    right: 0;
     height: 60px;
     display: flex;
     justify-content: center;
@@ -512,6 +735,23 @@ body.light {
 
 #ResetForLE:hover {
     background-color: rgb(8, 195, 73);
+}
+
+#ConstantReset.unlocked {
+    position: absolute;
+    width: 250px;
+    top: 30;
+    left: 0;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(0, 140, 255);
+    border: 3px solid rgb(6, 69, 141);
+}
+
+#ConstantResetBtn {
+    font-size: 13px;
 }
 
 #Linear-essence-gain-formula {
@@ -528,10 +768,23 @@ body.light {
     font-size: 14px;
     font-weight: bold;
     background-color: rgba(128, 13, 13, 0.855);
+    position: relative;
 }
 
 .Lup-cost:hover {
     background-color: rgba(148, 14, 14, 0.855);
+}
+
+#lup-name {
+    position: absolute;
+    top: 5;
+    left: 50%;
+    width: 230px;
+    margin-left: -115px;
+    color: black;
+    border-bottom: 1q solid white;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .Lup-bought {
@@ -541,6 +794,7 @@ body.light {
     font-weight: bold;
     background-color: rgb(4, 46, 59);
     border: 2px solid rgb(5, 121, 121);
+    position: relative;
 }
 
 .Lup-bought:hover {
@@ -555,6 +809,7 @@ body.light {
     font-weight: bold;
     background-color: rgb(6, 155, 23);
     border: 2px solid rgb(59, 170, 59);
+    position: relative;
 }
 
 .Lup-buy:hover {
@@ -677,10 +932,42 @@ body.light {
 
 .Challenge {
     width: 300px;
-    height: 200px;
-    font-size: 15px;
+    height: 160px;
+    font-size: 13px;
     font-weight: bolder;
     background-color: rgba(227, 0, 0, 0.855);
+    position: relative;
+}
+
+#Chal-name {
+    position: absolute;
+    top: 5;
+    left: 50%;
+    width: 250px;
+    margin-left: -125px;
+    border-bottom: 1q solid white;
+    font-size: 15px;
+}
+
+#Chal-goal {
+    position: absolute;
+    bottom: 0;
+    right: 5;
+    font-size: 11px;
+}
+
+#Chal-desc {
+    margin-top: 15px;
+}
+
+#Chal-reward1,
+#Chal-reward2,
+#Chal-reward3,
+#Chal-reward5 {
+    position: absolute;
+    left: 5;
+    bottom: 0;
+    font-size: 11px;
 }
 
 .Challenge:hover {
@@ -689,10 +976,11 @@ body.light {
 
 .Challenge-running {
     width: 300px;
-    height: 200px;
-    font-size: 15px;
+    height: 160px;
+    font-size: 13px;
     font-weight: bolder;
     background-color: rgb(214, 169, 4);
+    position: relative;
 }
 
 .Challenge-running:hover {
@@ -709,8 +997,8 @@ body.light {
 
 .Challenge-completed {
     width: 300px;
-    height: 200px;
-    font-size: 15px;
+    height: 160px;
+    font-size: 13px;
     font-weight: bolder;
     background-color: rgb(1, 218, 27);
 }
@@ -741,28 +1029,6 @@ body.light {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-}
-
-.Buildings-guide,
-.Upgrades-guide,
-.Equations-guide {
-    padding-top: 10px;
-}
-
-.Linear-essence-guide,
-.Linear-chals-guide,
-.Polygons-guide,
-.Tangent-guide {
-    display: none;
-}
-
-.Linear-essence-guide.unlocked,
-.Linear-chals-guide.unlocked,
-.Polygons-guide.unlocked,
-.Tangent-guide.unlocked {
-    display: block;
-    padding-top: 10px;
-    color: rgb(8, 224, 84);
 }
 
 .Building-automation {
@@ -1453,4 +1719,935 @@ body.light {
 #guide-sub-tab:hover {
     cursor: pointer;
     background-color: rgb(43, 43, 43);
+}
+
+#constant-infinity {
+    display: none;
+}
+
+#constant-infinity.show {
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    padding-top: 250px;
+    font-size: 40px;
+}
+
+#csub-tab {
+    width: 180px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(25, 139, 139);
+}
+
+#csub-tab:hover {
+    background-color: rgb(0, 176, 199);
+    cursor: pointer;
+}
+
+#Constant-Milestone-t,
+#Constant-Upgrades-t {
+    font-size: 29px;
+    text-align: center;
+    margin-top: 15px;
+    text-shadow: 0 0 3px rgb(0, 153, 255), 0 0 5px rgb(0, 204, 255), 0 0 10px rgb(0, 176, 199);
+}
+
+#Constant-Level {
+    text-align: center;
+    font-size: 20px;
+}
+
+#CL {
+    text-shadow: 0 0 3px rgb(0, 153, 255), 0 0 5px rgb(0, 204, 255), 0 0 10px rgb(0, 176, 199);
+}
+
+.Constant-Milestones {
+    width: 350px;
+    position: absolute;
+    left: 50%;
+    margin-left: -175px;
+    margin-top: 50px;
+}
+
+.Constant-Milestone {
+    width: 350px;
+    height: 80px;
+    font-size: 14px;
+    padding: 2px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    background-color: rgb(9, 114, 175);
+    box-shadow: 0 0 5px rgb(0, 153, 255), 0 0 10px rgb(0, 176, 199);
+    margin-bottom: 15px;
+}
+
+#Constant-Milestone2 {
+    display: none;
+}
+
+#Constant-Milestone2.show {
+    display: block;
+}
+
+.Constant-Milestone:hover {
+    background-color: rgb(7, 98, 184);
+    cursor: pointer;
+}
+
+.Constant-Milestone.gotten {
+    width: 350px;
+    height: 80px;
+    font-size: 14px;
+    padding: 2px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    background-color: rgb(9, 196, 102);
+    box-shadow: 0 0 5px rgb(2, 226, 196), 0 0 10px rgb(2, 224, 139);
+}
+
+.Constant-Milestone.gotten:hover {
+    background-color: rgb(9, 196, 118);
+    cursor: pointer;
+}
+
+#cupsub-tab,
+#cchsub-tab,
+#cssub-tab,
+#lesub-tab {
+    display: none;
+}
+
+#cupsub-tab,
+#cchsub-tab.show,
+#cssub-tab.show,
+#lesub-tab.show {
+    width: 180px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(25, 139, 139);
+}
+
+#cupsub-tab:hover,
+#cchsub-tab:hover,
+#cssub-tab:hover,
+#lesub-tab:hover {
+    background-color: rgb(0, 176, 199);
+    cursor: pointer;
+}
+
+.Constant-Upgrades {
+    display: none;
+    width: 1000px;
+    position: absolute;
+    left: 50%;
+    margin-left: -500px;
+    margin-top: 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.Constant-Upgrades.show {
+    display: flex;
+    width: 1000px;
+    position: absolute;
+    left: 50%;
+    margin-left: -500px;
+    margin-top: 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.Constant-Upgrade {
+    width: 250px;
+    height: 90px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    font-size: 14px;
+    background-color: rgb(0, 153, 255);
+    border: 2px solid rgb(0, 89, 255);
+    text-align: center;
+    position: relative;
+}
+
+#CUp-name {
+    position: absolute;
+    top: 2;
+    left: 50%;
+    width: 230px;
+    margin-left: -115px;
+    color: black;
+    border-bottom: 1q solid white;
+    font-weight: bold;
+}
+
+#CUp-desc {
+    font-size: 13q;
+}
+
+.Constant-Upgrade:hover {
+    background-color: rgb(2, 116, 192);
+    cursor: pointer;
+}
+
+.Constant-Upgrade.bought {
+    width: 250px;
+    height: 90px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    font-size: 14px;
+    background-color: rgb(0, 189, 148);
+    border: 2px solid rgb(0, 255, 128);
+    text-align: center;
+    position: relative;
+}
+
+.Constant-Upgrade.bought:hover {
+    background-color: rgb(0, 158, 124);
+    cursor: pointer;
+}
+
+.Constant-Upgrade.available {
+    width: 250px;
+    height: 90px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    font-size: 14px;
+    background-color: rgb(5, 68, 163);
+    border: 2px solid rgb(0, 60, 255);
+    text-align: center;
+    position: relative;
+}
+
+.Constant-Upgrade.available:hover {
+    background-color: rgb(7, 88, 209);
+    cursor: pointer;
+}
+
+#Constant-Points {
+    text-align: center;
+    font-size: 20px;
+}
+
+#const-p {
+    text-shadow: 0 0 3px rgb(0, 176, 199), 0 0 8px rgb(0, 140, 255);
+}
+
+#CUpboosts,
+#CUlboosts,
+#CUpreboosts,
+#CUqol {
+    text-align: center;
+    font-size: 17px;
+    text-shadow: 0 0 3px rgb(0, 176, 199), 0 0 5px rgb(0, 204, 255);
+}
+
+#ICUconstp-boost,
+#ICUcc,
+#ICUunl {
+    text-align: center;
+    font-size: 17px;
+    text-shadow: 0 0 3px orange, 0 0 5px orangered;
+}
+
+#Break-Constant-Infinity {
+    position: absolute;
+    bottom: -100;
+    width: 1000px;
+    height: 70px;
+    font-size: 15px;
+    background-color: rgb(0, 126, 199);
+    border: 2px solid navy;
+}
+
+#Constant-p-passive {
+    display: none;
+}
+
+#Constant-p-passive.show {
+    display: block;
+    position: absolute;
+    bottom: -100;
+    width: 1000px;
+    height: 70px;
+    font-size: 15px;
+    background-color: rgb(0, 126, 199);
+    border: 2px solid navy;
+}
+
+#Break-Constant-Infinity:hover,
+#Constant-p-passive:hover {
+    background-color: rgb(0, 140, 255);
+    cursor: pointer;
+}
+
+.Infinity-Constant-Upgrades {
+    display: none;
+}
+
+.Infinity-Constant-Upgrades.show {
+    display: flex;
+    width: 1000px;
+    position: absolute;
+    left: 50%;
+    margin-left: -500px;
+    margin-top: 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.Infinity-Constant-Upgrade {
+    width: 250px;
+    height: 90px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    font-size: 14px;
+    background-color: rgb(90, 66, 46);
+    border: 2px solid rgb(51, 34, 18);
+    text-align: center;
+    position: relative;
+}
+
+.Infinity-Constant-Upgrade:hover {
+    cursor: pointer;
+    background-color: rgb(165, 68, 12);
+}
+
+.Infinity-Constant-Upgrade.bought {
+    width: 250px;
+    height: 90px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    font-size: 14px;
+    background-color: rgb(112, 172, 15);
+    border: 2px solid rgb(63, 129, 8);
+    text-align: center;
+    position: relative;
+}
+
+.Infinity-Constant-Upgrade.bought:hover {
+    background-color: rgb(112, 172, 15);
+    cursor: pointer;
+}
+
+.Infinity-Constant-Upgrade.available {
+    width: 250px;
+    height: 90px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    font-size: 14px;
+    background-color: rgb(54, 40, 28);
+    border: 2px solid rgb(102, 68, 37);
+    text-align: center;
+    position: relative;
+}
+
+#ICUp-name {
+    position: absolute;
+    top: 2;
+    left: 50%;
+    width: 230px;
+    margin-left: -115px;
+    border-bottom: 1q solid white;
+    color: black;
+    font-weight: bold;
+}
+
+#ICUp-desc {
+    font-size: 13q;
+}
+
+#ICUp-cost {
+    position: absolute;
+    bottom: 0;
+    left: 2;
+}
+
+#CU-switch {
+    position: absolute;
+    top: 520;
+    left: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    margin-left: -100px;
+}
+
+#CU-switch-p {
+    width: 40px;
+    color: black;
+    background-color: rgb(57, 192, 255);
+    border: 2px solid rgb(3, 95, 156);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Constant-Challenge {
+    width: 300px;
+    height: 300px;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    background-color: rgb(5, 40, 73);
+    border: 2px solid rgb(3, 3, 71);
+    position: relative;
+    top: 20;
+    left: 50%;
+    margin-left: -150px;
+}
+
+#Const-chal-name {
+    position: absolute;
+    width: 280px;
+    margin-left: -140px;
+    top: 5;
+    left: 50%;
+    text-align: center;
+    font-size: 18px;
+    color: black;
+    font-weight: bold;
+    border-bottom: 1q solid white;
+}
+
+#Const-chal-enter {
+    position: absolute;
+    bottom: 5;
+    width: 170px;
+    left: 50%;
+    margin-left: -85px;
+}
+
+#Softcap {
+    display: none;
+}
+
+#Softcap.show {
+    display: block;
+    position: fixed;
+    bottom: 2;
+    left: 50%;
+    width: 500px;
+    margin-left: -250px;
+    text-align: center;
+    font-size: 14px;
+    text-shadow: 0 0 2px white, 0 0 3px rgb(230, 230, 230), 0 0 7px rgb(255, 157, 157);
+}
+
+#Walk {
+    width: 250px;
+    height: 80px;
+    position: absolute;
+    top: 200;
+    left: 300;
+}
+
+#Walk-name {
+    width: 50px;
+    background-color: rgb(31, 31, 31);
+    border-radius: 5px 5px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#Walk-content {
+    background-color: rgb(31, 31, 31);
+    border: 1px solid yellow;
+    padding: 3px;
+    width: 250px;
+    text-align: center;
+}
+
+#Walk-btn {
+    width: 250px;
+    border-radius: 0px 0px 5px 5px;
+    border: 1px solid yellow;
+    background-color: rgb(27, 27, 27);
+    color: white;
+}
+
+#Walk-btn:hover {
+    background-color: rgb(35, 35, 35);
+}
+
+#Stamina {
+    width: 300px;
+    height: 80px;
+    position: absolute;
+    top: 200;
+    left: 50%;
+    margin-left: -150px;
+}
+
+#Stamina-name {
+    width: 70px;
+    background-color: rgb(31, 31, 31);
+    border-radius: 5px 5px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#Stamina-content {
+    background-color: rgb(31, 31, 31);
+    border: 1px solid yellow;
+    padding: 3px;
+    width: 300px;
+    text-align: center;
+}
+
+#Funny-increaser {
+    width: 250px;
+    height: 80px;
+    position: absolute;
+    top: 200;
+    right: 300;   
+}
+
+#Funny-name-increaser {
+    width: 130px;
+    background-color: rgb(31, 31, 31);
+    border-radius: 5px 5px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#Funny-content {
+    background-color: rgb(31, 31, 31);
+    border: 1px solid yellow;
+    padding: 3px;
+    width: 250px;
+    text-align: center;
+}
+
+#icetab {
+    width: 150px;
+    height: 50px;
+    background-color: aquamarine;
+    border: 1px solid rgb(94, 244, 255);
+    display: none;
+}
+
+#icetab.show {
+    display: block;
+}
+
+#Ice-amt,
+#Ice-frags-amt {
+    text-align: center;
+    font-size: 20px;
+}
+
+#Ice {
+    font-size: 25px;
+    text-shadow: 0 0 5px rgb(0, 255, 191), 0 0 3px rgb(0, 214, 161);
+}
+
+#Ice-convertor {
+    width: 500px;
+    height: 200px;
+    background-color: rgb(100, 199, 182);
+    border: 2px solid aqua;
+    position: absolute;
+    left: 50%;
+    margin-left: -250px;
+    display: grid;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#icc-tank {
+    position: absolute;
+    top: 3;
+    left: 5;
+    width: 50px;
+    height: 190px;
+    background-color: rgb(0, 65, 90);
+}
+
+#icct-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 190px;
+    background-color: rgb(0, 95, 133);
+}
+
+#icct-t {
+    position: absolute;
+    width: 50px;
+    bottom: 0;
+    left: 50%;
+    color: white;
+    margin-left: -25px;
+    text-align: center;
+}
+
+#icc-n {
+    width: 250px;
+    height: 30px;
+    position: absolute;
+    left: 50%;
+    margin-left: -125px;
+    font-size: 20px;
+    color: black;
+}
+
+#icct-btn-fill {
+    width: 190px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 17%;
+    top: 50;
+    width: -32px;
+    background-color: rgb(0, 95, 133);
+    border: 2px solid black;
+    color: white;
+}
+
+#icc-boost {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 300px;
+    margin-left: -125px;
+    color: black;
+}
+
+#icc-ups {
+    width: 180px;
+    height: 100px;
+    position: absolute;
+    right: 5;
+    top: 5;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.icc-up{
+    width: 200px;
+    height: 60px;
+    font-size: 13px;
+    background-color: rgb(0, 65, 90);
+    text-align: center;
+}
+
+#icc-up1.bought,
+#icc-up2.bought {
+    background-color: rgb(0, 129, 129);
+}
+
+#Math-mana {
+    font-size: 22px;
+    text-align: center;
+    margin-top: 5px;
+}
+
+#mm-t {
+    text-shadow: 0 0 5px aqua, 0 0 5px rgb(94, 255, 201), 0 0 3px rgb(140, 255, 217);
+}
+
+.cs-section {
+    width: 615px;
+    position: absolute;
+    left: 50%;
+    margin-left: -307px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+#constant-skills {
+    text-align: center;
+    font-size: 25px;
+    text-shadow: 0 0 5px aqua, 0 0 5px lightblue, 0 0 4px lightskyblue, 0 0 3px lightsteelblue;
+}
+
+#skill {
+    position: relative;
+    width: 200px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: rgb(6, 61, 61);
+    text-align: center;
+    padding: 3px;
+    border-radius: 10px 10px 0 0;
+}
+
+#special-skill {
+    position: relative;
+    width: 615px;
+    height: 150px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: rgb(6, 61, 61);
+    text-align: center;
+    padding: 3px;
+    border-radius: 10px 10px 0 0;
+}
+
+#skill-name {
+    position: absolute;
+    width: 200px;
+    top: 0;
+    left: 50%;
+    margin-left: -100px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+#skill-mana-usage {
+    position: absolute;
+    width: 200px;
+    bottom: 0;
+    left: 50%;
+    margin-left: -100px;
+}
+
+#skill-timer {
+    position: absolute;
+    width: 615px;
+    bottom: 0;
+    left: 50%;
+    margin-left: -307px;
+}
+
+#activate-skill1,
+#activate-skill2,
+#activate-skill3 {
+    position: absolute;
+    width: 200px;
+    bottom: -30;
+    left: 0;
+    border-radius: 0 0 10px 10px;
+    background-color: aquamarine;
+    border: 2px solid rgb(97, 255, 202);
+}
+
+#activate-skill4 {
+    position: absolute;
+    width: 615px;
+    bottom: -30;
+    left: 0;
+    border-radius: 0 0 10px 10px;
+    background-color: aquamarine;
+    border: 2px solid rgb(97, 255, 202);
+}
+
+#activate-skill1:hover,
+#activate-skill2:hover,
+#activate-skill3:hover,
+#activate-skill4:hover {
+    background-color: rgb(91, 196, 161);
+}
+
+#Math-points {
+    text-align: center;
+    font-size: 25px;
+    margin-top: 5px;
+}
+
+#le-equation {
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    top: 50;
+    left: 50%;
+    margin-left: -100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#lee {
+    font-size: 50px;
+}
+
+#increase-le-n {
+    width: 150px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(22, 22, 22);
+    border: 2px solid rgb(17, 17, 17);
+    color: white;
+}
+
+#increase-le-n:hover {
+    background-color: rgb(32, 32, 32);
+}
+
+#le-stats {
+    position: absolute;
+    width: 300px;
+    top: 20;
+    right: 200;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+#les-t {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#leq-ups {
+    position: absolute;
+    left: 200;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.leq-cost {
+    width: 300px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: rgb(0, 58, 109);
+    text-align: center;
+    position: relative;
+    padding: 3px;
+}
+
+.leq-cost:hover {
+    background-color: rgb(2, 46, 168);
+    cursor: pointer;
+}
+
+.leq-cost.bought {
+    width: 300px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: rgb(3, 116, 168);
+    text-align: center;
+    position: relative;
+    padding: 3px;
+}
+
+.leq-cost.bought:hover {
+    background-color: rgb(3, 96, 139);
+    cursor: pointer;
+}
+
+#leq-name {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 300px;
+    margin-left: -150px;
+    font-weight: bold;
+}
+
+#leq-cost {
+    position: absolute;
+    bottom: 0;
+    left: 5;
+}
+
+#Coordinate-power {
+    font-size: 25px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+#Coordinate-unl {
+    font-size: 19px;
+    text-align: center;
+}
+
+#x-in-slope {
+    position: absolute;
+    top: 150;
+    left: 200;
+    width: 250px;
+    text-align: center;
+}
+
+#slope {
+    position: absolute;
+    left: 50%;
+    width: 200px;
+    margin-left: -100px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+#y-in-slope {
+    position: absolute;
+    top: 150;
+    right: 200;
+    width: 250px;
+    text-align: center;
+}
+
+#increase-x2,
+#increase-y2 {
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(26, 26, 26);
+    border: 2px solid white;
+    color: white;
+    position: absolute;
+    left: 50%;
+    margin-left: -75px;
+    margin-top: 10px;
+}
+
+#increase-x2:hover,
+#increase-y2:hover {
+    background-color: rgb(43, 43, 43);
+    border: 2px solid rgb(211, 211, 211);
 }

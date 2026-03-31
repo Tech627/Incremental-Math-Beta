@@ -10,7 +10,7 @@ var infinityConstantUpgrades = []
 let LinearResetunl = false
 let lockedlu3reset = false
 
-for(let i = 0; i < 3; i++) {
+for(let i = 0; i < 4; i++) {
     let building = {
         amount: new Decimal(0),
         cost: new Decimal(10).pow(i+1),
@@ -39,7 +39,7 @@ for(let i = 0; i < 12; i++) {
     linearUpgrades.push(linearUpgrade)
 }
 
-for(let i = 0; i < 30; i++) {
+for(let i = 0; i < 35; i++) {
     let achievement = {
         completed: false,
     }
@@ -81,7 +81,7 @@ for(let i = 0; i < 12; i++) {
     constantUpgrades.push(constantUpgrade)
 }
 
-for(let i = 0; i < 12; i++) {
+for(let i = 0; i < 9; i++) {
     let infinityConstantUpgrade = {
         bought: false,
         cost: new Decimal(3),
@@ -96,7 +96,12 @@ function UpdateGUI() {
         document.getElementById("PointsPerSec").textContent = "(+" + format(player.tangent.pi_dimension.papirusPerSec) + " Papirus/sec)" 
     }
     else {
-        document.getElementById("Points").textContent = "You have " + format(player.points) + " Points"
+        if(player.points.gte(constant.req)) {
+            document.getElementById("Points").textContent = "You have Infinity Points"
+        }  
+        else if(player.points.lt(constant.req)) {
+            document.getElementById("Points").textContent = "You have " + format(player.points) + " Points"
+        }
         document.getElementById("maintab").textContent = "Main"
         document.getElementById("PointsPerSec").textContent = "(+" + format(player.pointsPerSec) + " Points/sec)" 
     }
@@ -106,7 +111,7 @@ function UpdateGUI() {
     else if (player.pointgain.gt(1)) {
         document.getElementById("btn-gain").textContent = "+" + format(player.pointgain) + "Points"
     }
-    for(let i = 2; i > -1; i--) {
+    for(let i = 3; i > -1; i--) {
         let b = buildings[i]
         document.getElementById("building-amount" + (i + 1)).textContent = "[" + formatWhole(b.amount) + "]"
         document.getElementById("building-production" + (i + 1)).textContent = "(+" + format(b.amount.mul(b.eff)) + " Points/sec)"
@@ -124,13 +129,26 @@ function UpdateGUI() {
                 BuyBuilding(i+1, true)
             }
         }
-        if(linearUpgrades[4].bought && !linearChallenges[4].inChal) b.eff = b.eff.mul(linearUpgrades[4].eff)
+        if(upgrades[9].bought) {
+            document.getElementById("Building-automation4").classList.add("show")
+        }
+        if(linearUpgrades[4].bought && !linearChallenges[4].inChal && i != 3) b.eff = b.eff.mul(linearUpgrades[4].eff)
     }
-    for(let i = 0; i < 9; i++) {
+    for(let i = 0; i < 12; i++) {
         let u = upgrades[i]
-        upgrades[0].eff = player.points.max(1).log10().mul(2.5).add(1)
+        if(!upgrades[9].bought) {
+            upgrades[0].eff = player.points.max(1).log10().mul(2.5).add(1)
+        }
+        else {
+            upgrades[0].eff = (player.points.max(1).log10().mul(2.5).add(1)).pow(3)
+        }
         upgrades[1].eff = buildings[2].amount.sqrt(buildings[2].amount).add(1)
-        upgrades[3].eff = player.points.max(1).log10().div(2.5).add(1)
+        if(!upgrades[9].bought) {
+            upgrades[3].eff = player.points.max(1).log10().div(2.5).add(1)
+        }
+        else {
+            upgrades[3].eff = (player.points.max(1).log10().div(2.5).add(1)).pow(5)
+        }
         upgrades[4].eff = buildings[2].amount.sqrt(buildings[2].amount).div(2).add(1)
         upgrades[7].eff = player.points.max(1).log10().div(25).add(1)
         upgrades[0].cost = new Decimal(20000)
@@ -142,9 +160,9 @@ function UpdateGUI() {
         upgrades[6].cost = new Decimal(1e90)
         upgrades[7].cost = new Decimal(1e100)
         upgrades[8].cost = new Decimal(1e150)
-        upgrades[9].cost = new Decimal("1e500")
-        upgrades[10].cost = new Decimal("1e650")
-        upgrades[11].cost = new Decimal("1e1000")
+        upgrades[9].cost = new Decimal("1e1600")
+        upgrades[10].cost = new Decimal("1e1800")
+        upgrades[11].cost = new Decimal("1e2000")
         buildings[0].eff = new Decimal(1)
         if(upgrades[0].bought) buildings[0].eff = upgrades[0].eff
         if(linearUpgrades[1].bought && !linearChallenges[4].inChal) upgrades[0].eff = upgrades[0].eff.mul(5)
@@ -156,13 +174,14 @@ function UpdateGUI() {
         if(upgrades[4].bought) buildings[2].eff = buildings[2].eff.mul(upgrades[4].eff)
         if(upgrades[7].bought) buildings[2].eff = buildings[2].eff.mul(upgrades[7].eff)
         buildings[2].eff = buildings[2].eff.mul(CalculateEquationOfTangent())
-        if([2,5,6,8].includes(i)) continue
+        buildings[3].eff = new Decimal(1e9)
+        buildings[3].eff = buildings[3].eff.mul(CalculateEquationOfTangent())
+        if([2,5,6,8,9,10,11].includes(i)) continue
         else document.getElementById("up-eff" + (i + 1)).textContent = "Currently: " + format(u.eff) + "x boost"
         if(upgrades[2].bought) document.getElementById("Equation").classList.add("unlocked")
         else document.getElementById("Equation").classList.remove("unlocked")
         if(upgrades[5].bought) document.getElementById("Equation2").classList.add("unlocked")
         else document.getElementById("Equation2").classList.remove("unlocked")
-        
     }
     for(let i = 0; i < 12; i++) {
         let lu = linearUpgrades[i]
@@ -248,19 +267,16 @@ function UpdateGUI() {
         constantUpgrades[10].cost = new Decimal(2)
         constantUpgrades[11].cost = new Decimal(3)
     }
-    for(let i = 0; i < 12; i++) {
+    for(let i = 0; i < 9; i++) {
         infinityConstantUpgrades[0].cost = new Decimal(3)
         infinityConstantUpgrades[1].cost = new Decimal(5)
         infinityConstantUpgrades[2].cost = new Decimal(15)
-        infinityConstantUpgrades[3].cost = new Decimal(100)
-        infinityConstantUpgrades[4].cost = new Decimal(150)
-        infinityConstantUpgrades[5].cost = new Decimal(500)
-        infinityConstantUpgrades[6].cost = new Decimal(1e3)
-        infinityConstantUpgrades[7].cost = new Decimal(2.5e3)
-        infinityConstantUpgrades[8].cost = new Decimal(5e3)
-        infinityConstantUpgrades[9].cost = new Decimal(3)
-        infinityConstantUpgrades[10].cost = new Decimal(3)
-        infinityConstantUpgrades[11].cost = new Decimal(3)
+        infinityConstantUpgrades[3].cost = new Decimal(250)
+        infinityConstantUpgrades[4].cost = new Decimal(500)
+        infinityConstantUpgrades[5].cost = new Decimal(1.5e3)
+        infinityConstantUpgrades[6].cost = new Decimal(2.5e3)
+        infinityConstantUpgrades[7].cost = new Decimal(5e3)
+        infinityConstantUpgrades[8].cost = new Decimal(6.5e4)
     }
     if(buildings[0].amount.gte(1)) achievements[0].completed = true
     if(buildings[1].amount.gte(1)) achievements[1].completed = true
@@ -291,6 +307,11 @@ function UpdateGUI() {
     if(player.tangent.circle_arcs_amt.gte(100)) achievements[26].completed = true
     if(player.tangent.equation_of_tangent.x_buyer.amount.gte(5)) achievements[27].completed = true
     if(player.tangent.pi_power.gte(10)) achievements[28].completed = true
+    if(constant.constant_points.gte(1)) achievements[29].completed = true
+    if(constant.constant_milestones.milestone1.gotten && constant.constant_milestones.milestone2.gotten) achievements[30].completed = true
+    if(infinityConstantUpgrades[0].bought) achievements[31].completed = true
+    if(infinityConstantUpgrades[5].bought) achievements[32].completed = true
+    if(infinityConstantUpgrades[8].bought) achievements[33].completed = true
     if(player.equations.equation1.x.eq(1)) document.getElementById("Equation1").textContent = "1+x=2"
     else document.getElementById("Equation1").textContent = "1+(x/" + format(CalculateEquationGain(), precision = 0) + ")=2"
     document.getElementById("LinearReset").textContent = "Reset for " + format(CalculateLEgain()) + " Linear Essence"
@@ -421,8 +442,10 @@ function UpdateGUI() {
     else document.getElementById("p-boost1").textContent = "Unlock polytope boost 1 on 1 femtometer of length."
     if(player.polygons.pboost2unl) document.getElementById("p-boost2").textContent = "Unlock 2 more linear challenges."
     else document.getElementById("p-boost2").textContent = "Unlock polytope boost 2 on 5 femtometer of length."
-    if(player.polygons.pboost3unl) document.getElementById("p-boost3").innerHTML = "Points get boosted based on regular polytopes. <br> Currently: "
+    if(player.polygons.pboost3unl && player.polygons.amount.lt(70)) document.getElementById("p-boost3").innerHTML = "Points get boosted based on regular polytopes. <br> Currently: "
      + format(new Decimal(2).pow(player.polygons.amount)) + "x boost"
+    else if(player.polygons.pboost3unl && player.polygons.amount.gte(70)) document.getElementById("p-boost3").innerHTML = "Points get boosted based on regular polytopes." +
+    "<br> Currently: " + format(new Decimal(1.2).pow(player.polygons.amount)) + "x boost"
     else document.getElementById("p-boost3").textContent = "Unlock polytope boost 3 on 25 femtometer of length."
     if(player.polygons.pboost4unl) document.getElementById("p-boost4").innerHTML = "Your Linear Essence gets boosted by w-axis. <br> Currently: " 
      + format(player.polygons.eff4.mul(5)) + "x boost"
@@ -492,15 +515,12 @@ function UpdateGUI() {
     document.getElementById("Tup-level").textContent = player.tangent.tangent_upgrades.upgrade1.level + "/9 Level"
     if(player.tangent.tangent_upgrades.upgrade1.level.eq(9)) {
         player.tangent.tangent_upgrades.upgrade1.bought = true
-    }  
-    if(player.points.gte(constant.req)) {
-        document.getElementById("Points").textContent = "You have Infinity Points"
     }                        
     document.getElementById("CL").textContent = formatWhole(constant.constantLevel)
     document.getElementById("const-p").textContent = format(constant.constant_points, precision = 2)
     if(constant.brokeConstantInfinity) {
         if(constant.constantLevel.eq(1)) {
-            constant.req = new Decimal("1e360")
+            constant.req = new Decimal("1e1550")
         }
         if(player.points.gte("1.798e308")) {
             document.getElementById("Softcap").classList.add("show")
@@ -509,8 +529,13 @@ function UpdateGUI() {
             document.getElementById("Softcap").classList.remove("show")
         }
     }
+    if(constant.constantLevel.lt(2)) {
+        document.getElementById("ConstantResetbtn").innerHTML = " Increase your constant level by 1. <br> Req: " + format(constant.req) + " Points" 
+    }
+    else {
+       document.getElementById("ConstantResetbtn").innerHTML = " Increase your constant level by 1. <br> Req: Unknown"  
+    }
     document.getElementById("Softcap").textContent = "Your Points are softcapped, getting divided by /" + format(Softcap(), precision = 2) + "."  
-    document.getElementById("ConstantResetbtn").innerHTML = " Increase your constant level by 1. <br> Req: " + format(constant.req) + " Points" 
     document.getElementById("CU-switch-p").textContent = constant.CU_switch_p
     if(constant.CU_switch_p.eq(1)) {
         document.getElementById("Constant-Upgrades").classList.add("show")
@@ -545,6 +570,14 @@ function UpdateGUI() {
             constant.trip.ice = constant.trip.ice.add(1)
         }
         document.getElementById("number").textContent = constant.trip.number
+    }
+    else {
+        document.getElementById("Points").classList.remove("intrip")
+        document.getElementById("PointsPerSec").style.display = "block"
+        document.getElementById("btn-gain").style.display = "block"
+    }
+    if(constant.e_chal) {
+        document.getElementById("cchsub-tab").classList.remove("show")
     }
     document.getElementById("Constant-p-passive").innerHTML = "Multiply your passive Constant Points gain by 3x. <br> Cost: " + format(constant.passive_const_up_cost) +
     " Constant Points"
@@ -583,10 +616,14 @@ function UpdateGUI() {
     document.getElementById("y1-in-slope").textContent = "Your y1 coordinates are " + formatWhole(constant.y1) + "."
     document.getElementById("x2-in-slope").textContent = "Your x2 coordinates are " + formatWhole(constant.x2) + "."
     document.getElementById("y2-in-slope").textContent = "Your y2 coordinates are " + formatWhole(constant.y2) + "."
+    if(constant.trip.meters.gte(500)) {
+        constant.in_trip = false
+        constant.e_chal = true
+    }
 }
 
 function UpdateStyles() {
-    for(let i = 0; i < 3; i++) {
+    for(let i = 0; i < 4; i++) {
         let b = buildings[i]
         if(player.points.gte(b.cost) && !linearChallenges[2].inChal) {
             document.getElementById("Building-cost" + (i + 1)).classList.remove("Building-cost")
@@ -671,6 +708,10 @@ function UpdateStyles() {
             document.getElementById("Challenge" + (i + 1)).classList.add("Challenge-completed")
             document.getElementById("Challenge" + (i + 1)).classList.remove("Challenge-running")
             document.getElementById("Challenge" + (i + 1)).classList.remove("beatable")
+        }
+        else {
+            document.getElementById("Challenge" + (i + 1)).classList.remove("Challenge-completed")
+            document.getElementById("Challenge" + (i + 1)).classList.add("Challenge")
         }
         if(lc.inChal && player.points.lt(lc.goal)) {
             document.getElementById("Challenge" + (i + 1)).classList.add("Challenge-running")
@@ -775,7 +816,7 @@ function UpdateStyles() {
             document.getElementById("Infinity-Constant-Upgrade" + (i + 1)).classList.remove("available")
         }
     }
-    for(let i = 0; i < 30; i++) {
+    for(let i = 0; i < 35; i++) {
         let a = achievements[i]
         if(a.completed) document.getElementById("Achv-" + (i + 1)).classList.add("completed")
         else document.getElementById("Achv-" + (i + 1)).classList.remove("completed")
@@ -785,7 +826,7 @@ function UpdateStyles() {
         document.getElementById("layertab").classList.add("unlocked")
         document.getElementById("achv-row3").classList.add("unlocked")
         document.getElementById("Linear-essence-gid").classList.add("unlocked")
-        document.getElementById("LEs").classList.add("show")
+        document.getElementById("LE-s").classList.add("show")
     }
     if(player.points.gte(5e10)) LinearResetunl = true
     if(LinearResetunl) {
@@ -875,10 +916,14 @@ function UpdateStyles() {
     if(player.points.gte(1.79e308)) document.getElementById("ConstantReset").classList.add("unlocked")
     if(constant.unlocked) document.getElementById("constanttab").classList.add("unlocked")
     if(constant.constantLevel.gte(1)) constant.constant_milestones.milestone1.gotten = true 
+    if(constant.constantLevel.gte(2)) constant.constant_milestones.milestone2.gotten = true
     if(constant.constant_milestones.milestone1.gotten) {
         document.getElementById("cupsub-tab").classList.add("show")
         document.getElementById("Constant-Milestone").classList.add("gotten")
         document.getElementById("Constant-Milestone2").classList.add("show")
+    }
+    if(constant.constant_milestones.milestone2.gotten) {
+        document.getElementById("Constant-Milestone2").classList.add("gotten")
     }
     if(infinityConstantUpgrades[3].bought) {
         document.getElementById("Building1").classList.add("hide")
@@ -928,7 +973,7 @@ function UpdateStyles() {
     if(infinityConstantUpgrades[4].bought) {
         document.getElementById("Constant-p-passive").classList.add("show")
     }
-    if(infinityConstantUpgrades[5].bought) {
+    if(infinityConstantUpgrades[5].bought && !constant.e_chal) {
         document.getElementById("cchsub-tab").classList.add("show")
     }
     if(infinityConstantUpgrades[7].bought) {
@@ -949,13 +994,53 @@ function UpdateStyles() {
     if(upgrades[11].bought) {
         document.getElementById("coordinatetab").classList.add("show")
     }
+    if(infinityConstantUpgrades[8].bought) {
+        document.getElementById("LEF").classList.add("show")
+    }
+    if(linearEquation[0].amount.gte(10)) {
+        document.getElementById("Linear-Softcaps").classList.add("show")
+    }
+    if(constant.constantLevel.gte(1)) {
+        document.getElementById("Constant-gid").classList.add("unlocked")
+        document.getElementById("achv-row7").classList.add("unlocked")
+    }
+    if(infinityConstantUpgrades[5].bought) {
+        document.getElementById("Constant-challenge-gid").classList.add("unlocked")
+    }
+    if(upgrades[11].bought) {
+        document.getElementById("Coordinates-gid").classList.add("unlocked")
+    }
+    if(Save_bank) {
+        document.getElementById("Save-bank").classList.add("show")
+    }
+    else {
+        document.getElementById("Save-bank").classList.remove("show")
+    }
+    if(upgrades[3].bought) {
+        document.getElementById("Chapter2").classList.add("unlocked")
+    }
+    if(player.points.gte(5e10)) {
+        document.getElementById("Chapter3").classList.add("unlocked")
+    }
+    if(player.LinearEssence.gte(100)) {
+        document.getElementById("Chapter4").classList.add("unlocked")
+    }
+    if(upgrades[8].bought) {
+        document.getElementById("Chapter5").classList.add("unlocked")
+    }
+    if(player.points.gte("1.798e308")) {
+        document.getElementById("Chapter6").classList.add("unlocked")
+    }
+    if(infinityConstantUpgrades[5].bought) {
+        document.getElementById("Chapter7").classList.add("unlocked")
+    }
 }
 
 var LastUpdate = Date.now()
 
 function CalculatePointGain() {
     let gain = new Decimal(0)
-    for(i = 0; i < 3; i++) {
+    for(i = 0; i < 4; i++) {
         let b = buildings[i]
         gain = gain.add(b.amount.mul(b.eff))
     }
@@ -968,7 +1053,8 @@ function CalculatePointGain() {
     if(linearUpgrades[9].bought && !linearChallenges[4].inChal) gain = gain.mul(linearUpgrades[9].eff)
     if(upgrades[3].bought) gain = gain.mul(upgrades[3].eff)
     if(linearChallenges[5].inChal) gain = gain.div(buildings[0].amount.add(buildings[1].amount).add(buildings[2].amount).add(1)).add(1)
-    if(player.polygons.pboost3unl) gain = gain.mul(new Decimal(2).pow(player.polygons.amount))
+    if(player.polygons.pboost3unl && player.polygons.amount.lt(70)) gain = gain.mul(new Decimal(2).pow(player.polygons.amount))
+    else if(player.polygons.pboost3unl && player.polygons.amount.gte(70)) gain = gain.mul(new Decimal(1.2).pow(player.polygons.amount))
     if(player.polygons.pboost1unl) gain = gain.mul(player.polygons.eff1)
     if(player.polygons.pboost2unl) gain = gain.mul(player.polygons.eff2)
     if(player.polygons.pboost3unl) gain = gain.mul(player.polygons.eff3)
@@ -979,6 +1065,7 @@ function CalculatePointGain() {
     if(constantUpgrades[2].bought) gain = gain.mul(1e10)
     if(player.points.gte("1.798e308")) gain = gain.div(Softcap())
     if(constant.activate_skill1) gain = gain.pow(1.1)
+    gain = gain.pow(constant.mp_boost)
     return gain
 }
 
@@ -1211,13 +1298,20 @@ function productionLoop(diff) {
         constant.Math_mana = new Decimal(100)
     } 
     constant.math_points = CalculateLoopingEquation().pow(1.1)
-    constant.mp_boost = constant.math_points.add(1).log10().cbrt()
+    if(constant.math_points.gte(1e4)) {
+        constant.mp_boost = constant.math_points.add(1).log10().log2().log2().cbrt()
+    }
     constant.le_x = CalculateLoopingEquation()
     if(upgrades[11].bought) {
         constant.x1 = constant.x1.add(new Decimal(1).mul(diff))
         constant.y1 = constant.y1.add(new Decimal(1).mul(diff))
     }
     constant.coordinatePower = ((constant.x2.sub(constant.x1)).pow(2).add((constant.y2.sub(constant.y1)).pow(2))).sqrt()
+    if(upgrades[10].bought) {
+        for (let i = 0; i < 4; i++) {
+            buildings[3].amount = buildings[3].amount.add(new Decimal(1).mul(diff))
+        }
+    }
 }
 
 function MainLoop() {

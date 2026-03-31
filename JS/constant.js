@@ -8,11 +8,14 @@ let constant = {
     constant_milestones: {
         milestone1: {
             gotten: false,
+        },
+        milestone2: {
+            gotten: false,
         }
     },
     passive_const_up_cost: new Decimal(100),
     passive_const_up_amt: new Decimal(0),
-    CU_switch_p: new Decimal(2),
+    CU_switch_p: new Decimal(1),
     in_trip: false,
     trip: {
         meters: new Decimal(0),
@@ -125,7 +128,7 @@ function ConstantReset() {
         if(!infinityConstantUpgrades[0].bought) {
             constant.constant_points = constant.constant_points.add(1)
         }
-        if(player.points.gte(constant.req)) {
+        if(player.points.gte(constant.req) && constant.constantLevel.lt(2)) {
             constant.constantLevel = constant.constantLevel.add(1)
         }
         LinearEssenceReset(false, true)
@@ -144,8 +147,15 @@ function ConstantReset() {
         player.equations.equation1.eff = new Decimal(1)
         player.equations.equation2.eff = new Decimal(1)
         if(!constantUpgrades[9].bought) {
+            upgrades[0].bought = false
+            upgrades[1].bought = false
             upgrades[2].bought = false
+            upgrades[3].bought = false
+            upgrades[4].bought = false
             upgrades[5].bought = false
+            upgrades[6].bought = false
+            upgrades[7].bought = false
+            upgrades[8].bought = false
         }
         if(!constantUpgrades[11].bought) buildings[1].amount = new Decimal(0)
         player.LinearPower = new Decimal(0)
@@ -177,33 +187,35 @@ function ConstantReset() {
         player.tangent.pi_milestones.milestone1.gotten = false
         player.tangent.pi_milestones.milestone2.gotten = false
         player.tangent.pi_dimension.inDimension = false
-        player.tangent.pi_dimension.papirus = new Decimal(10)
-        player.tangent.pi_dimension.papirusPerSec = new Decimal(0)
-        player.tangent.pi_dimension.fullCircles = new Decimal(0)
-        player.tangent.pi_dimension.LitresOfWater = new Decimal(0)
-        player.tangent.pi_dimension.Lines = new Decimal(0)
-        player.tangent.pi_dimension.Coal = new Decimal(0)
-        player.tangent.pi_dimension.CoalPerSec = new Decimal(0)
-        player.tangent.pi_dimension.MathematicalInstruments = new Decimal(0)
-        player.tangent.pi_dimension.Metal = new Decimal(0)
-        player.tangent.pi_dimension.Shapes = new Decimal(0)
-        player.tangent.pi_dimension.Thales.cost = new Decimal(10)
-        player.tangent.pi_dimension.Thales.students = new Decimal(0)
-        player.tangent.pi_dimension.Thales.eff = new Decimal(0)
-        player.tangent.pi_dimension.Papirus_maker.eff = new Decimal(1)
-        player.tangent.pi_dimension.Papirus_maker.amt = new Decimal(0)
-        player.tangent.pi_dimension.Papirus_maker.cost = new Decimal(10)
-        player.tangent.pi_dimension.Archimedes.cost = new Decimal(50)
-        player.tangent.pi_dimension.Archimedes.students = new Decimal(0)
-        player.tangent.pi_dimension.Archimedes.eff = new Decimal(0)
-        player.tangent.pi_dimension.Water_worker.cap = new Decimal(0)
-        player.tangent.pi_dimension.Water_worker.eff = new Decimal(1)
-        player.tangent.pi_dimension.Euclids_elements.cost = new Decimal(1000)
-        player.tangent.pi_dimension.Miner.cap = new Decimal(0)
-        player.tangent.pi_dimension.Miner.eff = new Decimal(1)
-        player.tangent.pi_dimension.Edmund_gunter.cost = new Decimal(3)
-        player.tangent.pi_dimension.Ancient_ones.cost = new Decimal(10)
-        player.tangent.pi_dimension.Plato.cost = new Decimal(1) 
+        if(constant.constantLevel.lt(2)) {
+            player.tangent.pi_dimension.papirus = new Decimal(10)
+            player.tangent.pi_dimension.papirusPerSec = new Decimal(0)
+            player.tangent.pi_dimension.fullCircles = new Decimal(0)
+            player.tangent.pi_dimension.LitresOfWater = new Decimal(0)
+            player.tangent.pi_dimension.Lines = new Decimal(0)
+            player.tangent.pi_dimension.Coal = new Decimal(0)
+            player.tangent.pi_dimension.CoalPerSec = new Decimal(0)
+            player.tangent.pi_dimension.MathematicalInstruments = new Decimal(0)
+            player.tangent.pi_dimension.Metal = new Decimal(0)
+            player.tangent.pi_dimension.Shapes = new Decimal(0)
+            player.tangent.pi_dimension.Thales.cost = new Decimal(10)
+            player.tangent.pi_dimension.Thales.students = new Decimal(0)
+            player.tangent.pi_dimension.Thales.eff = new Decimal(0)
+            player.tangent.pi_dimension.Papirus_maker.eff = new Decimal(1)
+            player.tangent.pi_dimension.Papirus_maker.amt = new Decimal(0)
+            player.tangent.pi_dimension.Papirus_maker.cost = new Decimal(10)
+            player.tangent.pi_dimension.Archimedes.cost = new Decimal(50)
+            player.tangent.pi_dimension.Archimedes.students = new Decimal(0)
+            player.tangent.pi_dimension.Archimedes.eff = new Decimal(0)
+            player.tangent.pi_dimension.Water_worker.cap = new Decimal(0)
+            player.tangent.pi_dimension.Water_worker.eff = new Decimal(1)
+            player.tangent.pi_dimension.Euclids_elements.cost = new Decimal(1000)
+            player.tangent.pi_dimension.Miner.cap = new Decimal(0)
+            player.tangent.pi_dimension.Miner.eff = new Decimal(1)
+            player.tangent.pi_dimension.Edmund_gunter.cost = new Decimal(3)
+            player.tangent.pi_dimension.Ancient_ones.cost = new Decimal(10)
+            player.tangent.pi_dimension.Plato.cost = new Decimal(1) 
+        }
         player.tangent.tangent_length = new Decimal(0)
         player.tangent.tlPerSec = new Decimal(0)
         player.tangent.angle = new Decimal(1)
@@ -283,7 +295,7 @@ function CUSwitchPL() {
 }
 
 function CUSwitchPR() {
-    if(!constant.CU_switch_p.eq(2)) {
+    if(!constant.CU_switch_p.eq(2) && constant.constant_milestones.milestone2.gotten) {
         constant.CU_switch_p = constant.CU_switch_p.add(1)
     }
 }
@@ -402,4 +414,8 @@ function IncreaseX2() {
 
 function IncreaseY2() {
     constant.y2 = constant.y2.add(1)
+}
+
+function EnterEChal() {
+    if(!constant.e_chal) constant.in_trip = true
 }

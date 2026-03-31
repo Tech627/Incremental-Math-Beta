@@ -71,7 +71,7 @@ function Save() {
         saveitems("FastestLinear", player.FastestLinear)
         saveitems("LinearUnl", player.LinearUnl)
         saveitems("ChalsUnl", player.ChalsUnl)
-        for(let i = 0; i < 3; i++) {
+        for(let i = 0; i < 4; i++) {
             let b = buildings[i]
             saveitems("amount" + (i + 1), b.amount)
             saveitems("eff" + (i + 1), b.eff)
@@ -89,7 +89,7 @@ function Save() {
             saveitems("Lup" + (i + 1) + "bought", lu.bought)
             saveitems("Lup" + (i + 1) + "eff", lu.eff)
         }
-        for(let i = 0; i < 30; i++) {
+        for(let i = 0; i < 35; i++) {
             let a = achievements[i]
             saveitems("achv" + (i + 1) + "c", a.completed)
         }
@@ -186,6 +186,47 @@ function Save() {
         saveitems("EoT-x", player.tangent.equation_of_tangent.x_buyer.amount)
         saveitems("EoT-c-cost", player.tangent.equation_of_tangent.c_buyer.cost)
         saveitems("EoT-x-cost", player.tangent.equation_of_tangent.x_buyer.cost)
+        saveitems("ConstantUnl", constant.unlocked)
+        saveitems("BrokeConstant", constant.brokeConstantInfinity)
+        saveitems("ConstantReq", constant.req)
+        saveitems("ConstantLvl", constant.constantLevel)
+        saveitems("ConstantPoints", constant.constant_points)
+        saveitems("ConstantPointsPerSec", constant.constant_points_persec)
+        saveitems("ConstantMilestone1g", constant.constant_milestones.milestone1.gotten)
+        saveitems("ConstantMilestone2g", constant.constant_milestones.milestone2.gotten)
+        saveitems("PassiveConstUp", constant.passive_const_up_cost)
+        saveitems("PassiveConstUpAmt",constant.passive_const_up_amt)
+        saveitems("CUSwitch", constant.CU_switch_p)
+        saveitems("InTrip", constant.in_trip)
+        saveitems("TripMeters", constant.trip.meters)
+        saveitems("TripStamina", constant.trip.stamina)
+        saveitems("FunnyInc", constant.trip.funny_inc)
+        saveitems("IceFrags", constant.trip.ice_frags)
+        saveitems("AiceFrags", constant.trip.aice_frags)
+        saveitems("RefillStamina", constant.trip.refill_stamina)
+        saveitems("Ice", constant.trip.ice)
+        saveitems("tankfilled", constant.trip.tank_filled)
+        saveitems("IceUp1b", constant.trip.icc_up1.bought)
+        saveitems("IceUp2b", constant.trip.icc_up2.bought)
+        saveitems("echal", constant.e_chal)
+        saveitems("MathMana", constant.Math_mana)
+        saveitems("ActiveSkill1", constant.activate_skill1)
+        saveitems("ActiveSkill2", constant.activate_skill2)
+        saveitems("ActiveSkill3", constant.activate_skill3)
+        saveitems("ActiveSkill4", constant.activate_skill4)
+        saveitems("Skill4Timer", constant.skill4_timer)
+        saveitems("MathPoints", constant.math_points)
+        saveitems("mpboost", constant.mp_boost)
+        saveitems("le_n", constant.le_n)
+        saveitems("le_x", constant.le_x)
+        saveitems("leUp1", constant.le_up1.bought)
+        saveitems("leUp2", constant.le_up2.bought)
+        saveitems("leUp3", constant.le_up3.bought)
+        saveitems("CoordinatesX1", constant.x1)
+        saveitems("CoordinatesX2", constant.x2)
+        saveitems("CoordinatesY1", constant.y1)
+        saveitems("CoordinatesY2", constant.y2)
+        saveitems("CoordinatePower", constant.coordinatePower)
         player.saved = true
         if(player.saved === true) {
             document.getElementById("Save-notification").classList.add("save")
@@ -234,7 +275,7 @@ function Get() {
         player.FastestLinear = GetItems("FastestLinear", true)
         player.LinearUnl = GetItems("LinearUnl", false)
         player.ChalsUnl = GetItems("ChalsUnl", true)
-        for(let i = 0; i < 3; i++) {
+        for(let i = 0; i < 4; i++) {
             let b = buildings[i]
             b.amount = GetItems("amount" + (i + 1), true)
             b.cost = GetItems("cost" + (i + 1), true)
@@ -252,7 +293,7 @@ function Get() {
             lu.bought = GetItems("Lup" + (i + 1) + "bought", false)
             lu.eff = GetItems("Lup" + (i + 1) + "eff", true)
         }
-        for(let i = 0; i < 30; i++) {
+        for(let i = 0; i < 35; i++) {
             let a = achievements[i]
             a.completed = GetItems("achv" + (i + 1) + "c", false)
         }
@@ -349,6 +390,47 @@ function Get() {
         player.tangent.equation_of_tangent.x_buyer.amount = GetItems("EoT-x", true)
         player.tangent.equation_of_tangent.c_buyer.cost = GetItems("EoT-c-cost", true)
         player.tangent.equation_of_tangent.x_buyer.cost = GetItems("EoT-x-cost", true)
+        constant.unlocked = GetItems("ConstantUnl", false)
+        constant.brokeConstantInfinity = GetItems("BrokeConstant", false)
+        constant.req = GetItems("ConstantReq", true)
+        constant.constantLevel = GetItems("ConstantLvl", true)
+        constant.constant_points = GetItems("ConstantPoints", true)
+        constant.constant_points_persec = GetItems("ConstantPointsPerSec", true)
+        constant.constant_milestones.milestone1.gotten = GetItems("ConstantMilestone1g", false)
+        constant.constant_milestones.milestone2.gotten = GetItems("ConstantMilestone2g", false)
+        constant.passive_const_up_cost = GetItems("PassiveConstUp", true)
+        constant.passive_const_up_amt = GetItems("PassiveConstUpAmt", true)
+        constant.CU_switch_p = GetItems("CUSwitch", true)
+        constant.in_trip = GetItems("InTrip", false)
+        constant.trip.meters = GetItems("TripMeters", true)
+        constant.trip.stamina = GetItems("TripStamina", true)
+        constant.trip.funny_inc = GetItems("FunnyInc", true)
+        constant.trip.ice_frags = GetItems("IceFrags", true)
+        constant.trip.aice_frags = GetItems("AiceFrags", true)
+        constant.trip.refill_stamina = GetItems("RefillStamina", true)
+        constant.trip.ice = GetItems("Ice", true)
+        constant.trip.tank_filled = GetItems("tankfilled", true)
+        constant.trip.icc_up1.bought = GetItems("IceUp1b", false)
+        constant.trip.icc_up2.bought = GetItems("IceUp2b", false)
+        constant.e_chal = GetItems("echal", false)
+        constant.Math_mana = GetItems("MathMana", true)
+        constant.activate_skill1 = GetItems("ActiveSkill1", false)
+        constant.activate_skill2 = GetItems("ActiveSkill2", false)
+        constant.activate_skill3 = GetItems("ActiveSkill3", false)
+        constant.activate_skill4 = GetItems("ActiveSkill4", false)
+        constant.skill4_timer = GetItems("Skill4Timer", true)
+        constant.math_points = GetItems("MathPoints", true)
+        constant.mp_boost = GetItems("mpboost", true)
+        constant.le_n = GetItems("le_n", true)
+        constant.le_x = GetItems("le_x", true)
+        constant.le_up1.bought = GetItems("leUp1", false)
+        constant.le_up2.bought = GetItems("leUp2", false)
+        constant.le_up3.bought = GetItems("leUp3", false)
+        constant.x1 = GetItems("CoordinatesX1", true)
+        constant.x2 = GetItems("CoordinatesX2", true)
+        constant.y1 = GetItems("CoordinatesY1", true)
+        constant.y2 = GetItems("CoordinatesY2", true)
+        constant.coordinatePower = GetItems("CoordinatePower", true)
         fixSave() 
     } else {
         Save()
@@ -433,6 +515,41 @@ async function Import() {
           alert("i fucked up")
           console.error(error)
       }
+}
+
+var Save_bank = false
+
+function OpenSaveBank() {
+    if(!Save_bank) Save_bank = true
+    else Save_bank = false
+}
+
+function EQ1SB() {
+    upgrades[0].bought = true
+    upgrades[1].bought = true
+    upgrades[2].bought = true
+}
+
+function EQ2SB() {
+    upgrades[0].bought = true
+    upgrades[1].bought = true
+    upgrades[2].bought = true
+    upgrades[3].bought = true
+    upgrades[4].bought = true
+    upgrades[5].bought = true
+}
+
+function Layer1SB() {
+    player.LinearUnl = true
+    player.LinearResetunl = true
+    player.points = new Decimal(5e10)
+}
+
+function Layer2SB() {
+    player.LinearUnl = true
+    player.LinearResetunl = true
+    player.points = new Decimal("1.798e308")
+    constant.unlocked = true
 }
 
 setInterval(Save, 15000)

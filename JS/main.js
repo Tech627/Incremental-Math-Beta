@@ -193,7 +193,7 @@ var linearChallenges = []
 var linearEquation = []
 var talmideUpgrades = []
 
-for(let i = 0; i < 3; i++) {
+for(let i = 0; i < 4; i++) {
     let building = {
         amount: new Decimal(0),
         cost: new Decimal(10).pow(i+1),
@@ -256,7 +256,12 @@ function BuyBuilding(i, auto = false) {
             if(!linearUpgrades[8].bought) player.points = player.points.sub(b.cost)
             b.amount = b.amount.add(1)
             player.tbuildings = player.tbuildings.add(1)
-            b.cost = b.cost.mul(1+i*0.15)  
+            if(i != 4) {
+                b.cost = b.cost.mul(1+i*0.15)  
+            }
+            else {
+                b.cost = b.cost.mul(1+i*new Decimal(1e10))  
+            }
         } else {
             player.tbuildings = player.tbuildings.add(player.points.div(10**i).add(1).log(1+i*0.15).floor().sub(b.amount))
             b.amount = player.points.div(10**i).max(1).log(1+i*0.15).floor().add(1)
@@ -272,8 +277,9 @@ function BuyMultiplication() {
         player.equations.equation1.x = player.equations.equation1.x.mul(2)
         player.equations.equation1.eff = player.equations.equation1.eff.mul(2)
         if(player.equations.equation1.x.lt(1e20)) player.equations.multiplicator1.cost = player.equations.multiplicator1.cost.mul(5)
-        else if(player.equations.equation1.x.gt(1e20)) player.equations.multiplicator1.cost = player.equations.multiplicator1.cost.mul(30)
-        else if(player.equations.equation1.x.gt(1e70)) player.equations.multiplicator1.cost = player.equations.multiplicator1.cost.mul(150)
+        else if(player.equations.equation1.x.lt(1e70)) player.equations.multiplicator1.cost = player.equations.multiplicator1.cost.mul(30)
+        else if(player.equations.equation1.x.lt("1e800")) player.equations.multiplicator1.cost = player.equations.multiplicator1.cost.mul(150)
+        else if(player.equations.equation1.x.gte("1e800")) player.equations.multiplicator1.cost = player.equations.multiplicator1.cost.mul(1e40)
     }
 }
 
@@ -282,7 +288,8 @@ function BuyKBuyer() {
         if(!linearUpgrades[8].bought) player.points = player.points.sub(player.equations.kbuyer.cost)
         player.equations.equation2.k = player.equations.equation2.k.add(0.1)
         player.equations.kbuyer.amount = player.equations.kbuyer.amount.add(1)
-        player.equations.kbuyer.cost = player.equations.kbuyer.cost.mul(1e15)
+        if(player.equations.equation2.k.lt(1.7)) player.equations.kbuyer.cost = player.equations.kbuyer.cost.mul(1e15)
+        else if(player.equations.equation2.k.gte(1.7)) player.equations.kbuyer.cost = player.equations.kbuyer.cost.mul(1e150)
     }
 }
 
@@ -291,9 +298,10 @@ function BuyXBuyer() {
         if(!linearUpgrades[8].bought) player.points = player.points.sub(player.equations.xbuyer.cost)
         player.equations.equation2.x = player.equations.equation2.x.add(1)
         player.equations.xbuyer.amount = player.equations.xbuyer.amount.add(1)
-        if(player.equations.xbuyer.amount.lt(20))  player.equations.xbuyer.cost = player.equations.xbuyer.cost.mul(35)
-        else if(player.equations.xbuyer.amount.gte(20))  player.equations.xbuyer.cost = player.equations.xbuyer.cost.mul(500)
-        else if(player.equations.xbuyer.amount.gt(100))  player.equations.xbuyer.cost = player.equations.xbuyer.cost.mul(1e4)
+        if(player.equations.xbuyer.amount.lt(20)) player.equations.xbuyer.cost = player.equations.xbuyer.cost.mul(35)
+        else if(player.equations.xbuyer.amount.lt(100)) player.equations.xbuyer.cost = player.equations.xbuyer.cost.mul(500)
+        else if(player.equations.xbuyer.amount.lt(150)) player.equations.xbuyer.cost = player.equations.xbuyer.cost.mul(1e4)
+        else if(player.equations.xbuyer.amount.gte(150)) player.equations.xbuyer.cost = player.equations.xbuyer.cost.mul(1e50)
     }
 }
 
@@ -302,7 +310,9 @@ function BuyNBuyer() {
         if(!linearUpgrades[8].bought) player.points = player.points.sub(player.equations.nbuyer.cost)
         player.equations.equation2.n = player.equations.equation2.n.add(1)
         player.equations.nbuyer.amount = player.equations.nbuyer.amount.add(1)
-        player.equations.nbuyer.amount.lt(20) ? player.equations.nbuyer.cost = player.equations.nbuyer.cost.mul(15) : player.equations.nbuyer.cost = player.equations.nbuyer.cost.mul(1e3)
+        if (player.equations.nbuyer.amount.lt(20)) player.equations.nbuyer.cost = player.equations.nbuyer.cost.mul(15)
+        else if(player.equations.nbuyer.amount.lt(150)) player.equations.nbuyer.cost = player.equations.nbuyer.cost.mul(1e3)
+        else if(player.equations.nbuyer.amount.gte(150)) player.equations.nbuyer.cost = player.equations.nbuyer.cost.mul(1e75)
     }
 }
 
@@ -404,7 +414,7 @@ function LinearEssenceReset(chal = false, constantreset = false) {
         player.points = new Decimal(0)
         player.pointsPerSec = new Decimal(0)
         if(!constantUpgrades[11].bought) {
-            for(let i = 0; i < 3; i++) {
+            for(let i = 0; i < 4; i++) {
                 let b = buildings[i]
                 b.amount = new Decimal(0)
                 b.cost = new Decimal(10).pow(i + 1)
@@ -455,27 +465,32 @@ function BuyLEVar(i) {
         player.LinearPower = player.LinearPower.sub(le.cost)
         le.amount = le.amount.add(1)
         if(i == 1) { // c
-            if(le.amount.gte(25)) le.cost = le.cost.mul(50)
+            if(le.amount.gte(50)) le.cost = le.cost.mul(1e10)
+            else if(le.amount.gte(25)) le.cost = le.cost.mul(50)
             else if(le.amount.gte(10)) le.cost = le.cost.mul(2.5)
             else if(le.amount.lt(10)) le.cost = le.cost.mul(1.2)
         } 
         if(i == 2) { // a
-            if (le.amount.gte(15)) le.cost = le.cost.mul(100)
+            if(le.amount.gte(30)) le.cost = le.cost.mul(1e15)
+            else if(le.amount.gte(15)) le.cost = le.cost.mul(100)
             else if(le.amount.gte(5)) le.cost = le.cost.mul(5)
             else if(le.amount.lt(5)) le.cost = le.cost.mul(1.4)
         }
         if(i == 3) { // b
-            if(le.amount.gte(15)) le.cost = le.cost.mul(200)
+            if(le.amount.gte(30)) le.cost = le.cost.mul(1e15)
+            else if(le.amount.gte(15)) le.cost = le.cost.mul(200)
             else if(le.amount.gte(5)) le.cost = le.cost.mul(10)
             else if(le.amount.lt(5)) le.cost = le.cost.mul(1.45)
         }
         if(i == 4) { // y
-            if(le.amount.gte(15)) le.cost = le.cost.mul(500)
+            if(le.amount.gte(30)) le.cost = le.cost.mul(1e15)
+            else if(le.amount.gte(15)) le.cost = le.cost.mul(500)
             else if(le.amount.gte(5)) le.cost = le.cost.mul(20)
             else if(le.amount.lt(5)) le.cost = le.cost.mul(1.7)
         }
         if(i == 5) { // x
-            if(le.amount.gte(15)) le.cost = le.cost.mul(1000)
+            if(le.amount.gte(30)) le.cost = le.cost.mul(1e15)
+            else if(le.amount.gte(15)) le.cost = le.cost.mul(1000)
             else if(le.amount.gte(5)) le.cost = le.cost.mul(35)
             else if(le.amount.lt(5)) le.cost = le.cost.mul(1.8)
         }

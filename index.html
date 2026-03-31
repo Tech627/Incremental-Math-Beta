@@ -14,6 +14,7 @@
         <button class="tab-btn" id="tab"> Statistics </button>
         <button class="tab-btn" id="tab"> Guide </button>
         <button class="tab-btn" id="tab"> Achievements </button>
+        <button class="tab-btn" id="tab"> Lore </button>
     </div>
     <div class="btn-group" id="contenttabs">
         <button class="tab-btn" id="maintab"> Main </button>
@@ -49,6 +50,14 @@
                 <button class="btn btn-info" onclick="Export()"> Export to clipboard </button>
                 <button class="btn btn-warning" onclick="Import()"> Import </button>
                 <button class="btn btn-danger" onclick="HardReset()"> Hard Reset </button>
+                <button class="btn btn-primary" onclick="OpenSaveBank()"> Save Banks </button>
+            </div>
+            <div id="Save-bank">
+                <button id="EQ1-save-bank" onclick="EQ1SB()"> Equation 1 </button>
+                <button id="EQ2-save-bank" onclick="EQ2SB()"> Equation 2 </button>
+                <button id="Layer1-save-bank" onclick="Layer1SB()"> Layer 1 </button>
+                <button id="Layer2-save-bank" onclick="Layer2SB()"> Layer 2 </button>
+                <button id="Close-Save-bank" onclick="OpenSaveBank()"> X </button>
             </div>
             <div class="container text-center" id="Visual">
                 <div class="text-center small h5 pt-2" id="v-text"> Visual </div>
@@ -155,26 +164,62 @@
                                 Also you can't get tangent length while in The Circle.
                             </div>
                         </details>
+                        <details id="Constant-gid">
+                            <summary> Constant </summary>
+                            <div class="Constant-guide" id="Constant-guide">
+                                Constant is the 2nd layer of the game. In the start you only unlock the milestones and upgrades. Pretty straightforward, your next goal
+                                is to buy all constant upgrades and get the 2nd constant milestone. Wish you fun grinding :D
+                            </div>
+                        </details>
+                        <details id="Constant-challenge-gid">
+                            <summary> Constant Challenge </summary>
+                            <div class="Constant-challenge-guide" id="Constant-challenge-guide">
+                                You are probably wondering at what you have been throwed at. Don't worry it isn't anything complicated. It's more lore based. Well all you need
+                                to do is climb 500 meters up that mountain. Shouldn't be too hard for you, right?
+                            </div>
+                        </details>
+                        <details id="Coordinates-gid">
+                            <summary> Coordinates </summary>
+                            <div class="Coordinates-guide" id="Coordinates-guide">
+                                The Coordinates are the last content as of v0.3. For now it's halfly finished. You can grind it for now, but it proper use will get only in
+                                v0.4, so Congrats on beating the game
+                            </div>
+                        </details>
                     </div>
                 </div>
                 <div class="sub-content">
                     <div id="Formulas-guide">
-                        <div id="Linear-essence-gain-formula"> <strong> Linear Essence gain formula </strong>
-                            <br> Formula: 1.5^(y from 2nd equation/20 - 1) * 1.3^(log10(x from 1st equation))
-                        </div>
-                        <div class="pt-3" id="Circle-arcs-tf"> <strong> Circle arcs formula </strong> </div>
-                        <div id="Circle-arcs-formula"> $$ \textit{\textbf{L}}=\frac{\alpha\pi r}{180} + 1 $$ </div>
-                        <div class="pt-3" id="Polytope-boosts"> <strong> Polytope boost formulas </strong> </div>
-                        <div id="Polytop-boost1"> Polytope boost 3: 2^polytope amount </div>
-                        <div id="Polytop-boost2"> Polytope boost 4: amount in w-axis * 5 </div>
-                        <div id="Polytop-boost3"> Polytope boost 5: amount in v-axis </div>
-                        <div class="pt-3" id="Pi-power-boost"> <strong> Pi power boost formula </strong> </div>
-                        <div class="h6" id="pip-boost">
-                            Tangent upgrade 1 level 1 and 2: pi power^2
-                            <br>Tangent upgrade 1 level 3: pi power^2 * 1.5
-                            <br>Tangent upgrade 1 level 4 and 5: pi power^2 * 2.5
-                            <br>Tangent upgrade 1 level 6 and 7: pi power^2.3 * 1.1
-                            <br>Tangent upgrade 1 level 8 and 9: pi power^2.3 * 1.5
+                        <div id="LFs">
+                            <div id="LEGF">
+                                <div id="Linear-essence-gain-formula"> <strong> Linear Essence gain formula </strong>
+                                    <br> Formula: 1.5^(y from 2nd equation/20 - 1) * 1.3^(log10(x from 1st equation))
+                                </div>
+                            </div>
+                            <div id="LCA">
+                                <div id="Circle-arcs-tf"> <strong> Circle arcs formula </strong> </div>
+                                <div id="Circle-arcs-formula"> $$ \textit{\textbf{L}}=\frac{\alpha\pi r}{180} + 1 $$ </div>
+                            </div>
+                            <div id="LPB">
+                                <div id="Polytope-boosts"> <strong> Polytope boost formulas </strong> </div>
+                                <div id="Polytop-boost1"> Polytope boost 3: 2^polytope amount </div>
+                                <div id="Polytop-boost2"> Polytope boost 4: amount in w-axis * 5 </div>
+                                <div id="Polytop-boost3"> Polytope boost 5: amount in v-axis </div>
+                            </div>
+                            <div id="LT">
+                                <div id="Pi-power-boost"> <strong> Pi power boost formula </strong> </div>
+                                <div class="h6" id="pip-boost">
+                                    Tangent upgrade 1 level 1 and 2: pi power^2
+                                    <br>Tangent upgrade 1 level 3: pi power^2 * 1.5
+                                    <br>Tangent upgrade 1 level 4 and 5: pi power^2 * 2.5
+                                    <br>Tangent upgrade 1 level 6 and 7: pi power^2.3 * 1.1
+                                    <br>Tangent upgrade 1 level 8 and 9: pi power^2.3 * 1.5
+                                </div>
+                            </div>
+                            <div id="LEF">
+                                <div id="Looping-equation-gain-formula"> <strong> Looping Equation Math Points formula </strong>
+                                    <br> Formula: X from the sum equation^1.1
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -182,41 +227,63 @@
                     <div id="Softcaps-guide">
                         <div class="container pt-4">
                             <div class="text-center" id="softcaps">
-                                <h6> <strong> Equation 1 softcap: </strong>
-                                    <br>- When x is higher than 1e20: multiplied by 30
-                                    <br>- When x is higher than 1e70: multiplied by 150    
-                                </h6>
-                                <h6> <strong> Equation 2 softcap: </strong>
-                                    <br> X buyable:
-                                        <br>- When you have more than 20 X: multiplied by 500
-                                        <br>- When you have more than 100 X: multiplied by 1e4
-                                    <br> N buyable:
-                                        <br>- When you have more than 20 N: multiplied by 1000
-                                </h6>
-                                <h6 id="LEs"> <strong class="text-success"> Linear Equation softcap: </strong> 
-                                    <br> C buyable:
-                                        <br>- When you have more than 10 C: multiplied by 2.5
-                                        <br>- When you have more than 25 C: multiplied by 50
-                                    <br> A buyable:
-                                        <br>- When you have more than 5 A: multiplied by 5
-                                        <br>- When you have more than 15 A: multiplied by 100
-                                    <br> B buyable: 
-                                        <br>- When you have more than 5 B: multiplied by 10
-                                        <br>- When you have more than 15 B: multiplied by 200
-                                    <br> Y buyable: 
-                                        <br>- When you have more than 5 Y: multiplied by 20
-                                        <br>- When you have more than 15 Y: multiplied by 500
-                                    <br> X buyable:
-                                        <br>- When you have more than 5 X: multiplied by 35
-                                        <br>- When you have more than 15 X: multiplied 1000
-                                </h6>
-                                <h6 id="Ps"> <strong class="text-success"> Polygons softcap: </strong>
-                                    <br> Dimensions:
-                                        <br>- When you are in 2nd dimension: multiplied by 500
-                                        <br>- When you are in 3rd dimension: multiplied by 20
-                                        <br>- When you are in 4th dimension: multiplied by 7
-                                        <br>- When you are in 5th dimension: multiplied by 10
-                                </h6>
+                                <div id="Main-softcaps">
+                                    <div id="MSs-t"> Main Softcaps </div>
+                                    <div id="E1S">
+                                        <h6 style="padding-right: 15px;"> <strong> Equation 1 softcap: </strong> </h6>
+                                            <br>- When x is higher than 1e20: multiplied by 30
+                                            <br>- When x is higher than 1e70: multiplied by 150
+                                            <br id="E1S-xs1">- When x is higher than 1e800: multiplied by 1e40
+                                    </div>
+                                    <div id="E2S">
+                                        <h6 style="padding-right: 10px;"> <strong> Equation 2 softcap: </strong> </h6>
+                                            <br> X buyable:
+                                                <br>- When you have more than 20 X: multiplied by 500
+                                                <br>- When you have more than 100 X: multiplied by 1e4
+                                                <br>- When you have more than 150 X: multiplied by 1e50
+                                            <br> N buyable:
+                                                <br>- When you have more than 20 N: multiplied by 1000
+                                                <br>- When you have more than 150 N: multiplied by 1e75
+                                            <br> K buyable:
+                                                <br>- When you have more than 1.7 K: multiplied by 1e150
+                                    </div>
+                                </div>
+                                <div id="Linear-Softcaps">
+                                    <div id="LESs-t"> Linear Softcaps </div>
+                                    <div id="LES">
+                                        <h6 style="position: absolute; left: 0; margin-left: 5px;" id="LE-s"> <strong class="text-success"> Linear Equation softcap: </strong> </h6>
+                                        <br> C buyable:
+                                            <br>- When you have more than 10 C: multiplied by 2.5
+                                            <br>- When you have more than 25 C: multiplied by 50
+                                            <br>- When you have more than 50 C: multiplied by 1e10
+                                        <br> A buyable:
+                                            <br>- When you have more than 5 A: multiplied by 5
+                                            <br>- When you have more than 15 A: multiplied by 100
+                                            <br>- When you have more than 30 A: multiplied by 1e15
+                                        <br> B buyable: 
+                                            <br>- When you have more than 5 B: multiplied by 10
+                                            <br>- When you have more than 15 B: multiplied by 200
+                                            <br>- When you have more than 30 B: multiplied by 1e15
+                                        <br> Y buyable: 
+                                            <br>- When you have more than 5 Y: multiplied by 20
+                                            <br>- When you have more than 15 Y: multiplied by 500
+                                            <br>- When you have more than 30 Y: multiplied by 1e15
+                                        <br> X buyable:
+                                            <br>- When you have more than 5 X: multiplied by 35
+                                            <br>- When you have more than 15 X: multiplied 1000
+                                            <br>- When you have more than 30 X: multiplied by 1e15
+                                    </div>
+                                    <div id="PBS">
+                                        <h6 style="position: absolute; left: 0; margin-left: 5px;" id="Ps"> <strong class="text-success"> Polytopes softcap: </strong> </h6>
+                                        <br> Dimensions:
+                                            <br>- When you are in 2nd dimension: multiplied by 500
+                                            <br>- When you are in 3rd dimension: multiplied by 20
+                                            <br>- When you are in 4th dimension: multiplied by 7
+                                            <br>- When you are in 5th dimension: multiplied by 10
+                                        <br> Polytope Boost:
+                                            <br>- Polytope boost 3 when you have more than 70 polytopes: 1.2^polytopes
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -414,12 +481,204 @@
                     </div>
                     <div class="Achv" id="Achv-30">
                         <div id="achv-desc">
-                            <div id="achv-name"> <strong> C*#s.$n- </strong> </div>
-                            /"r&%r= ! #˝˘~t`.& °^$e? <br>
-                            (will be revealed in v0.3)
+                            <div id="achv-name"> <strong> The Constant </strong> </div>
+                            Do a Constant Reset
                         </div>
                     </div>
                 </div>
+                <div class="container" id="achv-row7">
+                    <div class="Achv" id="Achv-31">
+                        <div id="achv-desc">
+                            <div id="achv-name"> <strong> This can't be all right? </strong> </div>
+                            Get all constant milestones
+                        </div>
+                    </div>
+                    <div class="Achv" id="Achv-32">
+                        <div id="achv-desc">
+                            <div id="achv-name"> <strong> Finally no more resetting </strong> </div>
+                            Buy the 1st infinity Constant Upgrade
+                        </div>
+                    </div>
+                    <div class="Achv" id="Achv-33">
+                        <div id="achv-desc">
+                            <div id="achv-name"> <strong> Who is this e guy? </strong> </div>
+                            Unlock the Constant Challenge
+                        </div>
+                    </div>
+                    <div class="Achv" id="Achv-34">
+                        <div id="achv-desc">
+                            <div id="achv-name"> <strong> It isn't repetitive looping ;-; </strong> </div>
+                            Unlock the Looping equation
+                        </div>
+                    </div>
+                    <div class="Achv" id="Achv-35">
+                        <div id="achv-desc">
+                            <div id="achv-name"> <strong> Huh? 2nd layer is a joke </strong> </div>
+                            (in v0.4 the coordinates will unlock the portal for 3rd layer)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="btn-group gap-4" id="sub-tabs">
+            <div class="subtab-btn" id="Chapter1"> Chapter 1 </div>
+            <div class="subtab-btn" id="Chapter2"> Chapter 2 </div>
+            <div class="subtab-btn" id="Chapter3"> Chapter 3 </div>
+            <div class="subtab-btn" id="Chapter4"> Chapter 4 </div>
+            <div class="subtab-btn" id="Chapter5"> Chapter 5 </div>
+            <div class="subtab-btn" id="Chapter6"> Chapter 6 </div>
+            <div class="subtab-btn" id="Chapter7"> Chapter 7 </div>
+        </div>
+        <div class="sub-content"> 
+            <div id="Chapter-lore">
+                <h2> Chapter 1 - How it all started </h2>
+                <h6> "Numbers" </h6>
+                <br> *You are a pretty decent student at maths, but you struggle to get into the university you want to. All because of math. You decide to start learning from
+                scratch, hoping that will help. You ask your old classmates for help, teachers and even professors. You start with equations, simple ones of course. One of the
+                professors mentions something. Called <strong> Incremental Realm </strong> it can appearntly help you get better in maths. A professor gives you the needed stuff
+                to enter it, and so you make it. You enter the portal to the realm not knowing what could be waiting for you. Once you enter you see strange buildings. Those
+                being classmates, teachers and professors. In front of each building is a pedastal and each costs something called Points? You look over your right hand and
+                above it is floating a digital screen saying how many points you have. A orb appears, yellow one to be precise. It's guiding you to step on the pedastal for
+                buying classmates. So you do that, and intrestingly enough you start gaining passive gain.*
+                <br> Yellow orb: Please, don't mess this up.
+                <br> You: Who are you?
+                <br> Yellow orb: Everything will be revealed as the time passes. For now get more points.
+                <br> *As the yellow orb leaves I continue getting more classmates and eventually teachers and professors. I go on for a walk to see what else does this so called 
+                Incremental Realm have. I see something that looks like a shop "Union of Upgrades"*
+                <br> You: That's a strange name for a building like this.
+                <br> *You enter the shop. Instead of shelfs there are <strong> Upgrades </strong>, they some effects and formula for them. Also costs points and they got their
+                own names? You get enough points for the first upgrade and it boosts point production*
+                <br> You: Pretty unique. I gotta find out what kind of equation does upgrade 3 unlock.
+            </div>
+        </div>
+        <div class="sub-content"> 
+            <div id="Chapter-lore">
+                <h2> Chapter 2 - Equations </h2>
+                <h6> "Equation Problems" </h6>
+                <br> *You bought the 3rd upgrade. Now you have unlocked the equation. The yellow orb appeared again. It is showing the path again*
+                <br> Yellow orb: We believe in you.
+                <br> You: Who are you? Who is we?
+                <br> Yellow orb: I can't reveal that yet. I need to see if you are worthy first. Goodbye.
+                <br> *As the yellow orb showed the path to the equation and left, you are now standing in front of it and looking at it. It does look differently than the
+                buildings. Has a different pedastal and the equation is floating above the ground. There is some boost to point production too. Costs a little less than the
+                3rd upgrade. Eventually you get enough points to step on the pedastal and buy it. The equation divides the x by 2 and puts it inside brackets. Also giving you a 
+                2x boost. You continue gaining points until you buy the 6th upgrade granting you new equation <strong> The Graphical Equation </strong>. Cost is 10x bigger than
+                the 6th upgrade which is a lot but you manage to get it fairly fast. The new equation found its place beside the first one. Now it's shown graphically how it
+                looks unlike the first one. It also has a much greater boost and a secondary boost. You can only increase x in it however. Why are you limited to only 1 variable?*
+            </div>
+        </div>
+        <div class="sub-content"> 
+            <div id="Chapter-lore">
+                <h2> Chapter 3 - Linear Essence </h2>
+                <h6> "It all got wiped?" </h6>
+                <br> *You reach 5e10 points and a new pedastal appeared. It glows green, you approach it. You feel something. Something you never felt really. What is this
+                realm really? You don't have time to question something that you can't even comprehend yet. Yellow orb appears again.*
+                <br> Yellow orb: Congratulations for reaching the first layer. Prepare for the journey ahead.
+                <br> You: Can you tell me, who are you?
+                <br> Yellow orb: I was originally born in this realm. Though many events happened here, and it would take me a while to tell you all. I will tell you one day.
+                Maybe even when you reach the second layer.
+                <br> You: What even is your name even? If you have one to begin with.
+                <br> Yellow orb: You can call me the Crafter.
+                <br> You: Didn't expect anything like that, but neither I did expect the outcome in this realm.
+                <br> The Crafter: Well enough of that for now. Step on the pedastal.
+                <br> *You step on the pedastal, and suddenly a desert like blizzard starts going in the are you are in. You can't stay still, it's pushing you away within
+                each second. Suddenly a purple orb appears and shields you. You are even more confused now. After a minute it stops.*
+                <br> You: WHAT WAS THAT?
+                <br> The Crafter: That my friend. Is called a prestige layer, and you unlocked only the first one. It resets everything you had up to this point.
+                <br> You: Who was the purple orb?
+                <br> The Crafter: That was my friend. He protected you from being pulled away from here.
+                <br> You: Well thanks to him I am alive. So now I see what you meant by "we".
+                <br> The Crafter: There is more of us. With time you'll meet the rest. For now get more points and Linear Essence to reach the new horisons.
+                <br> *The Crafter leaves. Now your digital screen on right arm has a green text saying how many Linear Essence you got. You unlocked a new part of the world.
+                <strong> The Linear Mountain </strong>*
+            </div>
+        </div>
+        <div class="sub-content"> 
+            <div id="Chapter-lore">
+                <h2> Chapter 4 - The Linear Mountain </h2>
+                <h6> "A new start" </h6>
+                <br> *You climb up to linear mountain as you just unlock it. You have made it to another store but not with upgrades, but <strong> linear upgrades. </strong>
+                Additionally you have unlocked 5 pedastals, all used to increase the linear equation value. Starting at 1. A red orb appears*
+                <br> Red orb: Really haven't thought a normal human could reach this far. Congratulations, you have passed the first trial. Also once you reach the 2nd
+                layer I will introduce to the rest.
+                <br> You: Well, I guess my journey is just starting. Also what kind of space, universe whatever this place is.
+                <br> Red Orb: Oh well, you are inside of a Incremental Realm, original place where we orbs come from. There has been a lot of history here, even on why
+                we are orbs in the first place. Thought you can help, and one other person. . .
+                <br> You: That being??
+                <br> Red orb: We don't quite know where he is, he just vanished. He was our last hope. But seeing you with my very own eyes. You can help us! Is that right?
+                <br> You: Yeah, of course a guy like me can help with whatever I am whitnessing right now.
+                <br> Red orb: Oh come on, don't say that, we will guide you. After all we were the strongest here once. But that can be saved for later. Good luck on
+                your journey.
+                <br> *As the red orb proceeds to leave, you take a look around you and realize this will be something other than just re-learning maths. This will turn out
+                in something far greater.*
+            </div>
+        </div>
+        <div class="sub-content">
+            <div id="Chapter-lore">
+                <h2> Chapter 5 - The Circle Challenge </h2>
+                <h6> "The second trial" </h6>
+                <br> *As you grind and get to tangent, you see a strange portal, Called <strong> The Circle Challenge. </strong> Now since that's the only available thing
+                you enter it. Now you are located on something very familiar to you. Planet Earth. However this is period when Archimedes and Thales were alive. You
+                meet Thales first, and in order to pass this trial you gotta give him some papirus so he can hire a student to work for him. And a lot more of course.
+                You got to a papirus maker and he needs water. You go to the nearest water source and provide liters of water. Now you can get students for Thales, same for
+                Archimedes.*
+                <br> Thales: You look. . Strange.
+                <br> You: I am just from a rich city, that's it. Nothing special about me.
+                <br> Thales: I see. . . Well either way, thanks on helping us. Plato will need help too, but he needs a lot of materials to make his laboratory.
+                <br> You: I'll see what I can do.
+                <br> *You proceed to get the necessary materials for Plato's laboratory. He hired builders to create it, and it took about few seconds for you because you
+                are from the future.*
+                <br> Plato: Thank you, young man. You need anything else?
+                <br> You: I'll need from you to make some stuff for me and it will help this era too.
+                <br> Plato: Sure do, and what do you mean by this era?
+                <br> You: Oh nothing, just talking to myself.
+                <br> *Plato helps with gathering all the materials for the Inventor Equation. It does help a lot, now you can leave the second trial. Time for you to reach
+                the constant flow of power you aren't ready for.*
+            </div>
+        </div>
+        <div class="sub-content">
+            <div id="Chapter-lore">
+                <h2> Chapter 6 - The Constant </h2>
+                <h6> "New evil" </h6>
+                <br> *You have reached the 2nd layer <strong> The Constant. </strong> Now you should get more stronger for upcoming adventures. You have constant flow of
+                energy now. However you aren't alone anymore. Something seems to be watching you from a distance. You notice it but never really look at it like it's a threat.
+                You went on and get the new Constant Upgrades. The Crafter appears.*
+                <br> The Crafter: The council will like to see you.
+                <br> You: Council? What?
+                <br> The Crafter: Yeah the mighty council, in which I am part of. Don't worry you will be alright.
+                <br> You: Well take me to them I suppose.
+                <br> *You have been taken to the council*
+                <br> You: I bow before you- Wait the orbs?
+                <br> Red orb: It is great to see you. As I promised. Meet the recently made Council of Realm Defenders.
+                <br> Purple orb: Greetings!
+                <br> Orange orb: New persona huh? Glad to meet you.
+                <br> Pink orb: Ouhh, this is so exciting! Hiii, How are you? You aren't hungry right? Oh you must be tired after that hell of a journey.
+                <br> You: I am okay, don't worry.
+                <br> Pink orb: Sorry, got caried away a little bit.
+                <br> Yellow-greenish orb: Oh wow, didn't thought we will get a new member ever. Welcome!
+                <br> The Crafter: I welcome you to the Realm Defenders my friend.
+                <br> You: Glad to meet you all. But do you guys have names? Except the crafter?
+                <br> Red orb: You can call me RedShark.
+                <br> Orange orb: Call me Aarex, or not as you please.
+                <br> Purple orb: You can call me Jacorb.
+                <br> Pink orb: I am Acamada, nice to meet you.
+                <br> Yellow-greenish orb: I don't have a proper name but known by Computer Champion.
+                <br> You: Cool names! And to think you all been helping me until this point. Thank you guys.
+                <br> RedShark: Well you will have to help us too eventually, but for now get stronger.
+                *You've been taken back to the Incremental Realm, you continued with progress on the constant layer, but danger is still lurking around.*
+            </div>
+        </div>
+        <div class="sub-content">
+            <div id="Chapter-lore">
+                <h2> Chapter 7 - Constant Challenge </h2>
+                <h6> "No turning back" </h6>
+                <br> *You been progressing all until the unlock of a constant challenge. You get close to the pedastal to the challange, and the thing is 
+                actually following you from behind. As you are about to stand on the pedastal. You charge a energy beam into the sky space. The Crafter uses a mythical bow
+                to push the danger into the challenge, but instead of it getting hit. It dodged the hit and hit you instead. Now you are inside the challenge. It takes place
+                on Earth but not quite. You are on a mountain. At the top is the same portal that goes to the Incremental Realm. The mountain seems to be approximately 500 meters.
+                Who knows what's happening at the other side.*
             </div>
         </div>
     </div>
@@ -455,10 +714,10 @@
                 </div>
                 <div class="container" id="Building4">
                     <div class="text-center h5"> University <span id="building-amount4"> [0] </span> </div>
-                    <div class="text-center h6" id="building-production3"> (+0 Points/sec) </div>
-                    <div class="text-center h5" id="building-prod3"> gives +1e9 Points/sec </div>
+                    <div class="text-center h6" id="building-production4"> (+0 Points/sec) </div>
+                    <div class="text-center h5" id="building-prod4"> gives 1e9 Points/sec </div>
                     <div class="text-center">
-                        <button class="Building-cost" id="Building-cost3"> Cost: 1e400 Points </button>
+                        <button class="Building-cost" id="Building-cost4" onclick="BuyBuilding(4)"> Cost: 1e400 Points </button>
                         <button class="Building-automation" id="Building-automation4"> Off </button>
                     </div>
                 </div>
@@ -647,23 +906,23 @@
                 </div>
                 <div class="container" id="row4">
                     <div id="intersection-ups-name"> Intersection Upgrades </div>
-                    <button class="Up-cost" id="up-cost10">
+                    <button class="Up-cost" id="up-cost10" onclick="BuyUp(10)">
                         <div id="up-name"> [Empowerment] </div>
-                        <div id="up-desc"> Raise 1st upgrade's effect in this column by 1.5, 2nd by 1.3, and Unlock the automation for University </div>
+                        <div id="up-desc"> Raise 1st upgrade's effect in this column by 3, 2nd by 5, and Unlock the automation for University </div>
                         <div id="up-eff10"></div>
-                        <div id="upg-cost10"> Cost: 1e500 Points </div>
+                        <div id="upg-cost10"> Cost: 1e1600 Points </div>
                     </button>
-                    <button class="Up-cost" id="up-cost11">
+                    <button class="Up-cost" id="up-cost11" onclick="BuyUp(11)">
                         <div id="up-name"> [Three of a kind] </div>
-                        <div id="up-desc"> Generate 1 University per second </div>
+                        <div id="up-desc"> Generate 3 University per second </div>
                         <div id="up-eff11"></div>
-                        <div id="upg-cost11"> Cost: 1e650 Points </div>
+                        <div id="upg-cost11"> Cost: 1e1800 Points </div>
                     </button>
-                    <button class="Up-cost" id="up-cost12">
+                    <button class="Up-cost" id="up-cost12" onclick="BuyUp(12)">
                         <div id="up-name"> [It's all about geometry] </div>
                         <div id="up-desc"> Unlock the Coordinates </div>
                         <div id="up-eff12"></div>
-                        <div id="upg-cost12"> Cost: 1e1000 Points </div>
+                        <div id="upg-cost12"> Cost: 1e2000 Points </div>
                     </button>
                 </div>
             </div>
@@ -1160,38 +1419,38 @@
                 </div>
                 <div class="column2">
                     <div id="ICUcc"> Content Convertor Upgrades </div>
-                    <div class="Infinity-Constant-Upgrade" id="Infinity-Constant-Upgrade4">
+                    <div class="Infinity-Constant-Upgrade" id="Infinity-Constant-Upgrade4" onclick="BuyInfinityCU(4)">
                         <div id="ICUp-name"> [Goodbye High School] </div>
                         <div id="ICUp-desc"> Turn Classmates, Teachers and Professors into University </div>
-                        <div id="ICUp-cost"> cost: 100 Constant Points </div>
+                        <div id="ICUp-cost"> cost: 250 Constant Points </div>
                     </div>
-                    <div class="Infinity-Constant-Upgrade" id="Infinity-Constant-Upgrade5">
+                    <div class="Infinity-Constant-Upgrade" id="Infinity-Constant-Upgrade5" onclick="BuyInfinityCU(5)">
                         <div id="ICUp-name"> [From Linear to Exponential] </div>
                         <div id="ICUp-desc"> Turn all Linear Upgrades into a Constant Points passive upgrade. </div>
-                        <div id="ICUp-cost"> cost: 150 Constant Points </div>
+                        <div id="ICUp-cost"> cost: 500 Constant Points </div>
                     </div>
-                    <div class="Infinity-Constant-Upgrade" id="Infinity-Constant-Upgrade6">
+                    <div class="Infinity-Constant-Upgrade" id="Infinity-Constant-Upgrade6" onclick="BuyInfinityCU(6)">
                         <div id="ICUp-name"> [I thought I got passed that] </div>
                         <div id="ICUp-desc"> Turn all Linear Challenges into 1 Constant Challenge. </div>
-                        <div id="ICUp-cost"> cost: 500 Constant Points </div>
+                        <div id="ICUp-cost"> cost: 1,500 Constant Points </div>
                     </div>
                 </div>
                 <div class="column3">
                     <div id="ICUunl"> Unlocker Upgrades </div>
-                    <div class="Infinity-Constant-Upgrade" id="Infinity-Constant-Upgrade7">
+                    <div class="Infinity-Constant-Upgrade" id="Infinity-Constant-Upgrade7" onclick="BuyInfinityCU(7)">
                         <div id="ICUp-name"> [More Upgrades?] </div>
                         <div id="ICUp-desc"> Unlock Intersection Upgrades (Upgrades tab) </div>
-                        <div id="ICUp-cost"> cost: 1,000 Constant Points </div>
-                    </div>
-                    <div class="Infinity-Constant-Upgrade" id="Infinity-Constant-Upgrade8">
-                        <div id="ICUp-name"> [Am I playing the wrong game?] </div>
-                        <div id="ICUp-desc"> Unlock Constant Skills </div>
                         <div id="ICUp-cost"> cost: 2,500 Constant Points </div>
                     </div>
-                    <div class="Infinity-Constant-Upgrade" id="Infinity-Constant-Upgrade9">
+                    <div class="Infinity-Constant-Upgrade" id="Infinity-Constant-Upgrade8" onclick="BuyInfinityCU(8)">
+                        <div id="ICUp-name"> [Am I playing the wrong game?] </div>
+                        <div id="ICUp-desc"> Unlock Constant Skills </div>
+                        <div id="ICUp-cost"> cost: 5,000 Constant Points </div>
+                    </div>
+                    <div class="Infinity-Constant-Upgrade" id="Infinity-Constant-Upgrade9" onclick="BuyInfinityCU(9)">
                         <div id="ICUp-name"> [Nevermind, it is the right game] </div>
                         <div id="ICUp-desc"> Unlock The looping equation </div>
-                        <div id="ICUp-cost"> cost: 5,000 Constant Points </div>
+                        <div id="ICUp-cost"> cost: 65,000 Constant Points </div>
                     </div>
                 </div>
                 <button id="Constant-p-passive" onclick="PassiveConstantPoints()"> Multiply passive Constant Points gain by 3x. <br> Cost: 100 Constant Points </button>
@@ -1207,7 +1466,7 @@
                 <div id="Const-chal-name"> [New beginning] </div>
                 <div id="Const-chal-desc"> e: This challenge will make you a lot more powerful and being able to gain even more than before. Just click the "Enter" button </div>
                 <div id="Const-chal-goal"> goal: Unknown </div>
-                <button id="Const-chal-enter"> Enter </button>
+                <button id="Const-chal-enter" onclick="EnterEChal()"> Enter </button>
             </div>
         </div>
         <div class="sub-content">
@@ -1275,7 +1534,7 @@
     </div>
     <div class="content">
         <div id="Coordinate-power"> You have 0 Coordinate Power </div>
-        <div id="Coordinate-unl"> Your Coordinate Power fills the Complex portal by 0% </div>
+        <div id="Coordinate-unl"> Your Coordinate Power fills the *-0_/#% portal by 0% </div>
         <div id="x-in-slope">
             <div id="x1-in-slope"> Your x1 coordinates are 0. </div>
             <div id="x2-in-slope"> Your x2 coordinates are 0. </div>

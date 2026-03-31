@@ -68,14 +68,20 @@ details {
 #Linear-essence-gid,
 #Linear-chals-gid,
 #Polytopes-gid,
-#Tangent-gid {
+#Tangent-gid,
+#Constant-gid,
+#Constant-challenge-gid,
+#Coordinates-gid {
     display: none;
 }
 
 #Linear-essence-gid.unlocked,
 #Linear-chals-gid.unlocked,
 #Polytopes-gid.unlocked,
-#Tangent-gid.unlocked {
+#Tangent-gid.unlocked,
+#Constant-gid.unlocked,
+#Constant-challenge-gid.unlocked,
+#Coordinates-gid.unlocked {
     display: block;
 }
 
@@ -369,6 +375,7 @@ details {
 .sub-content.active {
     display: block;
     position: relative;
+    width: 100%;
 }
 
 #s-text,
@@ -593,6 +600,7 @@ details {
 
 #intersection-ups-name {
     position: absolute;
+    margin-top: 5px;
     top: -30;
     font-size: 17px;
     text-shadow: 0 0 5px rgb(211, 0, 0), 0 0 5px maroon, 0 0 3px rgb(136, 0, 0);
@@ -620,7 +628,8 @@ details {
 #achv-row3,
 #achv-row4,
 #achv-row5,
-#achv-row6 {
+#achv-row6,
+#achv-row7 {
     display: none;
 }
 
@@ -629,7 +638,8 @@ details {
 #achv-row3.unlocked,
 #achv-row4.unlocked,
 #achv-row5.unlocked,
-#achv-row6.unlocked {
+#achv-row6.unlocked,
+#achv-row7.unlocked {
     display: flex;
     justify-content: center;
     gap: 5px;
@@ -655,12 +665,12 @@ details {
     display: flex;
 }
 
-#LEs,
+#LE-s,
 #Ps {
     display: none;
 }
 
-#LEs.show,
+#LE-s.show,
 #Ps.show {
     display: block;
 }
@@ -752,6 +762,62 @@ details {
 
 #ConstantResetBtn {
     font-size: 13px;
+}
+
+#LFs {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 5px;
+}
+
+#LEGF,
+#LPB {
+    width: 300px;
+    height: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: rgba(0, 12, 0, 0.596);
+    border: 2px solid rgba(0, 31, 0, 0.74);
+}
+
+#LCA {
+    width: 300px;
+    height: 130px;
+    padding-top: 19px;
+    background-color: rgba(0, 12, 0, 0.596);
+    border: 2px solid rgba(0, 31, 0, 0.74);
+}
+
+#LT {
+    width: 300px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: left;
+    padding-left: 5px;
+    background-color: rgba(0, 12, 0, 0.596);
+    border: 2px solid rgba(0, 31, 0, 0.74);
+}
+
+#LEF {
+    display: none;
+}
+
+#LEF.show {
+    display: block;
+    width: 330px;
+    height: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: rgba(0, 7, 39, 0.596);
+    border: 2px solid rgba(0, 37, 54, 0.74);
 }
 
 #Linear-essence-gain-formula {
@@ -1025,7 +1091,7 @@ details {
 }
 
 #Guide-grid {
-    width: 900px;
+    width: 100%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -1801,7 +1867,8 @@ details {
     cursor: pointer;
 }
 
-.Constant-Milestone.gotten {
+.Constant-Milestone.gotten,
+#Constant-Milestone2.gotten {
     width: 350px;
     height: 80px;
     font-size: 14px;
@@ -1814,7 +1881,8 @@ details {
     box-shadow: 0 0 5px rgb(2, 226, 196), 0 0 10px rgb(2, 224, 139);
 }
 
-.Constant-Milestone.gotten:hover {
+.Constant-Milestone.gotten:hover,
+#Constant-Milestone2.gotten:hover {
     background-color: rgb(9, 196, 118);
     cursor: pointer;
 }
@@ -2104,8 +2172,8 @@ details {
 }
 
 .Constant-Challenge {
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 200px;
     display: grid;
     justify-content: center;
     align-content: center;
@@ -2115,7 +2183,8 @@ details {
     position: relative;
     top: 20;
     left: 50%;
-    margin-left: -150px;
+    margin-left: -200px;
+    padding: 3px;
 }
 
 #Const-chal-name {
@@ -2126,7 +2195,7 @@ details {
     left: 50%;
     text-align: center;
     font-size: 18px;
-    color: black;
+    color: white;
     font-weight: bold;
     border-bottom: 1q solid white;
 }
@@ -2137,6 +2206,8 @@ details {
     width: 170px;
     left: 50%;
     margin-left: -85px;
+    background-image: linear-gradient(90deg, blue, green);
+    border: 2px solid black;
 }
 
 #Softcap {
@@ -2160,7 +2231,7 @@ details {
     height: 80px;
     position: absolute;
     top: 200;
-    left: 300;
+    left: 150;
 }
 
 #Walk-name {
@@ -2223,7 +2294,7 @@ details {
     height: 80px;
     position: absolute;
     top: 200;
-    right: 300;   
+    right: 150;   
 }
 
 #Funny-name-increaser {
@@ -2650,4 +2721,194 @@ details {
 #increase-y2:hover {
     background-color: rgb(43, 43, 43);
     border: 2px solid rgb(211, 211, 211);
+}
+
+#Main-softcaps {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+}
+
+#MSs-t {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#E1S,
+#E2S {
+    margin-top: 28px;
+    width: 460px;
+    height: 170px;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(104, 104, 104);
+    border: 2px solid rgb(48, 48, 48); 
+}
+
+#LES,
+#PBS {
+    position: relative;
+    margin-top: 28px;
+    width: 440px;
+    height: 305px;
+    font-size: 10px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    background-color: rgb(0, 61, 0);
+    border: 2px solid rgb(8, 114, 5); 
+}
+
+#LESs-t {
+    position: absolute;
+    top: -5;
+    left: 0;
+    color: rgb(0, 201, 0);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#Building-automation4 {
+    display: none;
+}
+
+#Building-automation4.show {
+    display: block;
+}
+
+#Linear-Softcaps {
+    display: none;
+}
+
+#Linear-Softcaps.show {
+    display: block;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 200;
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+}
+
+#Save-bank {
+    display: none;
+}
+
+#Save-bank.show {
+    display: block;
+    width: 600px;
+    height: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -300px;
+    margin-top: -150px;
+    background-color: rgba(59, 59, 59, 0.671);
+    display: flex;
+    justify-content: center;
+}
+
+#EQ1-save-bank,
+#EQ2-save-bank {
+    width: 130px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: rgb(90, 90, 90);
+    border: 2px solid rgb(20, 20, 20);
+}
+
+#Layer1-save-bank {
+    width: 130px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: rgb(67, 255, 67);
+    border: 2px solid rgb(24, 187, 24);
+}
+
+#Layer2-save-bank {
+    width: 130px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: rgb(48, 224, 255);
+    border: 2px solid rgb(79, 255, 196);
+}
+
+#Close-Save-bank {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    background-color: rgb(255, 49, 49);
+    border: 2px solid rgb(190, 13, 13);
+}
+
+#Chapter2,
+#Chapter3,
+#Chapter4,
+#Chapter5,
+#Chapter6,
+#Chapter7 {
+    display: none;
+}
+
+#Chapter1,
+#Chapter2.unlocked,
+#Chapter3.unlocked,
+#Chapter4.unlocked,
+#Chapter5.unlocked,
+#Chapter6.unlocked,
+#Chapter7.unlocked {
+    display: block;
+    width: 120px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(32, 32, 32);
+    font-size: 14px;
+}
+
+#Chapter1:hover,
+#Chapter2:hover,
+#Chapter3:hover,
+#Chapter4:hover,
+#Chapter5:hover,
+#Chapter6:hover,
+#Chapter7:hover {
+    background-color: rgb(39, 39, 39);
+    cursor: pointer;
+}
+
+#Chapter-lore {
+    text-align: center;
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-top: 10px;
 }

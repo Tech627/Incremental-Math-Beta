@@ -8,7 +8,7 @@ function Dark() {
 
 var building = []
 
-for(let i = 0; i < 3; i++) {
+for(let i = 0; i < 4; i++) {
     let building = {
         amount: new Decimal(0),
         cost: new Decimal(10).pow(i+1),

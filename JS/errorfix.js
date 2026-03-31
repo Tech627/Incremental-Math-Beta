@@ -1,7 +1,7 @@
 var buildings = []
 var achievements = []
 
-for(let i = 0; i < 3; i++) {
+for(let i = 0; i < 4; i++) {
     let building = {
         amount: new Decimal(0),
         cost: new Decimal(10).pow(i+1),
@@ -19,12 +19,12 @@ for(let i = 0; i < 30; i++) {
 }
 
 function FixError() {
-    for(let i = 0; i < 3; i++) {
+    for(let i = 0; i < 4; i++) {
         let b = buildings[i]
         if(b.automation == "Error") b.automation = false
     }
     if(LinearResetunl == "Error") LinearResetunl = false
-    for(let i = 0; i < 30; i++) {
+    for(let i = 0; i < 35; i++) {
         if(achievements[i].completed == "Error") achievements[i].completed = false
     }
     if(lockedlu3reset == "Error") lockedlu3reset = false
@@ -35,6 +35,9 @@ function FixError() {
     if(player.tangent.tangent_upgrades.upgrade1.cost == "NaN") player.tangent.tangent_upgrades.upgrade1.cost = new Decimal(5)
     if(player.tangent.tangent_length == "NaN") player.tangent.tangent_length = new Decimal(0)
     if(player.points == "Infinity") player.points = new Decimal(1.797e308)
+    if(constant.unlocked == "Error") constant.unlocked = false
+    if(constant.in_trip == "Error") constant.in_trip = false
+    if(constant.trip.icc_up2.bought == "Error") constant.trip.icc_up2.bought = false
 }
 
 setInterval(FixError, 33)

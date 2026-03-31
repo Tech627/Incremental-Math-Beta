@@ -915,6 +915,7 @@ function UpdateStyles() {
     if(achievements[24].completed) document.getElementById("achv-row6").classList.add("unlocked")
     if(player.points.gte(1.79e308)) document.getElementById("ConstantReset").classList.add("unlocked")
     if(constant.unlocked) document.getElementById("constanttab").classList.add("unlocked")
+    else document.getElementById("constanttab").classList.remove("unlocked")
     if(constant.constantLevel.gte(1)) constant.constant_milestones.milestone1.gotten = true 
     if(constant.constantLevel.gte(2)) constant.constant_milestones.milestone2.gotten = true
     if(constant.constant_milestones.milestone1.gotten) {

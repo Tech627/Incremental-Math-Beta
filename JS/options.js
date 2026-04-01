@@ -31,8 +31,14 @@ function TurnBuildingAutomation(i) {
 }
 
 let alertcontent = false
+let SBInfo = false 
 
 function AlertButton() {
     HardReset()
     alertcontent = true
+}
+
+function OpenSBInfo() {
+    if(!SBInfo) SBInfo = true
+    else SBInfo = false
 }

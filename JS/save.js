@@ -7,6 +7,8 @@ var linearUpgrades = []
 var linearChallenges = []
 var linearEquation = []
 var talmideUpgrades = []
+var constantUpgrades = []
+var infinityConstantUpgrades = []
 
 for(let i = 0; i < 6; i++) {
     let upgrade = {
@@ -52,6 +54,22 @@ for(let i = 0; i < 6; i++) {
         eff: new Decimal(1),
     }
     talmideUpgrades.push(talmideUpgrade)
+}
+
+for(let i = 0; i < 12; i++) {
+    let constantUpgrade = {
+        bought: false,
+        cost: new Decimal(1),
+    }
+    constantUpgrades.push(constantUpgrade)
+}
+
+for(let i = 0; i < 9; i++) {
+    let infinityConstantUpgrade = {
+        bought: false,
+        cost: new Decimal(3),
+    }
+    infinityConstantUpgrades.push(infinityConstantUpgrade)
 }
 
 function Save() {
@@ -108,6 +126,14 @@ function Save() {
             let tmp = talmideUpgrades[i]
             saveitems("tmp-bought" + (i + 1), tmp.bought)
             saveitems("tmp-eff" + (i + 1), tmp.eff)
+        }
+        for(let i = 0; i < 12; i++) {
+            let cup = constantUpgrades[i]
+            saveitems("cup-bought" + (i + 1), cup.bought)
+        }
+        for(let i = 0; i < 9; i++) {
+            let icup = infinityConstantUpgrades[i]
+            saveitems("icup-bought" + (i + 1), icup.bought)
         }
         saveitems("equation1eff", player.equations.equation1.eff)
         saveitems("equation1x", player.equations.equation1.x)
@@ -262,6 +288,18 @@ function isFirstVisit() {
 function Get() {
     if (!localStorage) return;
     if (!isFirstVisit()) {
+        for(let i = 0; i < 12; i++) {
+            let cup = constantUpgrades[i]
+            if(!localStorage.getItem("cup-bought" + (i + 1))) {
+                cup.bought = false
+            }
+        }
+        for(let i = 0; i < 9; i++) {
+            let icup = infinityConstantUpgrades[i]
+            if(!localStorage.getItem("icup-bought" + (i + 1))) {
+                icup.bought = false
+            }
+        }
         player.points = GetItems("points", true)
         player.pointgain = GetItems("pointgain", true)
         player.pointsPerSec = GetItems("pointsPerSec", true)
@@ -310,8 +348,20 @@ function Get() {
         }
         for(let i = 0; i < 6; i++) {
             let tmp = talmideUpgrades[i]
+            if(!localStorage.getItem("tmp-bought" + (i + 1))) {
+                tmp.bought = false
+                tmp.eff = new Decimal(1)
+            }
             tmp.bought = GetItems("tmp-bought" + (i + 1), false)
             tmp.eff = GetItems("tmp-eff" + (i + 1), true)
+        }
+        for(let i = 0; i < 12; i++) {
+            let cup = constantUpgrades[i]
+            cup.bought = GetItems("cup-bought" + (i + 1), false)
+        }
+        for(let i = 0; i < 9; i++) {
+            let icup = infinityConstantUpgrades[i]
+            icup.bought = GetItems("icup-bought" + (i + 1), false)
         }
         player.equations.equation1.eff = GetItems("equation1eff", true)
         player.equations.equation1.x = GetItems("equation1x", true)

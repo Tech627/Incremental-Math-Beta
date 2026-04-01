@@ -62,12 +62,23 @@ let constant = {
     complexTank: new Decimal(0),
 }
 
+var buildings = []
 var linearUpgrades = []
 var linearEquation = []
 var linearChallenges = []
 var talmideUpgrades = []
 var constantUpgrades = []
 var infinityConstantUpgrades = []
+
+for(let i = 0; i < 4; i++) {
+    let building = {
+        amount: new Decimal(0),
+        cost: new Decimal(10).pow(i+1),
+        eff: new Decimal(1).mul(new Decimal(11).pow(i)),
+        automation: false,
+    }
+    buildings.push(building)
+}
 
 for(let i = 0; i < 12; i++) {
     let linearUpgrade = {
@@ -233,6 +244,10 @@ function ConstantReset() {
         player.tangent.tangent_upgrades.upgrade1.cost = new Decimal(5)
         player.tangent.tangent_upgrades.upgrade2.bought = false
         player.LinearEssence = new Decimal(0)
+        for(let i = 0; i < 4; i++) {
+            let b = buildings[i]
+            b.automation = false
+        }
         if(!constantUpgrades[10].bought) {
             for(let i = 0; i < 12; i++) {
                 let lup = linearUpgrades[i]

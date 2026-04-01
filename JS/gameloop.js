@@ -833,7 +833,7 @@ function UpdateStyles() {
         document.getElementById("ResetForLE").classList.add("unlocked")
         document.getElementById("Linear-essence-gain-formula").classList.add("show")
     }
-    if(linearUpgrades[7].bought) {
+    if(linearUpgrades[7].bought || constant.unlocked) {
         document.getElementById("Chals-tab").classList.add("unlocked")
         document.getElementById("Linear-chals-gid").classList.add("unlocked")
     }
@@ -843,7 +843,7 @@ function UpdateStyles() {
     }
     if(linearChallenges[3].completed) document.getElementById("Lrow3").classList.add("unlocked")
     if(player.points.gte(1e56) && player.LinearEssence.gte(2.5e5)) player.polygons.unlocked = true
-    if(linearUpgrades[11].bought) document.getElementById("Polygons-tab").classList.add("show")
+    if(linearUpgrades[11].bought || constant.unlocked) document.getElementById("Polygons-tab").classList.add("show")
     if(player.polygons.unlocked) {
         document.getElementById("polygoncanvas").classList.add("show")
         document.getElementById("Buyables").classList.add("show")
@@ -866,7 +866,7 @@ function UpdateStyles() {
     else document.getElementById("polygon-buy").classList.remove("available")
     if(player.LinearEssence.gte(player.polygons.buyable2.cost)) document.getElementById("dimension-buy").classList.add("available")
     else document.getElementById("dimension-buy").classList.remove("available")
-    if(player.tangent.unlocked) {
+    if(player.tangent.unlocked || constant.unlocked) {
         document.getElementById("Tangent-tab").classList.add("show")
         document.getElementById("Tangent-gid").classList.add("unlocked")
     }
@@ -1034,6 +1034,12 @@ function UpdateStyles() {
     }
     if(infinityConstantUpgrades[5].bought) {
         document.getElementById("Chapter7").classList.add("unlocked")
+    }
+    if(SBInfo) {
+        document.getElementById("sb-info-text").classList.add("show")
+    }
+    else {
+        document.getElementById("sb-info-text").classList.remove("show")
     }
 }
 

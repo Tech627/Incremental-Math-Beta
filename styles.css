@@ -2868,6 +2868,7 @@ details {
     font-size: 15px;
     background-color: rgb(255, 49, 49);
     border: 2px solid rgb(190, 13, 13);
+    z-index: 3;
 }
 
 #Chapter2,
@@ -2912,4 +2913,35 @@ details {
     margin-left: 150px;
     margin-right: 150px;
     margin-top: 10px;
+}
+
+#sb-t {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 600px;
+    margin-left: -300px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#sb-info {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    font-size: 23px;
+    margin: 5px;
+    font-weight: bold;
+}
+
+#sb-info-text {
+    display: none;
+}
+
+#sb-info-text.show {
+    display: block;
+    position: absolute;
+    left: 20;
+    bottom: 0;
 }
